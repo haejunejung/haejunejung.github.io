@@ -3,6 +3,8 @@ author: 정해준
 email: haejunejung@github.com
 future : true
 published : true
+url : https://haejunejung.github.io
+baseurl : ""
 description: > # this means to ignore newlines until "show_exerpts:"
   Write an awesome description for your new site here. You can edit this
   line in _config.yml. It will appear in your document head meta (for
