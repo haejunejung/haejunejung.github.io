@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "정해준의 개발 일지"
-date:   2022.10.25
+date:   2022.10.28
 categories: C++ JAVA Scala
 ---
 
