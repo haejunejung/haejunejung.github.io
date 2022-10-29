@@ -10,11 +10,18 @@ categories: C++ JAVA Scala
 
 정해준의 개발 일지 
 
-Baekjoon_C++ : https://github.com/haejunejung/baekjoon_      
-Principles of Programming Language : https://github.com/haejunejung/PL    
-Computer Architecture : https://github.com/haejunejung/CSA   
-DataBase :  https://github.com/haejunejung/DB   
-Discrete Mathematics : https://github.com/haejunejung/DM   
+Baekjoon_C++ : <[baekjoon_C++]>      
+Principles of Programming Language : <[PL]>    
+Computer Architecture : <[CA]>   
+DataBase :  <[DB]>   
+Discrete Mathematics : <[DM]>   
 
 ---   
 
+
+
+[baekjoon_C++]: https://github.com/haejunejung/baekjoon_
+[PL]: https://github.com/haejunejung/PL
+[CA]: https://github.com/haejunejung/CA
+[DB]: https://github.com/haejunejung/DB
+[DM]: https://github.com/haejunejung/DM
