@@ -2,7 +2,7 @@
 layout : post
 title : GCD & LCM 알고리즘
 date : 2022.10.31
-categories : Algorithm C++
+categories : C++
 ---
 
 최대공약수와 최소공배수를 효율적으로 구하는 알고리즘
