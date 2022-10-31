@@ -1,11 +1,11 @@
 ---
 layout : post
-title : Merge Sort
+title : 병합 정렬
 date : 2022.10.29
 categories : C++
 ---
 
-Merge Sort (병합 정렬)
+Merge Sort
 
 - 정렬 알고리즘 중 시간 복잡도 O(nlongn)을 가지는 알고리즘
 - 같은 시간 복잡도를 가지는 알고리즘으로는 Quick Sort가 있다
