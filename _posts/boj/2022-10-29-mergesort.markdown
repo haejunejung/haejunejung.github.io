@@ -2,7 +2,7 @@
 layout : post
 title : 병합 정렬
 date : 2022.10.29
-categories : C++
+categories : Algorithm C++
 ---
 
 Merge Sort
