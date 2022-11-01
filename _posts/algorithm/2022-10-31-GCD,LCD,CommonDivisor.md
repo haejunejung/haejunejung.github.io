@@ -1,6 +1,6 @@
 ---
 layout : post
-title : GCD & LCM 알고리즘
+title : 최대공약수 GCD와 최소공배수 LCM [Algorithm]
 date : 2022.10.31
 categories : Algorithm C++
 ---
