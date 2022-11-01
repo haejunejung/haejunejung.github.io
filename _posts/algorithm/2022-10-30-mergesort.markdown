@@ -1,7 +1,7 @@
 ---
 layout : post
 title : Merge Sort [Algorithm]
-date : 2022.10.29
+date : 2022.10.30
 categories : Algorithm C++
 ---
 
