@@ -1,6 +1,6 @@
 ---
 layout : post
-title : 병합 정렬
+title : Merge Sort [Algorithm]
 date : 2022.10.29
 categories : Algorithm C++
 ---
