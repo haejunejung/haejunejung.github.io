@@ -1,7 +1,7 @@
 ---
 title:  "정해준의 개발 일지의 시작"
 date:   2022.10.29
-categories: blog
+categories: 블로그
 ---
 
 
