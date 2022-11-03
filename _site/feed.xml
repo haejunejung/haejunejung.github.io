@@ -1,1 +1,209 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-03T20:36:13+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">매일 기록하는 개발자 Blog</title><subtitle>매일 기록하는 습관</subtitle><author><name>정해준</name></author></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-03T20:40:26+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">매일 기록하는 개발자 Blog</title><subtitle>매일 기록하는 습관</subtitle><author><name>정해준</name></author><entry><title type="html">최대공약수 GCD와 최소공배수 LCM</title><link href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" rel="alternate" type="text/html" title="최대공약수 GCD와 최소공배수 LCM" /><published>2022-11-01T00:00:00+09:00</published><updated>2022-11-01T00:00:00+09:00</updated><id>http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor</id><content type="html" xml:base="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/"><![CDATA[<p>최대공약수와 최소공배수를 효율적으로 구하는 알고리즘</p>
+
+<h1 id="gcd-greatest-common-divisor">GCD (Greatest Common Divisor)</h1>
+
+<ul>
+  <li>최대공약수는 두 수의 공약수 중 가장 큰 공약수를 말한다</li>
+  <li>첫 번째 방법은 1부터 두 수 중 작은 수까지 두 수를 모두 나누어봤을 때, 두 나머지가 0이 되는 수 중 가장 큰 수를 찾는 것이다</li>
+  <li>첫 번째 방법은 1부터 n(작은 수)까지 모두 한 번씩 거쳐야 하기 때문에 O(n)의 시간 복잡도를 가진다</li>
+  <li>조금 더 효율적인 방법으로 유클리드 호제법 (Euclidean Algorithm)을 사용할 수 있다</li>
+  <li>유클리드 호제법을 사용하면 O(logn)의 시간 복잡도를 가진다</li>
+</ul>
+
+<h3 id="유클리드-호제법">유클리드 호제법</h3>
+<p>2개의 자연수 a,b에 대해서 a를 b로 나눈 나머지를 r이라 하면 (단, a&gt;b), <br />
+a와 b의 최대공약수는 b와 r의 최대공약수와 같다</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* C++ GCD function */
+int GCD (int a, int b) {
+    if (b == 0) return a;
+    else return GCD(b, a%b);
+}
+</code></pre></div></div>
+
+<h1 id="lcm-least-common-multiple">LCM (Least Common Multiple)</h1>
+
+<ul>
+  <li>최소공배수는 두 수의 공배수 중 가장 작은 공배수를 말한다</li>
+  <li>첫 번째 방법으로는 두 수 중 큰 값으로부터 1씩 더해가면서 두 수를 모두 나누어봤을 때, 두 나머지가 0이 되는 수 중 가장 작은 수를 찾는다</li>
+  <li>어떤 수가 최소공배수가 될 지 모르고 엄청 큰 수가 최소공배수가 될 수 있기 때문에 효율적인 방법이 필요하다</li>
+  <li>그 효율적인 방법으로 사용할 수 있는 것이 GCD이다</li>
+  <li>두 수 a,b의 최소공배수는 (a * b) / gcd로 구할 수 있다</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int LCM (int a, int b) {
+    return (a*b) / GCD(a,b);
+} 
+</code></pre></div></div>
+
+<h1 id="모든-약수를-구하고-싶다면-">모든 약수를 구하고 싶다면 ?</h1>
+
+<ul>
+  <li>어떤 수 N 의 모든 약수들을 구하고 싶을 때 사용할 수 있는 알고리즘이 있다</li>
+  <li>첫 번째로는 N로부터 1까지 나머지가 0이 되는 수를 찾는 방법이다</li>
+  <li>이 방법은 O(n)의 시간복잡도를 가진다</li>
+  <li>더 효율적인 방법은 N의 제곱근까지 수를 확인하여 구하는 방법이다</li>
+  <li>제곱근까지 구하는 이유는 그 이후의 수는 중복되기 때문이다</li>
+  <li>예를 들면, 100의 제곱근은 10이고 공약수는 1,2,5,10,20,50,100인데 제곱근을 기준으로 왼쪽과 오른쪽의 곱이 대칭되는 것을 볼 수 있다</li>
+  <li>1 * 100 = 2 * 50 = 5 * 10 = 10 * 10으로 말이다</li>
+  <li>그렇기 때문에 제곱근까지 약수를 찾은 후, N에서 약수(제곱근보다 작은 수)를 나눈 수 또한 약수(제곱근보다 큰 수)가 된다</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* 최대공약수의 약수들을 구한다고 생각해보자 */
+for (int i = 1; i*i &lt;= GCD; i++) {
+    if (GCD % i == 0) {
+        /* 나머지가 0인 수 =&gt; 약수 */
+        divisor.push_back(i); 
+        /* i가 약수이므로 i * (GCD/i) = GCD를 만족한다. 즉, (GCD/i)도 약수이다 */
+        divisor.push_back(GCD/i); 
+    }
+}
+</code></pre></div></div>
+
+<p>백준 2981 검문 문제에서 이 알고리즘들을 사용해볼 수 있다  <br />
+GCD의 경우 자주 사용될 수 있는 알고리즘이므로 외워두는 것이 좋을 것 같다  <br />
+아직 배울게 많은 걸 다시 한 번 느낀다:)</p>]]></content><author><name>정해준</name></author><category term="알고리즘" /><summary type="html"><![CDATA[최대공약수와 최소공배수를 효율적으로 구하는 알고리즘]]></summary></entry><entry><title type="html">하노이 탑</title><link href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/" rel="alternate" type="text/html" title="하노이 탑" /><published>2022-10-31T00:00:00+09:00</published><updated>2022-10-31T00:00:00+09:00</updated><id>http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi</id><content type="html" xml:base="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/"><![CDATA[<p>하노이 탑 알고리즘</p>
+
+<h2 id="하노이-탑">하노이 탑</h2>
+
+<ul>
+  <li>재귀함수를 이해할 수 있는 좋은 문제 중 하나이다</li>
+  <li>재귀를 사용하기 위해서는 Base case와 Inductive case를 잘 나눠야 한다</li>
+  <li>하노이 탑의 경우, N개의 블럭을 옮길 때 N이 1인 경우가 Base case에 해당한다</li>
+  <li>하노이 탑의 기본적인 틀은 1, 2, 3으로 움직일 수 있다고 하고, 1에 있는 N개의 블럭을 3으로 옮기고 싶다고 할 때,</li>
+</ul>
+
+<ol>
+  <li>N-1개의 블럭을 2에 옮겨 놓는다</li>
+  <li>N을 3에 옮긴다</li>
+  <li>2에 옮겨 놓은 N-1개의 블럭을 3에 옮긴다</li>
+</ol>
+
+<h2 id="밑의-코드는-백준-11729-하노이-탑-이동-순서-코드이다">밑의 코드는 백준 11729 하노이 탑 이동 순서 코드이다</h2>
+<ol>
+  <li>1번에 해당하는 부분은 hanoi(N-1, start, via, to)</li>
+  <li>2번에 해당하는 부분은 move(N, start, to)</li>
+  <li>3번에 해당하는 부분은 hanoi(N-1, via, to, start)</li>
+</ol>
+
+<h1 id="code">Code</h1>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+/* vector를 이용하여 동적 할당을 해주었고, pair를 이용하여 현 위치와 이동할 위치를 저장하였다 */
+vector&lt;pair&lt;int,int&gt;&gt; v; 
+
+void move (int N, int start, int to) {
+    /* 이동할 때 v에 저장함으로써 하노이 탑 이동 순서를 추적할 수 있다 */
+    v.push_back(make_pair(start, to)); 
+}
+
+/* N은 블럭의 수, start는 현재 위치, to는 목적지, via는 목적지에 가기 위해 경유하는 위치이다 */
+void hanoi (int N, int start, int to, int via) { 
+    if (N == 1) { /* Base case */
+        move (1, start, to);
+        return;
+    }
+
+    /* Inductive case */
+    hanoi(N-1, start, via, to);
+    move (N, start, to);
+    hanoi(N-1, via, to, start);
+}
+
+int main (void) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+
+    int N;
+    cin &gt;&gt; N;
+
+    /* 1은 시작 지점, 3은 목적지, 2는 경유하는 지점이다 */
+    hanoi (N, 1, 3, 2); 
+
+    cout &lt;&lt; v.size() &lt;&lt; "\n"; /* 하노이 탑 이동 횟수 */
+    for (int i = 0; i &lt; v.size(); ++i) {
+        cout &lt;&lt; v[i].first &lt;&lt; " " &lt;&lt; v[i].second &lt;&lt; "\n"; /* 하노이 탑 이동 순서 추적 */
+    }
+
+    return 0;
+}
+</code></pre></div></div>]]></content><author><name>정해준</name></author><category term="알고리즘" /><summary type="html"><![CDATA[하노이 탑 알고리즘]]></summary></entry><entry><title type="html">Merge Sort</title><link href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort/" rel="alternate" type="text/html" title="Merge Sort" /><published>2022-10-30T00:00:00+09:00</published><updated>2022-10-30T00:00:00+09:00</updated><id>http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort</id><content type="html" xml:base="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort/"><![CDATA[<p>Merge Sort 알고리즘</p>
+
+<ul>
+  <li>정렬 알고리즘 중 시간 복잡도 O(nlongn)을 가지는 알고리즘</li>
+  <li>같은 시간 복잡도를 가지는 알고리즘으로는 Quick Sort가 있다</li>
+  <li>Quick Sort에 비해 공간 복잡도를 더 많이 사용하게 된다</li>
+  <li>이미 정렬되어 있는 배열에 대해서 정렬을 하는 특정 상황에서는 다른 정렬 알고리즘이 더 빠를 수 있다</li>
+</ul>
+
+<p><br /><br /></p>
+<h1 id="code">Code</h1>
+<ul>
+  <li>재귀를 사용하여 배열에 있는 모든 수를 하나씩 쪼갠다 - partition -</li>
+  <li>오름차순 혹은 내림차순으로 병합하면서 정렬한다 - merge -</li>
+</ul>
+
+<p><br /><br /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int A[500000];  /* 입력 받는 배열 */
+int temp[500000]; /* merge하기 위해 사용되는 배열 */
+
+void merge (int left, int right) {  /* 실제로 병합, 정렬되는 함수 */
+    int mid = (left + right) / 2; /* mid를 기준으로 배열이 2개 있다고 생각 */
+
+    int i = left;  /* 1번 배열의 맨 왼쪽 index */
+    int j = mid + 1; /* 2번 배열의 맨 왼쪽 index */
+    int k = left; /* temp 배열의 시작점을 1번 배열의 맨 왼쪽으로 잡았다
+            그 이유는 병합하려는 두 배열의 제일 작은 index가 left이기 때문이다 */ 
+
+    while (i &lt;= mid &amp;&amp; j &lt;= right) { /* temp의 왼쪽부터 작은 수를 채워넣는다 */
+        if (A[i] &lt;= A[j]) temp[k++] = A[i++];
+        else temp[k++] = A[j++];
+    }
+
+    /* 2번 배열의 수가 다 사용되고 1번 배열에는 남아있다면, 나머지를 채워넣는다 */
+    while (i &lt;= mid) { 
+        temp[k++] = A[i++];
+    }
+
+    /* 위와 반대로 1번 배열의 수가 다 사용되었다면, 나머지 2번 배열의 수를 채워넣는다 */
+    while (j &lt;= right) { 
+        temp[k++] = A[j++];
+    }
+
+    /* temp에 정렬된 수를 실제 배열 A에 넣어준다 -&gt; 정렬된 수를 넣는다 */
+    for (int i = left; i &lt;= right; ++i) {
+        A[i] = temp[i];
+    }
+}
+
+void partition (int left, int right) { /* 배열을 가장 작은 단위로 쪼갠다 */
+    if (left &lt; right) {
+        int mid = (left + right) / 2;
+        partition(left, mid);
+        partition(mid+1, right);
+        merge(left, right);
+    }
+}
+</code></pre></div></div>]]></content><author><name>정해준</name></author><category term="알고리즘" /><summary type="html"><![CDATA[Merge Sort 알고리즘]]></summary></entry><entry><title type="html">정해준의 개발 일지의 시작</title><link href="http://localhost:4000/%EB%B8%94%EB%A1%9C%EA%B7%B8/start/" rel="alternate" type="text/html" title="정해준의 개발 일지의 시작" /><published>2022-10-29T00:00:00+09:00</published><updated>2022-10-29T00:00:00+09:00</updated><id>http://localhost:4000/%EB%B8%94%EB%A1%9C%EA%B7%B8/start</id><content type="html" xml:base="http://localhost:4000/%EB%B8%94%EB%A1%9C%EA%B7%B8/start/"><![CDATA[<p>깃허브 블로그를 쓰기 시작한 날  -2022.10.29-</p>
+
+<ul>
+  <li>왜 블로그를 하게 되었나?<br />
+개발자들이 다들 Today I learn… TIL… 이렇게 말하길래 나도 써볼까해서 써본다.  <br />
+솔직히 얼마나 도움이 될 지는 모르겠다.    <br />
+그래도 안하는 것보다 낫지않을까?      <br />
+블로그를 하면서 내가 공부했던 것들을 정리하는 시간을 가질 수 있지 않을까? 라는 생각으로 쓰게 되었다 <br />
+앞으로도 계속 풀게 될 알고리즘 문제들과 혼자 공부했던 개념들에 대해 주로 쓰게 될 것 같다  <br />
+누가 내 블로그를 보고 도움이 된다면 좋겠다<br /><br /></li>
+  <li>다른 플랫폼이 아니라 깃허브를 사용하는 이유?    <br />
+깃허브 블로그를 어떻게 쓰는지 jekyll은 어떻게 쓰는지 잘 몰라서 엄청 해맸고 아직도 잘 모른다   <br />
+그래도 꾸준히 사용하려고 하다보면 익숙해지지 않을까 싶다  <br />
+다른 블로그들도 많은데 굳이 깃허브로 쓰게 된 이유는 블로그를 이용해서 돈을 벌거나 다른 활동을 하려고
+만든 것이 아니고, 깃허브에 조금 더 익숙해지면 미래에 도움이 되지 않을까? 라는 생각으로 깃허브를 선택하게 되었다<br /><br /></li>
+</ul>
+
+<p>하루에 한 개라도 적는 습관을 길러보자 !</p>]]></content><author><name>정해준</name></author><category term="블로그" /><summary type="html"><![CDATA[깃허브 블로그를 쓰기 시작한 날 -2022.10.29-]]></summary></entry></feed>
