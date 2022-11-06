@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>하노이 탑 - 매일 기록하는 개발자 Blog</title>
-<meta name="description" content="하노이 탑 알고리즘">
+<!-- begin _includes/seo.html --><title>스도쿠 - 매일 기록하는 개발자 Blog</title>
+<meta name="description" content="스도쿠">
 
 
   <meta name="author" content="정해준">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="매일 기록하는 개발자 Blog">
-<meta property="og:title" content="하노이 탑">
-<meta property="og:url" content="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/">
+<meta property="og:title" content="스도쿠">
+<meta property="og:url" content="http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku/">
 
 
-  <meta property="og:description" content="하노이 탑 알고리즘">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2022-10-31T00:00:00+09:00">
+  <meta property="og:description" content="스도쿠">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2022-11-02T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/">
+
+<link rel="canonical" href="http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku/">
 
 
 
@@ -261,16 +261,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="하노이 탑">
-    <meta itemprop="description" content="하노이 탑 알고리즘">
-    <meta itemprop="datePublished" content="2022-10-31T00:00:00+09:00">
+    <meta itemprop="headline" content="스도쿠">
+    <meta itemprop="description" content="스도쿠">
+    <meta itemprop="datePublished" content="2022-11-02T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/" class="u-url" itemprop="url">하노이 탑
+            <a href="http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku/" class="u-url" itemprop="url">스도쿠
 </a>
           </h1>
           
@@ -299,77 +299,105 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <p>하노이 탑 알고리즘</p>
+        <p>스도쿠</p>
 
-<h2 id="하노이-탑">하노이 탑</h2>
-
-<ul>
-  <li>재귀함수를 이해할 수 있는 좋은 문제 중 하나이다</li>
-  <li>재귀를 사용하기 위해서는 Base case와 Inductive case를 잘 나눠야 한다</li>
-  <li>하노이 탑의 경우, N개의 블럭을 옮길 때 N이 1인 경우가 Base case에 해당한다</li>
-  <li>하노이 탑의 기본적인 틀은 1, 2, 3으로 움직일 수 있다고 하고, 1에 있는 N개의 블럭을 3으로 옮기고 싶다고 할 때,</li>
-</ul>
+<h3 id="백준-2580번-스도쿠-풀이">백준 2580번 스도쿠 풀이</h3>
 
 <ol>
-  <li>N-1개의 블럭을 2에 옮겨 놓는다</li>
-  <li>N을 3에 옮긴다</li>
-  <li>2에 옮겨 놓은 N-1개의 블럭을 3에 옮긴다</li>
+  <li>입력으로 들어오는 값들을 저장한다. 이 때, 빈칸으로 오는 곳은 따로 저장한다</li>
+  <li>빈칸을 하나씩 채워가며 모두 채웠다면 출력을 하고 종료한다 (Base Case)</li>
+  <li>이 때, return을 하는 것이 아니라 exit를 해줘야 한다.</li>
+  <li>exit하지 않는다면, 다른 방법으로도 되는 경우 출력이 될 수 있기 때문이다</li>
+  <li>check 함수에서 빈 칸에 1~9에 해당하는 수가 들어갈 수 있는지 확인한다</li>
+  <li>만약 들어갈 수 있다면, 재귀를 통해 다음 빈 칸을 채우기 위해 들어간다</li>
+  <li>들어갈 수 없다면, 해당 빈 칸을 0으로 다시 초기화한 후 이전 빈 칸부터 다시 채운다</li>
 </ol>
 
-<h2 id="밑의-코드는-백준-11729-하노이-탑-이동-순서-코드이다">밑의 코드는 백준 11729 하노이 탑 이동 순서 코드이다</h2>
-<ol>
-  <li>1번에 해당하는 부분은 hanoi(N-1, start, via, to)</li>
-  <li>2번에 해당하는 부분은 move(N, start, to)</li>
-  <li>3번에 해당하는 부분은 hanoi(N-1, via, to, start)</li>
-</ol>
-
-<h1 id="code">Code</h1>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
 #include &lt;utility&gt;
 #include &lt;vector&gt;
 
 using namespace std;
 
-/* vector를 이용하여 동적 할당을 해주었고, pair를 이용하여 현 위치와 이동할 위치를 저장하였다 */
-vector&lt;pair&lt;int,int&gt;&gt; v; 
+int board[9][9];
+vector &lt;pair&lt;int,int&gt;&gt; blank;
 
-void move (int N, int start, int to) {
-    /* 이동할 때 v에 저장함으로써 하노이 탑 이동 순서를 추적할 수 있다 */
-    v.push_back(make_pair(start, to)); 
-}
-
-/* N은 블럭의 수, start는 현재 위치, to는 목적지, via는 목적지에 가기 위해 경유하는 위치이다 */
-void hanoi (int N, int start, int to, int via) { 
-    if (N == 1) { /* Base case */
-        move (1, start, to);
-        return;
+bool check (int first, int second) {
+    int i,j;
+    for(i=0; i&lt;9; ++i) { /* 가로 방향으로 넣으려는 값이 존재한다면 false */
+        if (i == second) continue; /* 좌표가 같은 것은 비교하지 않는다 */
+        if (board[first][i] == board[first][second]) return false;
     }
 
-    /* Inductive case */
-    hanoi(N-1, start, via, to);
-    move (N, start, to);
-    hanoi(N-1, via, to, start);
+    for(i=0; i&lt;9; ++i) { /* 세로 방향으로 넣으려는 값이 존재한다면 false */
+        if (i == first) continue; /* 좌표가 같은 것은 비교하지 않는다 */
+        if (board[i][second] == board[first][second]) return false;
+    }
+
+    /* 3*3 블럭 확인 */
+    int square_first = first / 3;
+    int square_second = second / 3;
+    for(i=3*square_first; i&lt;3*square_first+3; ++i) {
+        for(j=3*square_second; j&lt;3*square_second+3; ++j) {
+            if (i == first &amp;&amp; j == second) continue; /* 좌표가 같은 것은 비교 X */
+            if (board[i][j] == board[first][second]) return false;
+        }
+    }
+
+    return true;
 }
 
-int main (void) {
+void sudoku (size_t fill) {
+    int i,j;
+    if (fill == blank.size()) { /* Base Case */ 
+        for(i=0; i&lt;9; ++i) {
+            for(j=0; j&lt;9; ++j) {
+                cout &lt;&lt; board[i][j] &lt;&lt; " ";
+            }
+            cout &lt;&lt; "\n";
+        }
+
+        exit(0);
+    }
+
+    int first = blank[fill].first; /* 빈 칸의 col 좌표 */
+    int second = blank[fill].second; /* 빈 칸의 row 좌표 */
+    for(i=1; i&lt;=9; ++i) {
+
+        board[first][second] = i; /* i값 저장 */
+        if (check(first, second)) { /* 들어갈 수 있다면 재귀 */
+            sudoku(fill+1);
+        }
+    }
+    /* 끝까지 들어가지 않는다면, 0으로 저장하고 다음으로 넘어간다 */
+    board[first][second] = 0; 
+    return;
+}
+
+int main () {
     ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-    int N;
-    cin &gt;&gt; N;
+    int i,j,val;
+    for(i=0; i&lt;9; ++i) {
+        for(j=0; j&lt;9; ++j) {
+            cin &gt;&gt; val;
+            board[i][j] = val;
 
-    /* 1은 시작 지점, 3은 목적지, 2는 경유하는 지점이다 */
-    hanoi (N, 1, 3, 2); 
-
-    cout &lt;&lt; v.size() &lt;&lt; "\n"; /* 하노이 탑 이동 횟수 */
-    for (int i = 0; i &lt; v.size(); ++i) {
-        cout &lt;&lt; v[i].first &lt;&lt; " " &lt;&lt; v[i].second &lt;&lt; "\n"; /* 하노이 탑 이동 순서 추적 */
+            if (!val) blank.push_back(make_pair(i,j));
+        }
     }
 
+    sudoku(0);
     return 0;
 }
 </code></pre></div></div>
 
+<p>백트래킹의 대표적인 문제로서 N-Queen과 함께 연습해보면 좋은 문제이다  <br />
+처음에는 라이브러리를 쓰지 않고 해결하려고 하였으나, vector와 utility를 사용하게 되었다   <br />
+다음에 풀 때는, 라이브러리를 쓰지 않고 해결하려고 해봐야겠다  <br />
+많은 문제를 풀어보면 더 감이 오지 않을까 :)</p>
 
         
       </section>
@@ -388,7 +416,7 @@ int main (void) {
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98" class="page__taxonomy-item p-category" rel="tag">알고리즘</a>
+      <a href="/categories/#%EB%B0%B1%EC%A4%80" class="page__taxonomy-item p-category" rel="tag">백준</a>
     
     </span>
   </p>
@@ -396,7 +424,7 @@ int main (void) {
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-10-31T00:00:00+09:00">October 31, 2022</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-02T00:00:00+09:00">November 2, 2022</time></p>
 
       </footer>
 
@@ -405,22 +433,22 @@ int main (void) {
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%ED%95%98%EB%85%B8%EC%9D%B4+%ED%83%91%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%EC%8A%A4%EB%8F%84%EC%BF%A0%20http%3A%2F%2Flocalhost%3A4000%2F%25EB%25B0%25B1%25EC%25A4%2580%2Fsudoku%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EB%25B0%25B1%25EC%25A4%2580%2Fsudoku%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EB%25B0%25B1%25EC%25A4%2580%2Fsudoku%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort/" class="pagination--pager" title="Merge Sort
+      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" class="pagination--pager" title="최대공약수 GCD와 최소공배수 LCM
 ">이전</a>
     
     
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" class="pagination--pager" title="최대공약수 GCD와 최소공배수 LCM
+      <a href="/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" class="pagination--pager" title="가장 긴 바이토닉 부분 수열
 ">다음</a>
     
   </nav>
@@ -656,8 +684,8 @@ int main (void) {
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EB%B0%B1%EC%A4%80/sudoku"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

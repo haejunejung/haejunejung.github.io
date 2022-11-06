@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>하노이 탑 - 매일 기록하는 개발자 Blog</title>
-<meta name="description" content="하노이 탑 알고리즘">
+<!-- begin _includes/seo.html --><title>전깃줄 - 매일 기록하는 개발자 Blog</title>
+<meta name="description" content="전깃줄">
 
 
   <meta name="author" content="정해준">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="매일 기록하는 개발자 Blog">
-<meta property="og:title" content="하노이 탑">
-<meta property="og:url" content="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/">
+<meta property="og:title" content="전깃줄">
+<meta property="og:url" content="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/">
 
 
-  <meta property="og:description" content="하노이 탑 알고리즘">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2022-10-31T00:00:00+09:00">
+  <meta property="og:description" content="전깃줄">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2022-11-06T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/">
+
+<link rel="canonical" href="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/">
 
 
 
@@ -261,16 +261,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="하노이 탑">
-    <meta itemprop="description" content="하노이 탑 알고리즘">
-    <meta itemprop="datePublished" content="2022-10-31T00:00:00+09:00">
+    <meta itemprop="headline" content="전깃줄">
+    <meta itemprop="description" content="전깃줄">
+    <meta itemprop="datePublished" content="2022-11-06T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/" class="u-url" itemprop="url">하노이 탑
+            <a href="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" class="u-url" itemprop="url">전깃줄
 </a>
           </h1>
           
@@ -299,77 +299,90 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <p>하노이 탑 알고리즘</p>
+        <p>전깃줄</p>
 
-<h2 id="하노이-탑">하노이 탑</h2>
+<h3 id="백준-2565번-전깃줄-풀이">백준 2565번 전깃줄 풀이</h3>
 
-<ul>
-  <li>재귀함수를 이해할 수 있는 좋은 문제 중 하나이다</li>
-  <li>재귀를 사용하기 위해서는 Base case와 Inductive case를 잘 나눠야 한다</li>
-  <li>하노이 탑의 경우, N개의 블럭을 옮길 때 N이 1인 경우가 Base case에 해당한다</li>
-  <li>하노이 탑의 기본적인 틀은 1, 2, 3으로 움직일 수 있다고 하고, 1에 있는 N개의 블럭을 3으로 옮기고 싶다고 할 때,</li>
-</ul>
+<p>처음에는 전깃줄의 정보를 모두 받고 연결하였을 때 교차되는 점의 개수를 구하여 가장 많이 교차되는 부분부터 삭제하는 방식을 사용하려고 하였다. 백준에 나와있는 예시 입력과 출력은 정답을 맞출 수 있었지만 결과를 틀렸다고 나왔다. 어떤 부분에서 틀렸는지 찾아보니, 교차되는 점의 개수가 같을 때 없애는 순서에 따라 결과값이 달라진다는 것을 알 수 있었다.</p>
+
+<p>일반적인 방법으로 풀려고 하였으나, 풀리지 않아 찾아보니 가장 긴 증가하는 부분 수열을 사용하는 것을 알게 되었다. 방법은</p>
 
 <ol>
-  <li>N-1개의 블럭을 2에 옮겨 놓는다</li>
-  <li>N을 3에 옮긴다</li>
-  <li>2에 옮겨 놓은 N-1개의 블럭을 3에 옮긴다</li>
+  <li>A에 대한 오름차순으로 전깃줄의 정보를 정렬한다</li>
+  <li>B에 대해 가장 긴 증가하는 부분 수열의 길이를 구한다</li>
+  <li>가장 긴 증가하는 부분 수열은 없애지 않아도 되는 전깃줄의 정보이다</li>
+  <li>즉, 전깃줄의 개수 - 가장 긴 증가하는 부분 수열의 길이가 정답이 된다</li>
 </ol>
 
-<h2 id="밑의-코드는-백준-11729-하노이-탑-이동-순서-코드이다">밑의 코드는 백준 11729 하노이 탑 이동 순서 코드이다</h2>
-<ol>
-  <li>1번에 해당하는 부분은 hanoi(N-1, start, via, to)</li>
-  <li>2번에 해당하는 부분은 move(N, start, to)</li>
-  <li>3번에 해당하는 부분은 hanoi(N-1, via, to, start)</li>
-</ol>
+<p>전깃줄의 정보를 담기 위해서 vector와 pair를 이용하였고,   <br />
+정렬 알고리즘을 사용하기 위해서 sort를 사용하였다.</p>
 
-<h1 id="code">Code</h1>
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
-#include &lt;utility&gt;
 #include &lt;vector&gt;
+#include &lt;utility&gt;
+#include &lt;algorithm&gt;
+
+#define MAX 101
+#define type int /* long long 같은 형은 필요없다고 생각해서 모두 int로 통일하였다 */
 
 using namespace std;
+vector &lt;pair&lt;type,type&gt;&gt; v; /* 전깃줄의 정보 */
+type dp[MAX]; 
 
-/* vector를 이용하여 동적 할당을 해주었고, pair를 이용하여 현 위치와 이동할 위치를 저장하였다 */
-vector&lt;pair&lt;int,int&gt;&gt; v; 
-
-void move (int N, int start, int to) {
-    /* 이동할 때 v에 저장함으로써 하노이 탑 이동 순서를 추적할 수 있다 */
-    v.push_back(make_pair(start, to)); 
+bool compare (pair&lt;type,type&gt; &amp;a, pair&lt;type,type&gt; &amp;b) {
+    return a.first &lt; b.first;
 }
 
-/* N은 블럭의 수, start는 현재 위치, to는 목적지, via는 목적지에 가기 위해 경유하는 위치이다 */
-void hanoi (int N, int start, int to, int via) { 
-    if (N == 1) { /* Base case */
-        move (1, start, to);
-        return;
+void input () {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    type T, testcase;
+    cin &gt;&gt; T;
+
+    for(testcase=0; testcase&lt;T; ++testcase) {
+        type A, B;
+        cin &gt;&gt; A &gt;&gt; B;
+
+        v.push_back(make_pair(A,B));
     }
 
-    /* Inductive case */
-    hanoi(N-1, start, via, to);
-    move (N, start, to);
-    hanoi(N-1, via, to, start);
+    sort(v.begin(), v.end(), compare); /* A의 오름차순으로 정렬 -&gt; B의 가장 긴 증가하는 부분 수열을 구할 수 있도록 함 */
+    fill_n(dp, MAX, 1); /* 부분 수열은 최소 1의 길이를 가지므로 1로 초기화 */
+}
+
+void solve () {
+    type i,j;
+
+    for(i=0; i&lt;v.size(); ++i) {
+        for(j=i-1; j&gt;=0; --j) {
+            if (v[i].second &gt; v[j].second) {
+                dp[i] = max(dp[i], dp[j]+1); /* 가장 긴 증가하는 부분 수열 만들기 */
+            }
+        }
+    }
+
+    type maximum = 0;
+    for(i=0; i&lt;v.size(); ++i) {
+        if (dp[i] &gt; maximum) maximum = dp[i]; /* 가장 긴 증가하는 부분 수열 구하기 */
+    }
+
+    /* 가장 긴 증가하는 부분 수열 -&gt; 없애지 않아도 되는 전깃줄의 정보이기 때문에 전체-가장 긴 증가하는 부분 수열 길이가 정답이 된다 */
+    cout &lt;&lt; v.size() - maximum; 
 }
 
 int main (void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
 
-    int N;
-    cin &gt;&gt; N;
-
-    /* 1은 시작 지점, 3은 목적지, 2는 경유하는 지점이다 */
-    hanoi (N, 1, 3, 2); 
-
-    cout &lt;&lt; v.size() &lt;&lt; "\n"; /* 하노이 탑 이동 횟수 */
-    for (int i = 0; i &lt; v.size(); ++i) {
-        cout &lt;&lt; v[i].first &lt;&lt; " " &lt;&lt; v[i].second &lt;&lt; "\n"; /* 하노이 탑 이동 순서 추적 */
-    }
-
+    input ();
+    solve ();
     return 0;
 }
 </code></pre></div></div>
 
+<p>DP 문제인지 모르고 푼다면 처음부터 생각해내기는 쉽지 않은 문제라고 생각한다.  <br />
+LCS에 대해 여러 번 반복하고 연습하는 방법이 필요하다고 느꼈다. <br />
+내일부터는 프로그래머스 문제도 같이 풀어봐야겠다 :)</p>
 
         
       </section>
@@ -388,7 +401,7 @@ int main (void) {
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98" class="page__taxonomy-item p-category" rel="tag">알고리즘</a>
+      <a href="/categories/#%EB%B0%B1%EC%A4%80" class="page__taxonomy-item p-category" rel="tag">백준</a>
     
     </span>
   </p>
@@ -396,7 +409,7 @@ int main (void) {
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-10-31T00:00:00+09:00">October 31, 2022</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-06T00:00:00+09:00">November 6, 2022</time></p>
 
       </footer>
 
@@ -405,22 +418,22 @@ int main (void) {
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%ED%95%98%EB%85%B8%EC%9D%B4+%ED%83%91%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%EC%A0%84%EA%B9%83%EC%A4%84%20http%3A%2F%2Flocalhost%3A4000%2F%25EB%25B0%25B1%25EC%25A4%2580%2F%25EC%25A0%2584%25EA%25B9%2583%25EC%25A4%2584%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EB%25B0%25B1%25EC%25A4%2580%2F%25EC%25A0%2584%25EA%25B9%2583%25EC%25A4%2584%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EB%25B0%25B1%25EC%25A4%2580%2F%25EC%25A0%2584%25EA%25B9%2583%25EC%25A4%2584%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort/" class="pagination--pager" title="Merge Sort
+      <a href="/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/" class="pagination--pager" title="Ch13.induction
 ">이전</a>
     
     
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" class="pagination--pager" title="최대공약수 GCD와 최소공배수 LCM
+      <a href="/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/" class="pagination--pager" title="Ch14.Recursion
 ">다음</a>
     
   </nav>
@@ -471,46 +484,6 @@ int main (void) {
 
 
     <p class="archive__item-excerpt" itemprop="description">Recursion
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
-        <a href="/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" rel="permalink">전깃줄
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">전깃줄
 </p>
   </article>
 </div>
@@ -596,6 +569,46 @@ int main (void) {
 </div>
 
         
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" rel="permalink">가장 긴 바이토닉 부분 수열
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">가장 긴 바이토닉 부분 수열
+</p>
+  </article>
+</div>
+
+        
       </div>
     </div>
   
@@ -656,8 +669,8 @@ int main (void) {
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EB%B0%B1%EC%A4%80/전깃줄"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

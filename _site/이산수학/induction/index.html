@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>하노이 탑 - 매일 기록하는 개발자 Blog</title>
-<meta name="description" content="하노이 탑 알고리즘">
+<!-- begin _includes/seo.html --><title>Ch13.induction - 매일 기록하는 개발자 Blog</title>
+<meta name="description" content="Induction">
 
 
   <meta name="author" content="정해준">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="매일 기록하는 개발자 Blog">
-<meta property="og:title" content="하노이 탑">
-<meta property="og:url" content="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/">
+<meta property="og:title" content="Ch13.induction">
+<meta property="og:url" content="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/">
 
 
-  <meta property="og:description" content="하노이 탑 알고리즘">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2022-10-31T00:00:00+09:00">
+  <meta property="og:description" content="Induction">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2022-11-05T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/">
+
+<link rel="canonical" href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/">
 
 
 
@@ -261,16 +261,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="하노이 탑">
-    <meta itemprop="description" content="하노이 탑 알고리즘">
-    <meta itemprop="datePublished" content="2022-10-31T00:00:00+09:00">
+    <meta itemprop="headline" content="Ch13.induction">
+    <meta itemprop="description" content="Induction">
+    <meta itemprop="datePublished" content="2022-11-05T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/" class="u-url" itemprop="url">하노이 탑
+            <a href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/" class="u-url" itemprop="url">Ch13.induction
 </a>
           </h1>
           
@@ -299,77 +299,64 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <p>하노이 탑 알고리즘</p>
+        <p>Induction</p>
 
-<h2 id="하노이-탑">하노이 탑</h2>
+<h1 id="mathematical-induction-수학적-귀납법">Mathematical induction (수학적 귀납법)</h1>
+
+<h2 id="수학적-귀납법">수학적 귀납법</h2>
 
 <ul>
-  <li>재귀함수를 이해할 수 있는 좋은 문제 중 하나이다</li>
-  <li>재귀를 사용하기 위해서는 Base case와 Inductive case를 잘 나눠야 한다</li>
-  <li>하노이 탑의 경우, N개의 블럭을 옮길 때 N이 1인 경우가 Base case에 해당한다</li>
-  <li>하노이 탑의 기본적인 틀은 1, 2, 3으로 움직일 수 있다고 하고, 1에 있는 N개의 블럭을 3으로 옮기고 싶다고 할 때,</li>
+  <li>수학적 귀납법이란 수학의 증명 방법 중 하나로, 주로 어떠한 명제가 모든 자연수에 대하여 성립함을 보이려고 할 때, 이용된다</li>
+  <li>수학적 귀납법의 일반적인 형식은 5단계로 구분된다</li>
 </ul>
 
 <ol>
-  <li>N-1개의 블럭을 2에 옮겨 놓는다</li>
-  <li>N을 3에 옮긴다</li>
-  <li>2에 옮겨 놓은 N-1개의 블럭을 3에 옮긴다</li>
+  <li>수학적 귀납법을 사용할 것이라고 명시한다.</li>
+  <li>어떤 명제에 대하여 성립함을 보일 것인지 명시한다.</li>
+  <li>Base case에 대하여 성립함을 보인다.</li>
+  <li>Inductive case에 대하여 성립함을 보인다.</li>
+  <li>명제에 대하여 성립함을 증명했다는 것을 마무리한다.
+<br /><br /></li>
 </ol>
 
-<h2 id="밑의-코드는-백준-11729-하노이-탑-이동-순서-코드이다">밑의 코드는 백준 11729 하노이 탑 이동 순서 코드이다</h2>
-<ol>
-  <li>1번에 해당하는 부분은 hanoi(N-1, start, via, to)</li>
-  <li>2번에 해당하는 부분은 move(N, start, to)</li>
-  <li>3번에 해당하는 부분은 hanoi(N-1, via, to, start)</li>
-</ol>
+<p>이해를 편하게 하기 위해서 n이 자연수일 때 명제가 성립함을 보이고 싶다고 하자  <br />
+그리고 자연수 n에 대한 명제를 P(n)이라고 하자 <br />
+Base case는 우리가 보이고자 하는 범위의 시작 부분으로 잡는다  <br />
+n이 자연수이기 때문에 0이 시작 부분이므로 P(0)를 Base case로 잡는다         <br />
+Inductive case는 임의의 자연수 k에 대하여 명제가 성립할 때, k+1에도 성립함을 보이는 과정이다  <br />
+즉, P(k) -&gt; P(k+1)을 증명함으로써 모든 자연수가 성립함을 보인다   <br />
+<br />
+위의 과정을 차근차근 해석하면,<br />
+Base case에 의해 P(0)는 true이다 <br />
+Inductive case에 의해 P(0)-&gt;P(1), 즉 P(1)는 true이다  <br />
+P(1)-&gt;P(2), 즉 P(2)는 true이다
+P(2)-&gt;P(3), 즉 P(3)는 true이다<br />
+계속 이어져 나간다면 모든 자연수에 대하여 명제가 성립함을 알 수 있다<br />
+<br /><br /></p>
 
-<h1 id="code">Code</h1>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
-#include &lt;utility&gt;
-#include &lt;vector&gt;
+<h2 id="well-ordering-property-자연수-정렬성">Well-Ordering Property (자연수 정렬성)</h2>
+<ul>
+  <li>자연수 정렬성이란 음수가 아닌 정수들의 집합 중 공집합이 아닌 모든 집합은 최소 원소를 갖는다</li>
+  <li>즉, for every S ⊆ N such that S ̸= ∅, there exists m ∈ S such that
+m ⩽ n for all n ∈ S</li>
+</ul>
 
-using namespace std;
+<p><br /><br /></p>
 
-/* vector를 이용하여 동적 할당을 해주었고, pair를 이용하여 현 위치와 이동할 위치를 저장하였다 */
-vector&lt;pair&lt;int,int&gt;&gt; v; 
+<h2 id="strong-induction-강한-수학적-귀납법">Strong Induction (강한 수학적 귀납법)</h2>
+<ul>
+  <li>수학적 귀납법이 쉽게 적용되지 않을 때 사용하는 방법이다</li>
+  <li>P(n)이 모든 자연수에 대하여 성립함을 보이고 싶다면, 두 가지 단계를 거친다</li>
+  <li>Basis step은 수학적 귀납법과 같다</li>
+  <li>Inductive step은 수학적 귀납법과 달리 P(1) ∧ P(2) ∧ · · · ∧ P(k) → P(k + 1)을 보이는 것이다</li>
+  <li>Inductive hypothesis (IH)로 P(m)이 성립함을 보인다 (1 &lt;= m &lt;= k)</li>
+  <li>이후 k+1이 m의 범위 안에 들어가는 수를 기반으로 함을 보여서 증명한다</li>
+</ul>
 
-void move (int N, int start, int to) {
-    /* 이동할 때 v에 저장함으로써 하노이 탑 이동 순서를 추적할 수 있다 */
-    v.push_back(make_pair(start, to)); 
-}
+<p><br /><br /></p>
 
-/* N은 블럭의 수, start는 현재 위치, to는 목적지, via는 목적지에 가기 위해 경유하는 위치이다 */
-void hanoi (int N, int start, int to, int via) { 
-    if (N == 1) { /* Base case */
-        move (1, start, to);
-        return;
-    }
-
-    /* Inductive case */
-    hanoi(N-1, start, via, to);
-    move (N, start, to);
-    hanoi(N-1, via, to, start);
-}
-
-int main (void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-
-    int N;
-    cin &gt;&gt; N;
-
-    /* 1은 시작 지점, 3은 목적지, 2는 경유하는 지점이다 */
-    hanoi (N, 1, 3, 2); 
-
-    cout &lt;&lt; v.size() &lt;&lt; "\n"; /* 하노이 탑 이동 횟수 */
-    for (int i = 0; i &lt; v.size(); ++i) {
-        cout &lt;&lt; v[i].first &lt;&lt; " " &lt;&lt; v[i].second &lt;&lt; "\n"; /* 하노이 탑 이동 순서 추적 */
-    }
-
-    return 0;
-}
-</code></pre></div></div>
-
+<p>Induction은 풀면 풀수록 새로운 것을 많이 배워간다 <br />
+데이터 구조시간에 트리 구조에 대해서 증명할 때 배웠었는데, 그 당시에는 이산 수학을 배우지 않아서 이해하기 어려웠었다. 이번 기회에 조금 더 정확하게 배워야겠다는 생각이 든다 :)</p>
 
         
       </section>
@@ -388,7 +375,7 @@ int main (void) {
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98" class="page__taxonomy-item p-category" rel="tag">알고리즘</a>
+      <a href="/categories/#%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99" class="page__taxonomy-item p-category" rel="tag">이산수학</a>
     
     </span>
   </p>
@@ -396,7 +383,7 @@ int main (void) {
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-10-31T00:00:00+09:00">October 31, 2022</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-05T00:00:00+09:00">November 5, 2022</time></p>
 
       </footer>
 
@@ -405,22 +392,22 @@ int main (void) {
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%ED%95%98%EB%85%B8%EC%9D%B4+%ED%83%91%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Ch13.induction%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2Finduction%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2Finduction%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2Finduction%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort/" class="pagination--pager" title="Merge Sort
+      <a href="/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" class="pagination--pager" title="Maximum vs Maximal
 ">이전</a>
     
     
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" class="pagination--pager" title="최대공약수 GCD와 최소공배수 LCM
+      <a href="/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" class="pagination--pager" title="전깃줄
 ">다음</a>
     
   </nav>
@@ -525,46 +512,6 @@ int main (void) {
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/" rel="permalink">Ch13.induction
-</a>
-      
-    </h2>
-    
-
-  <p class="page__meta">
-    
-
-    
-
-    
-      
-      
-
-      <span class="page__meta-readtime">
-        <i class="far fa-clock" aria-hidden="true"></i>
-        
-          1 분 소요
-        
-      </span>
-    
-  </p>
-
-
-    <p class="archive__item-excerpt" itemprop="description">Induction
-</p>
-  </article>
-</div>
-
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title no_toc" itemprop="headline">
-      
         <a href="/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" rel="permalink">Maximum vs Maximal
 </a>
       
@@ -591,6 +538,46 @@ int main (void) {
 
 
     <p class="archive__item-excerpt" itemprop="description">Maximum과 Maximal의 차이점
+</p>
+  </article>
+</div>
+
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="https://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title no_toc" itemprop="headline">
+      
+        <a href="/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" rel="permalink">가장 긴 바이토닉 부분 수열
+</a>
+      
+    </h2>
+    
+
+  <p class="page__meta">
+    
+
+    
+
+    
+      
+      
+
+      <span class="page__meta-readtime">
+        <i class="far fa-clock" aria-hidden="true"></i>
+        
+          1 분 소요
+        
+      </span>
+    
+  </p>
+
+
+    <p class="archive__item-excerpt" itemprop="description">가장 긴 바이토닉 부분 수열
 </p>
   </article>
 </div>
@@ -656,8 +643,8 @@ int main (void) {
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

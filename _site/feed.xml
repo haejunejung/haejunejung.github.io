@@ -1,4 +1,394 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-03T20:58:25+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">매일 기록하는 개발자 Blog</title><subtitle>매일 기록하는 습관</subtitle><author><name>정해준</name></author><entry><title type="html">최대공약수 GCD와 최소공배수 LCM</title><link href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" rel="alternate" type="text/html" title="최대공약수 GCD와 최소공배수 LCM" /><published>2022-11-01T00:00:00+09:00</published><updated>2022-11-01T00:00:00+09:00</updated><id>http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor</id><content type="html" xml:base="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/"><![CDATA[<p>최대공약수와 최소공배수를 효율적으로 구하는 알고리즘</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-06T14:11:54+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">매일 기록하는 개발자 Blog</title><subtitle>매일 기록하는 습관</subtitle><author><name>정해준</name></author><entry><title type="html">전깃줄</title><link href="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" rel="alternate" type="text/html" title="전깃줄" /><published>2022-11-06T00:00:00+09:00</published><updated>2022-11-06T00:00:00+09:00</updated><id>http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84</id><content type="html" xml:base="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/"><![CDATA[<p>전깃줄</p>
+
+<h3 id="백준-2565번-전깃줄-풀이">백준 2565번 전깃줄 풀이</h3>
+
+<p>처음에는 전깃줄의 정보를 모두 받고 연결하였을 때 교차되는 점의 개수를 구하여 가장 많이 교차되는 부분부터 삭제하는 방식을 사용하려고 하였다. 백준에 나와있는 예시 입력과 출력은 정답을 맞출 수 있었지만 결과를 틀렸다고 나왔다. 어떤 부분에서 틀렸는지 찾아보니, 교차되는 점의 개수가 같을 때 없애는 순서에 따라 결과값이 달라진다는 것을 알 수 있었다.</p>
+
+<p>일반적인 방법으로 풀려고 하였으나, 풀리지 않아 찾아보니 가장 긴 증가하는 부분 수열을 사용하는 것을 알게 되었다. 방법은</p>
+
+<ol>
+  <li>A에 대한 오름차순으로 전깃줄의 정보를 정렬한다</li>
+  <li>B에 대해 가장 긴 증가하는 부분 수열의 길이를 구한다</li>
+  <li>가장 긴 증가하는 부분 수열은 없애지 않아도 되는 전깃줄의 정보이다</li>
+  <li>즉, 전깃줄의 개수 - 가장 긴 증가하는 부분 수열의 길이가 정답이 된다</li>
+</ol>
+
+<p>전깃줄의 정보를 담기 위해서 vector와 pair를 이용하였고,   <br />
+정렬 알고리즘을 사용하기 위해서 sort를 사용하였다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;utility&gt;
+#include &lt;algorithm&gt;
+
+#define MAX 101
+#define type int /* long long 같은 형은 필요없다고 생각해서 모두 int로 통일하였다 */
+
+using namespace std;
+vector &lt;pair&lt;type,type&gt;&gt; v; /* 전깃줄의 정보 */
+type dp[MAX]; 
+
+bool compare (pair&lt;type,type&gt; &amp;a, pair&lt;type,type&gt; &amp;b) {
+    return a.first &lt; b.first;
+}
+
+void input () {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    type T, testcase;
+    cin &gt;&gt; T;
+
+    for(testcase=0; testcase&lt;T; ++testcase) {
+        type A, B;
+        cin &gt;&gt; A &gt;&gt; B;
+
+        v.push_back(make_pair(A,B));
+    }
+
+    sort(v.begin(), v.end(), compare); /* A의 오름차순으로 정렬 -&gt; B의 가장 긴 증가하는 부분 수열을 구할 수 있도록 함 */
+    fill_n(dp, MAX, 1); /* 부분 수열은 최소 1의 길이를 가지므로 1로 초기화 */
+}
+
+void solve () {
+    type i,j;
+
+    for(i=0; i&lt;v.size(); ++i) {
+        for(j=i-1; j&gt;=0; --j) {
+            if (v[i].second &gt; v[j].second) {
+                dp[i] = max(dp[i], dp[j]+1); /* 가장 긴 증가하는 부분 수열 만들기 */
+            }
+        }
+    }
+
+    type maximum = 0;
+    for(i=0; i&lt;v.size(); ++i) {
+        if (dp[i] &gt; maximum) maximum = dp[i]; /* 가장 긴 증가하는 부분 수열 구하기 */
+    }
+
+    /* 가장 긴 증가하는 부분 수열 -&gt; 없애지 않아도 되는 전깃줄의 정보이기 때문에 전체-가장 긴 증가하는 부분 수열 길이가 정답이 된다 */
+    cout &lt;&lt; v.size() - maximum; 
+}
+
+int main (void) {
+
+    input ();
+    solve ();
+    return 0;
+}
+</code></pre></div></div>
+
+<p>DP 문제인지 모르고 푼다면 처음부터 생각해내기는 쉽지 않은 문제라고 생각한다.  <br />
+LCS에 대해 여러 번 반복하고 연습하는 방법이 필요하다고 느꼈다. <br />
+내일부터는 프로그래머스 문제도 같이 풀어봐야겠다 :)</p>]]></content><author><name>정해준</name></author><category term="백준" /><summary type="html"><![CDATA[전깃줄]]></summary></entry><entry><title type="html">Ch14.Recursion</title><link href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/" rel="alternate" type="text/html" title="Ch14.Recursion" /><published>2022-11-06T00:00:00+09:00</published><updated>2022-11-06T00:00:00+09:00</updated><id>http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion</id><content type="html" xml:base="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/"><![CDATA[<p>Recursion</p>
+
+<h1 id="recursion-재귀">Recursion (재귀)</h1>
+
+<h2 id="recursion">Recursion</h2>
+
+<ul>
+  <li>재귀(Recursion)는 새로운 Object를 만들기 위해서 사용된다</li>
+  <li>반면, 귀납법(Induction)은 증명을 하기 위해서 사용된다</li>
+  <li>함수 f (domain N) 을 정의하기 위해 2가지 단계로 구분된다</li>
+</ul>
+
+<ol>
+  <li>Basis step: Specify f(0)</li>
+  <li>Recursive step: n보다 작은 자연수로 f(n)을 찾기 위한 규칙들</li>
+</ol>
+
+<p>이것을 함수 f의 Recursive or Inductive definition라고 한다</p>
+
+<h2 id="structural-induction">Structural Induction</h2>
+
+<ol>
+  <li>Basis step: Show that the result holds for all elements specified in the basis step of the recursive definition</li>
+  <li>Recursive step: Show that if the statment is true for each of the elements used to construct new elements in the recursive step of the definition, the result holds for these new elements</li>
+</ol>
+
+<h2 id="rooted-trees">Rooted Trees</h2>
+
+<ul>
+  <li>vertex(정점)과 edge(간선)으로 구성된다</li>
+  <li>특히, root라고 불리는 vertex를 갖는 트리를 Rooted Tree라고 한다</li>
+</ul>
+
+<ol>
+  <li>Basis step: A single vertex r is a rooted tree</li>
+  <li>Recursive step: Suppose that T1,T2, . . . , Tn are disjoint rooted trees with roots r1,r2, . . . ,rn, respectively. Then the graph formed by starting with a root r, which is not in any of the rooted trees T1,T2, . . . , Tn, and adding an edge from r to each of the vertices r1,r2, . . . ,rn , is also a rooted tree.</li>
+</ol>
+
+<h2 id="extended-binary-trees">Extended Binary Trees</h2>
+
+<ol>
+  <li>Basis step: The empty set is an extended binary tree</li>
+  <li>Recursive step: If T1 and T2 are disjoint extended binary trees, there is an extended binary tree, denoted by T1 · T2, consisting of a root r together with edges connecting the root to each of the roots of the left subtree T1 and the right subtree T2, when these trees are nonempty.</li>
+</ol>
+
+<h2 id="full-binary-trees">Full binary Trees</h2>
+
+<ol>
+  <li>Basis step: There is a full binary tree consisting only of a single vertex r</li>
+  <li>If T1 and T2 are disjoint full binary trees, there is a
+full binary tree, denoted by T1 · T2, consisting of a root r together with edges connecting the root to each of the roots of the left subtree T1 and the right subtree T2.</li>
+</ol>
+
+<p>Tree에 대한 증명은 추가공부자료에서 더 공부해야겠다:)</p>]]></content><author><name>정해준</name></author><category term="이산수학" /><summary type="html"><![CDATA[Recursion]]></summary></entry><entry><title type="html">Ch13.induction</title><link href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/" rel="alternate" type="text/html" title="Ch13.induction" /><published>2022-11-05T00:00:00+09:00</published><updated>2022-11-05T00:00:00+09:00</updated><id>http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction</id><content type="html" xml:base="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/"><![CDATA[<p>Induction</p>
+
+<h1 id="mathematical-induction-수학적-귀납법">Mathematical induction (수학적 귀납법)</h1>
+
+<h2 id="수학적-귀납법">수학적 귀납법</h2>
+
+<ul>
+  <li>수학적 귀납법이란 수학의 증명 방법 중 하나로, 주로 어떠한 명제가 모든 자연수에 대하여 성립함을 보이려고 할 때, 이용된다</li>
+  <li>수학적 귀납법의 일반적인 형식은 5단계로 구분된다</li>
+</ul>
+
+<ol>
+  <li>수학적 귀납법을 사용할 것이라고 명시한다.</li>
+  <li>어떤 명제에 대하여 성립함을 보일 것인지 명시한다.</li>
+  <li>Base case에 대하여 성립함을 보인다.</li>
+  <li>Inductive case에 대하여 성립함을 보인다.</li>
+  <li>명제에 대하여 성립함을 증명했다는 것을 마무리한다.
+<br /><br /></li>
+</ol>
+
+<p>이해를 편하게 하기 위해서 n이 자연수일 때 명제가 성립함을 보이고 싶다고 하자  <br />
+그리고 자연수 n에 대한 명제를 P(n)이라고 하자 <br />
+Base case는 우리가 보이고자 하는 범위의 시작 부분으로 잡는다  <br />
+n이 자연수이기 때문에 0이 시작 부분이므로 P(0)를 Base case로 잡는다         <br />
+Inductive case는 임의의 자연수 k에 대하여 명제가 성립할 때, k+1에도 성립함을 보이는 과정이다  <br />
+즉, P(k) -&gt; P(k+1)을 증명함으로써 모든 자연수가 성립함을 보인다   <br />
+<br />
+위의 과정을 차근차근 해석하면,<br />
+Base case에 의해 P(0)는 true이다 <br />
+Inductive case에 의해 P(0)-&gt;P(1), 즉 P(1)는 true이다  <br />
+P(1)-&gt;P(2), 즉 P(2)는 true이다
+P(2)-&gt;P(3), 즉 P(3)는 true이다<br />
+계속 이어져 나간다면 모든 자연수에 대하여 명제가 성립함을 알 수 있다<br />
+<br /><br /></p>
+
+<h2 id="well-ordering-property-자연수-정렬성">Well-Ordering Property (자연수 정렬성)</h2>
+<ul>
+  <li>자연수 정렬성이란 음수가 아닌 정수들의 집합 중 공집합이 아닌 모든 집합은 최소 원소를 갖는다</li>
+  <li>즉, for every S ⊆ N such that S ̸= ∅, there exists m ∈ S such that
+m ⩽ n for all n ∈ S</li>
+</ul>
+
+<p><br /><br /></p>
+
+<h2 id="strong-induction-강한-수학적-귀납법">Strong Induction (강한 수학적 귀납법)</h2>
+<ul>
+  <li>수학적 귀납법이 쉽게 적용되지 않을 때 사용하는 방법이다</li>
+  <li>P(n)이 모든 자연수에 대하여 성립함을 보이고 싶다면, 두 가지 단계를 거친다</li>
+  <li>Basis step은 수학적 귀납법과 같다</li>
+  <li>Inductive step은 수학적 귀납법과 달리 P(1) ∧ P(2) ∧ · · · ∧ P(k) → P(k + 1)을 보이는 것이다</li>
+  <li>Inductive hypothesis (IH)로 P(m)이 성립함을 보인다 (1 &lt;= m &lt;= k)</li>
+  <li>이후 k+1이 m의 범위 안에 들어가는 수를 기반으로 함을 보여서 증명한다</li>
+</ul>
+
+<p><br /><br /></p>
+
+<p>Induction은 풀면 풀수록 새로운 것을 많이 배워간다 <br />
+데이터 구조시간에 트리 구조에 대해서 증명할 때 배웠었는데, 그 당시에는 이산 수학을 배우지 않아서 이해하기 어려웠었다. 이번 기회에 조금 더 정확하게 배워야겠다는 생각이 든다 :)</p>]]></content><author><name>정해준</name></author><category term="이산수학" /><summary type="html"><![CDATA[Induction]]></summary></entry><entry><title type="html">Maximum vs Maximal</title><link href="http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" rel="alternate" type="text/html" title="Maximum vs Maximal" /><published>2022-11-04T00:00:00+09:00</published><updated>2022-11-04T00:00:00+09:00</updated><id>http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&amp;maximum</id><content type="html" xml:base="http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&amp;maximum/"><![CDATA[<p>Maximum과 Maximal의 차이점</p>
+
+<h1 id="maximum-minimum">Maximum (Minimum)</h1>
+<ul>
+  <li>우리가 고려하는 것 중에서 가장 많은 것을 의미한다</li>
+</ul>
+
+<h1 id="maximal-minimal">MaxiMal (Minimal)</h1>
+<ul>
+  <li>Maximal이라는 단어의 앞에는 ‘inclusion-wise’가 생략되어 있다</li>
+  <li>즉, 포함 관계에 따라 최대인 것을 의미한다</li>
+</ul>
+
+<h1 id="property">Property</h1>
+<ul>
+  <li>Maximum인 것은 Maximal이기도 하다</li>
+  <li>하지만 Maximal인 것은 Maximum하다고 할 수 없다 (동일하지 않을 때가 존재한다)</li>
+  <li>정의에 의해 Maximum을 이루는 것들의 크기 (개수)는 모두 동일하다</li>
+  <li>하지만 Maximal의 경우 모두 동일한 것은 아니다</li>
+</ul>
+
+<h1 id="example">Example</h1>
+
+<ul>
+  <li>책상이 9개 있는 곳에 학생을 앉힌다고 하자. 이 때, 앉은 사람의 양 옆에는 사람이 앉지 못한다</li>
+  <li>0이 빈 자리, 1이 사람이 앉는 자리라고 하자
+<br /><br /></li>
+  <li>가장 많은 사람이 앉을 수 있는 경우, 학생 수는 5명이다</li>
+  <li>1 0 1 0 1 0 1 0 1 의 경우가 유일하고 가장 많은 학생이 앉을 수 있다</li>
+  <li>이러한 경우를 Maximum이라고 한다 
+<br /><br /></li>
+  <li>하지만 조건을 만족하면서 더 이상 학생이 앉을 수 없는 경우도 있다</li>
+  <li>0 1 0 0 1 0 0 1 0 의 경우는 더 이상 들어갈 수 없지만 조건을 모두 만족한다</li>
+  <li>이러한 경우를 Maximal이라고 한다</li>
+</ul>
+
+<p>즉, 주어진 조건 속에서 가장 큰 크기를 가지는 경우를 Maximum이라고 하고 주어진 조건을 모두 만족하면서 
+더 이상 넣을 수 없는 경우를 Maximal이라고 한다. 당연하지만 Maximum과 Maximal은 여러 경우가 나올 수 있다. 
+위의 예시에서는 Maximum이 한 가지 경우밖에 없는 경우이다. Minimum과 Minimal은 반대로 생각하면 된다.</p>
+
+<p>비슷하게 생겨서 헷갈릴 수 있지만 알아두면 좋을 것 같아서 따로 기록하게 되었다 :)</p>]]></content><author><name>정해준</name></author><category term="추가공부자료" /><summary type="html"><![CDATA[Maximum과 Maximal의 차이점]]></summary></entry><entry><title type="html">가장 긴 바이토닉 부분 수열</title><link href="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" rel="alternate" type="text/html" title="가장 긴 바이토닉 부분 수열" /><published>2022-11-03T00:00:00+09:00</published><updated>2022-11-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5%20%EA%B8%B4%20%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89%20%EB%B6%80%EB%B6%84%20%EC%88%98%EC%97%B4</id><content type="html" xml:base="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/"><![CDATA[<p>가장 긴 바이토닉 부분 수열</p>
+
+<h3 id="백준-11054번-가장-긴-바이토닉-부분-수열-풀이">백준 11054번 가장 긴 바이토닉 부분 수열 풀이</h3>
+
+<p>처음에는 문제를 잘못 이해해서, 바이토닉 부분 수열이 끊기지 않고 연결되야 하는 것으로 생각했다. <br />
+문제의 밑에 힌트를 보고 꼭 연결되지 않아도 바이토닉 부분 수열을 만족하기만 하면 된다는 것을 알게 되었다.  <br />
+풀이 방법은,</p>
+
+<ol>
+  <li>dp를 모두 1로 초기화시킨다. (최소 길이가 1)</li>
+  <li>증가하는 부분 수열로 dp를 변경한다</li>
+  <li>변경된 dp에 감소하는 부분 수열을 추가한다</li>
+  <li>dp에 저장된 값들을 비교하여 가장 큰 값을 도출한다 ## 정답 ##</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+
+using namespace std;
+
+int main (void) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+
+    int i, j, N, val[1000], dp[1000];
+    cin &gt;&gt; N;
+
+    fill_n(dp, 1000, 1); /* 모든 부분의 최소 개수는 1개이므로 1로 초기화 */
+
+    for(i=0; i&lt;N; ++i) {
+        cin &gt;&gt; val[i]; /* 수를 받아준다 */
+    }
+
+    /* 증가하는 부분 수열 */
+    for(i=1; i&lt;N; ++i) {
+        for(j=i-1; j&gt;=0; --j) {
+            if (val[i] &gt; val[j]) dp[i] = max(dp[i], dp[j]+1);
+        }
+    }
+
+    /* 감소하는 부분 수열 */
+    for(i=1; i&lt;N; ++i) {
+        for(j=i-1; j&gt;=0; --j) {
+            if(val[i] &lt; val[j]) dp[i] = max(dp[i], dp[j]+1);
+        }
+    }
+
+    /* 최장 길이 구하기 */
+    int maximum = dp[0];
+    for(i=1; i&lt;N; ++i) {
+        maximum = max(maximum, dp[i]);
+    }
+
+    cout &lt;&lt; maximum;
+    return 0;
+}
+</code></pre></div></div>
+
+<p>Dynamic Programming 문제는 언제 풀어봐도 새롭다는 느낌을 받는 것 같다.    <br />
+DP와 Greedy에 관한 알고리즘을 배운 후로는 완전 탐색하기보다는 어떤 알고리즘이 더 효율적인지 생각하게 되는 것 같다.    <br />
+아직 많이 부족하지만 꾸준히 문제를 푸는 습관을 들일 것이다 :)</p>]]></content><author><name>정해준</name></author><category term="백준" /><summary type="html"><![CDATA[가장 긴 바이토닉 부분 수열]]></summary></entry><entry><title type="html">스도쿠</title><link href="http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku/" rel="alternate" type="text/html" title="스도쿠" /><published>2022-11-02T00:00:00+09:00</published><updated>2022-11-02T00:00:00+09:00</updated><id>http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku</id><content type="html" xml:base="http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku/"><![CDATA[<p>스도쿠</p>
+
+<h3 id="백준-2580번-스도쿠-풀이">백준 2580번 스도쿠 풀이</h3>
+
+<ol>
+  <li>입력으로 들어오는 값들을 저장한다. 이 때, 빈칸으로 오는 곳은 따로 저장한다</li>
+  <li>빈칸을 하나씩 채워가며 모두 채웠다면 출력을 하고 종료한다 (Base Case)</li>
+  <li>이 때, return을 하는 것이 아니라 exit를 해줘야 한다.</li>
+  <li>exit하지 않는다면, 다른 방법으로도 되는 경우 출력이 될 수 있기 때문이다</li>
+  <li>check 함수에서 빈 칸에 1~9에 해당하는 수가 들어갈 수 있는지 확인한다</li>
+  <li>만약 들어갈 수 있다면, 재귀를 통해 다음 빈 칸을 채우기 위해 들어간다</li>
+  <li>들어갈 수 없다면, 해당 빈 칸을 0으로 다시 초기화한 후 이전 빈 칸부터 다시 채운다</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;utility&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int board[9][9];
+vector &lt;pair&lt;int,int&gt;&gt; blank;
+
+bool check (int first, int second) {
+    int i,j;
+    for(i=0; i&lt;9; ++i) { /* 가로 방향으로 넣으려는 값이 존재한다면 false */
+        if (i == second) continue; /* 좌표가 같은 것은 비교하지 않는다 */
+        if (board[first][i] == board[first][second]) return false;
+    }
+
+    for(i=0; i&lt;9; ++i) { /* 세로 방향으로 넣으려는 값이 존재한다면 false */
+        if (i == first) continue; /* 좌표가 같은 것은 비교하지 않는다 */
+        if (board[i][second] == board[first][second]) return false;
+    }
+
+    /* 3*3 블럭 확인 */
+    int square_first = first / 3;
+    int square_second = second / 3;
+    for(i=3*square_first; i&lt;3*square_first+3; ++i) {
+        for(j=3*square_second; j&lt;3*square_second+3; ++j) {
+            if (i == first &amp;&amp; j == second) continue; /* 좌표가 같은 것은 비교 X */
+            if (board[i][j] == board[first][second]) return false;
+        }
+    }
+
+    return true;
+}
+
+void sudoku (size_t fill) {
+    int i,j;
+    if (fill == blank.size()) { /* Base Case */ 
+        for(i=0; i&lt;9; ++i) {
+            for(j=0; j&lt;9; ++j) {
+                cout &lt;&lt; board[i][j] &lt;&lt; " ";
+            }
+            cout &lt;&lt; "\n";
+        }
+
+        exit(0);
+    }
+
+    int first = blank[fill].first; /* 빈 칸의 col 좌표 */
+    int second = blank[fill].second; /* 빈 칸의 row 좌표 */
+    for(i=1; i&lt;=9; ++i) {
+
+        board[first][second] = i; /* i값 저장 */
+        if (check(first, second)) { /* 들어갈 수 있다면 재귀 */
+            sudoku(fill+1);
+        }
+    }
+    /* 끝까지 들어가지 않는다면, 0으로 저장하고 다음으로 넘어간다 */
+    board[first][second] = 0; 
+    return;
+}
+
+int main () {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+
+    int i,j,val;
+    for(i=0; i&lt;9; ++i) {
+        for(j=0; j&lt;9; ++j) {
+            cin &gt;&gt; val;
+            board[i][j] = val;
+
+            if (!val) blank.push_back(make_pair(i,j));
+        }
+    }
+
+    sudoku(0);
+    return 0;
+}
+</code></pre></div></div>
+
+<p>백트래킹의 대표적인 문제로서 N-Queen과 함께 연습해보면 좋은 문제이다  <br />
+처음에는 라이브러리를 쓰지 않고 해결하려고 하였으나, vector와 utility를 사용하게 되었다   <br />
+다음에 풀 때는, 라이브러리를 쓰지 않고 해결하려고 해봐야겠다  <br />
+많은 문제를 풀어보면 더 감이 오지 않을까 :)</p>]]></content><author><name>정해준</name></author><category term="백준" /><summary type="html"><![CDATA[스도쿠]]></summary></entry><entry><title type="html">최대공약수 GCD와 최소공배수 LCM</title><link href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" rel="alternate" type="text/html" title="최대공약수 GCD와 최소공배수 LCM" /><published>2022-11-01T00:00:00+09:00</published><updated>2022-11-01T00:00:00+09:00</updated><id>http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor</id><content type="html" xml:base="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/"><![CDATA[<p>최대공약수와 최소공배수를 효율적으로 구하는 알고리즘</p>
 
 <h1 id="gcd-greatest-common-divisor">GCD (Greatest Common Divisor)</h1>
 

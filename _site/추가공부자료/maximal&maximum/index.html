@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>하노이 탑 - 매일 기록하는 개발자 Blog</title>
-<meta name="description" content="하노이 탑 알고리즘">
+<!-- begin _includes/seo.html --><title>Maximum vs Maximal - 매일 기록하는 개발자 Blog</title>
+<meta name="description" content="Maximum과 Maximal의 차이점">
 
 
   <meta name="author" content="정해준">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="매일 기록하는 개발자 Blog">
-<meta property="og:title" content="하노이 탑">
-<meta property="og:url" content="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/">
+<meta property="og:title" content="Maximum vs Maximal">
+<meta property="og:url" content="http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/">
 
 
-  <meta property="og:description" content="하노이 탑 알고리즘">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2022-10-31T00:00:00+09:00">
+  <meta property="og:description" content="Maximum과 Maximal의 차이점">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2022-11-04T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/">
+
+<link rel="canonical" href="http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/">
 
 
 
@@ -261,16 +261,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="하노이 탑">
-    <meta itemprop="description" content="하노이 탑 알고리즘">
-    <meta itemprop="datePublished" content="2022-10-31T00:00:00+09:00">
+    <meta itemprop="headline" content="Maximum vs Maximal">
+    <meta itemprop="description" content="Maximum과 Maximal의 차이점">
+    <meta itemprop="datePublished" content="2022-11-04T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/" class="u-url" itemprop="url">하노이 탑
+            <a href="http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" class="u-url" itemprop="url">Maximum vs Maximal
 </a>
           </h1>
           
@@ -299,77 +299,47 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <p>하노이 탑 알고리즘</p>
+        <p>Maximum과 Maximal의 차이점</p>
 
-<h2 id="하노이-탑">하노이 탑</h2>
-
+<h1 id="maximum-minimum">Maximum (Minimum)</h1>
 <ul>
-  <li>재귀함수를 이해할 수 있는 좋은 문제 중 하나이다</li>
-  <li>재귀를 사용하기 위해서는 Base case와 Inductive case를 잘 나눠야 한다</li>
-  <li>하노이 탑의 경우, N개의 블럭을 옮길 때 N이 1인 경우가 Base case에 해당한다</li>
-  <li>하노이 탑의 기본적인 틀은 1, 2, 3으로 움직일 수 있다고 하고, 1에 있는 N개의 블럭을 3으로 옮기고 싶다고 할 때,</li>
+  <li>우리가 고려하는 것 중에서 가장 많은 것을 의미한다</li>
 </ul>
 
-<ol>
-  <li>N-1개의 블럭을 2에 옮겨 놓는다</li>
-  <li>N을 3에 옮긴다</li>
-  <li>2에 옮겨 놓은 N-1개의 블럭을 3에 옮긴다</li>
-</ol>
+<h1 id="maximal-minimal">MaxiMal (Minimal)</h1>
+<ul>
+  <li>Maximal이라는 단어의 앞에는 ‘inclusion-wise’가 생략되어 있다</li>
+  <li>즉, 포함 관계에 따라 최대인 것을 의미한다</li>
+</ul>
 
-<h2 id="밑의-코드는-백준-11729-하노이-탑-이동-순서-코드이다">밑의 코드는 백준 11729 하노이 탑 이동 순서 코드이다</h2>
-<ol>
-  <li>1번에 해당하는 부분은 hanoi(N-1, start, via, to)</li>
-  <li>2번에 해당하는 부분은 move(N, start, to)</li>
-  <li>3번에 해당하는 부분은 hanoi(N-1, via, to, start)</li>
-</ol>
+<h1 id="property">Property</h1>
+<ul>
+  <li>Maximum인 것은 Maximal이기도 하다</li>
+  <li>하지만 Maximal인 것은 Maximum하다고 할 수 없다 (동일하지 않을 때가 존재한다)</li>
+  <li>정의에 의해 Maximum을 이루는 것들의 크기 (개수)는 모두 동일하다</li>
+  <li>하지만 Maximal의 경우 모두 동일한 것은 아니다</li>
+</ul>
 
-<h1 id="code">Code</h1>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
-#include &lt;utility&gt;
-#include &lt;vector&gt;
+<h1 id="example">Example</h1>
 
-using namespace std;
+<ul>
+  <li>책상이 9개 있는 곳에 학생을 앉힌다고 하자. 이 때, 앉은 사람의 양 옆에는 사람이 앉지 못한다</li>
+  <li>0이 빈 자리, 1이 사람이 앉는 자리라고 하자
+<br /><br /></li>
+  <li>가장 많은 사람이 앉을 수 있는 경우, 학생 수는 5명이다</li>
+  <li>1 0 1 0 1 0 1 0 1 의 경우가 유일하고 가장 많은 학생이 앉을 수 있다</li>
+  <li>이러한 경우를 Maximum이라고 한다 
+<br /><br /></li>
+  <li>하지만 조건을 만족하면서 더 이상 학생이 앉을 수 없는 경우도 있다</li>
+  <li>0 1 0 0 1 0 0 1 0 의 경우는 더 이상 들어갈 수 없지만 조건을 모두 만족한다</li>
+  <li>이러한 경우를 Maximal이라고 한다</li>
+</ul>
 
-/* vector를 이용하여 동적 할당을 해주었고, pair를 이용하여 현 위치와 이동할 위치를 저장하였다 */
-vector&lt;pair&lt;int,int&gt;&gt; v; 
+<p>즉, 주어진 조건 속에서 가장 큰 크기를 가지는 경우를 Maximum이라고 하고 주어진 조건을 모두 만족하면서 
+더 이상 넣을 수 없는 경우를 Maximal이라고 한다. 당연하지만 Maximum과 Maximal은 여러 경우가 나올 수 있다. 
+위의 예시에서는 Maximum이 한 가지 경우밖에 없는 경우이다. Minimum과 Minimal은 반대로 생각하면 된다.</p>
 
-void move (int N, int start, int to) {
-    /* 이동할 때 v에 저장함으로써 하노이 탑 이동 순서를 추적할 수 있다 */
-    v.push_back(make_pair(start, to)); 
-}
-
-/* N은 블럭의 수, start는 현재 위치, to는 목적지, via는 목적지에 가기 위해 경유하는 위치이다 */
-void hanoi (int N, int start, int to, int via) { 
-    if (N == 1) { /* Base case */
-        move (1, start, to);
-        return;
-    }
-
-    /* Inductive case */
-    hanoi(N-1, start, via, to);
-    move (N, start, to);
-    hanoi(N-1, via, to, start);
-}
-
-int main (void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-
-    int N;
-    cin &gt;&gt; N;
-
-    /* 1은 시작 지점, 3은 목적지, 2는 경유하는 지점이다 */
-    hanoi (N, 1, 3, 2); 
-
-    cout &lt;&lt; v.size() &lt;&lt; "\n"; /* 하노이 탑 이동 횟수 */
-    for (int i = 0; i &lt; v.size(); ++i) {
-        cout &lt;&lt; v[i].first &lt;&lt; " " &lt;&lt; v[i].second &lt;&lt; "\n"; /* 하노이 탑 이동 순서 추적 */
-    }
-
-    return 0;
-}
-</code></pre></div></div>
-
+<p>비슷하게 생겨서 헷갈릴 수 있지만 알아두면 좋을 것 같아서 따로 기록하게 되었다 :)</p>
 
         
       </section>
@@ -388,7 +358,7 @@ int main (void) {
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98" class="page__taxonomy-item p-category" rel="tag">알고리즘</a>
+      <a href="/categories/#%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C" class="page__taxonomy-item p-category" rel="tag">추가공부자료</a>
     
     </span>
   </p>
@@ -396,7 +366,7 @@ int main (void) {
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-10-31T00:00:00+09:00">October 31, 2022</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-04T00:00:00+09:00">November 4, 2022</time></p>
 
       </footer>
 
@@ -405,22 +375,22 @@ int main (void) {
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%ED%95%98%EB%85%B8%EC%9D%B4+%ED%83%91%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Maximum+vs+Maximal%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%25B6%2594%25EA%25B0%2580%25EA%25B3%25B5%25EB%25B6%2580%25EC%259E%2590%25EB%25A3%258C%2Fmaximal%26maximum%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25B6%2594%25EA%25B0%2580%25EA%25B3%25B5%25EB%25B6%2580%25EC%259E%2590%25EB%25A3%258C%2Fmaximal%26maximum%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2Fhanoi%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%25B6%2594%25EA%25B0%2580%25EA%25B3%25B5%25EB%25B6%2580%25EC%259E%2590%25EB%25A3%258C%2Fmaximal%26maximum%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort/" class="pagination--pager" title="Merge Sort
+      <a href="/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" class="pagination--pager" title="가장 긴 바이토닉 부분 수열
 ">이전</a>
     
     
-      <a href="/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" class="pagination--pager" title="최대공약수 GCD와 최소공배수 LCM
+      <a href="/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/" class="pagination--pager" title="Ch13.induction
 ">다음</a>
     
   </nav>
@@ -565,7 +535,7 @@ int main (void) {
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" rel="permalink">Maximum vs Maximal
+        <a href="/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" rel="permalink">가장 긴 바이토닉 부분 수열
 </a>
       
     </h2>
@@ -590,7 +560,7 @@ int main (void) {
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Maximum과 Maximal의 차이점
+    <p class="archive__item-excerpt" itemprop="description">가장 긴 바이토닉 부분 수열
 </p>
   </article>
 </div>
@@ -656,8 +626,8 @@ int main (void) {
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');
