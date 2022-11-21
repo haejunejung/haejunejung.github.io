@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Ch14.Recursion - 매일 기록하는 개발자 Blog</title>
-<meta name="description" content="Recursion">
+<!-- begin _includes/seo.html --><title>DB#14-2 - 매일 기록하는 개발자 Blog</title>
+<meta name="description" content="DB#14-2">
 
 
   <meta name="author" content="정해준">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="매일 기록하는 개발자 Blog">
-<meta property="og:title" content="Ch14.Recursion">
-<meta property="og:url" content="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/">
+<meta property="og:title" content="DB#14-2">
+<meta property="og:url" content="http://localhost:4000/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/DB-14-2/">
 
 
-  <meta property="og:description" content="Recursion">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2022-11-06T00:00:00+09:00">
+  <meta property="og:description" content="DB#14-2">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2022-11-19T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/">
+
+<link rel="canonical" href="http://localhost:4000/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/DB-14-2/">
 
 
 
@@ -261,16 +261,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Ch14.Recursion">
-    <meta itemprop="description" content="Recursion">
-    <meta itemprop="datePublished" content="2022-11-06T00:00:00+09:00">
+    <meta itemprop="headline" content="DB#14-2">
+    <meta itemprop="description" content="DB#14-2">
+    <meta itemprop="datePublished" content="2022-11-19T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/" class="u-url" itemprop="url">Ch14.Recursion
+            <a href="http://localhost:4000/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/DB-14-2/" class="u-url" itemprop="url">DB#14-2
 </a>
           </h1>
           
@@ -287,7 +287,7 @@
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          2 분 소요
         
       </span>
     
@@ -299,60 +299,129 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <p>Recursion</p>
+        <p>DB#14-2</p>
 
-<h1 id="recursion-재귀">Recursion (재귀)</h1>
+<p>DB#14-2 Normal Forms에 대한 정리글   <br />
+클로저를 통해 찾은 기본키들을 이용하여 테이블이 Good or not 확인하기</p>
 
-<h2 id="recursion">Recursion</h2>
+<h3 id="type-of-key">Type of Key</h3>
+
+<ol>
+  <li>Superkeys</li>
+</ol>
 
 <ul>
-  <li>재귀(Recursion)는 새로운 Object를 만들기 위해서 사용된다</li>
-  <li>반면, 귀납법(Induction)은 증명을 하기 위해서 사용된다</li>
-  <li>함수 f (domain N) 을 정의하기 위해 2가지 단계로 구분된다</li>
+  <li>A set of attributes in a table that decides all other attributes</li>
+  <li>즉, 몇몇의 속성들이 모여서 table 안의 모든 속성들을 결정지을 수 있어야 한다</li>
 </ul>
 
 <ol>
-  <li>Basis step: Specify f(0)</li>
-  <li>Recursive step: n보다 작은 자연수로 f(n)을 찾기 위한 규칙들</li>
+  <li>Keys</li>
 </ol>
-
-<p>이것을 함수 f의 Recursive or Inductive definition라고 한다</p>
-
-<h2 id="structural-induction">Structural Induction</h2>
-
-<ol>
-  <li>Basis step: Show that the result holds for all elements specified in the basis step of the recursive definition</li>
-  <li>Recursive step: Show that if the statment is true for each of the elements used to construct new elements in the recursive step of the definition, the result holds for these new elements</li>
-</ol>
-
-<h2 id="rooted-trees">Rooted Trees</h2>
 
 <ul>
-  <li>vertex(정점)과 edge(간선)으로 구성된다</li>
-  <li>특히, root라고 불리는 vertex를 갖는 트리를 Rooted Tree라고 한다</li>
+  <li>Superykey 중, minimal한 상태를 말한다</li>
+  <li>mimimum은 minimal과 다르다 (추가공부자료)</li>
 </ul>
 
 <ol>
-  <li>Basis step: A single vertex r is a rooted tree</li>
-  <li>Recursive step: Suppose that T1,T2, . . . , Tn are disjoint rooted trees with roots r1,r2, . . . ,rn, respectively. Then the graph formed by starting with a root r, which is not in any of the rooted trees T1,T2, . . . , Tn, and adding an edge from r to each of the vertices r1,r2, . . . ,rn , is also a rooted tree.</li>
+  <li>Candidate keys</li>
 </ol>
 
-<h2 id="extended-binary-trees">Extended Binary Trees</h2>
+<ul>
+  <li>Key가 여러개 존재할 때, 각각의 key들을 candidate key라고 한다</li>
+</ul>
 
 <ol>
-  <li>Basis step: The empty set is an extended binary tree</li>
-  <li>Recursive step: If T1 and T2 are disjoint extended binary trees, there is an extended binary tree, denoted by T1 · T2, consisting of a root r together with edges connecting the root to each of the roots of the left subtree T1 and the right subtree T2, when these trees are nonempty.</li>
+  <li>Primary Keys &amp; Secondary Keys</li>
 </ol>
 
-<h2 id="full-binary-trees">Full binary Trees</h2>
+<ul>
+  <li>Key 중 하나를 PK로 설정할 수 있다</li>
+  <li>PK가 아닌 Key들을 Secondary Key라고 한다</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="key를-찾는-법">Key를 찾는 법</h3>
+
+<p>기본적으로 Key를 찾는 법은 4가지 단계로 나눌 수 있다</p>
+<ol>
+  <li>table 안에서 가능한 모든 속성들의 결합들을 확인한다</li>
+  <li>확인한 모든 속성들의 결합들에 대하여 closure를 확인한다</li>
+  <li>만약 어떤 closure가 relation안의 모든 속성들을 포함한다면, key(or superkey)이다</li>
+  <li>그 중 key가 될 수 있는 것들을 선별한다</li>
+</ol>
+
+<p><br /></p>
+
+<p>이 때, 쉽게 key를 찾을 수 있는 두 가지 tip!</p>
 
 <ol>
-  <li>Basis step: There is a full binary tree consisting only of a single vertex r</li>
-  <li>If T1 and T2 are disjoint full binary trees, there is a
-full binary tree, denoted by T1 · T2, consisting of a root r together with edges connecting the root to each of the roots of the left subtree T1 and the right subtree T2.</li>
+  <li>항상 combination이 작은 것부터 확인해라</li>
+  <li>만약 right-hand side of any FD에 속성이 없다면, 그 속성은 반드시 key에 들어간다</li>
 </ol>
 
-<p>Tree에 대한 증명은 추가공부자료에서 더 공부해야겠다:)</p>
+<p><br /></p>
+
+<h3 id="normal-forms">Normal Forms</h3>
+
+<ul>
+  <li>“bad table”를 찾는 방법</li>
+  <li>1NF, 2NF, 3NF, BCNF …</li>
+  <li>일반적으로 3NF, BCNF를 사용한다</li>
+  <li>1NF → 2NF → 3NF → BCNF → … 로 갈수록 이전에 해결할 수 없는 이상문제를 해결할 수 있다</li>
+</ul>
+
+<h2 id="1-1nf">1. 1NF</h2>
+
+<ul>
+  <li>각 Row마다 Column 값이 1개만 있어야 한다</li>
+  <li>Atomic Value를 갖는다고 표현한다</li>
+  <li>1차 정규화를 통해서 Redundancy는 더 증가할 수 있다</li>
+  <li>하지만, 데이터의 논리적 구성이 되기 때문에 정규화가 필요하다</li>
+</ul>
+
+<h2 id="2-2nf">2. 2NF</h2>
+
+<ul>
+  <li>테이블의 모든 Column이 완전 함수적 종속을 만족하는 것을 말한다</li>
+  <li>즉, 특정 Col에만 종속된 Col이 없어야 한다는 것이다</li>
+  <li>예를 들면, R(student, Age, Subject)</li>
+  <li>Age는 student에만 종속되고, (student, subject)가 PK라고 했을 때</li>
+  <li>Age가 student에만 종속되기 때문에 student라는 PK를 가진 테이블과 (student, subject)라는 PK를 가진 두 개의 테이블로 Decomposition 하는 것이다</li>
+  <li>삽입/갱신/삭제 이상에서, 복잡한 경우 갱신 이상을 겪을 수 있다 → 3NF로 해결</li>
+</ul>
+
+<h2 id="3-3nf">3. 3NF</h2>
+
+<ul>
+  <li>기본키를 제외한 속성들 간의 이행적 함수 종속이 없는 것을 말한다</li>
+  <li>즉, 기본키 이외의 다른 Col이 그 외 다른 Col을 결정할 수 없는 것이다</li>
+  <li>1NF, 2NF에서 겪을 수 있는 Redundancy도 줄일 수 있다</li>
+</ul>
+
+<h2 id="4-bcnf">4. BCNF</h2>
+
+<ul>
+  <li>3NF를 조금 더 강화한 버전으로 3NF으로 해결할 수 없는 이상문제를 해결할 수 있다</li>
+  <li>3NF를 만족하면서 모든 결정자가 후보키 집합에 속한 정규형이다</li>
+  <li>모든 non-trivial FD의 left-hand side가 key를 포함해야 한다</li>
+  <li>4가지 단계로 BCNF인지 아닌지를 판별할 수 있다</li>
+  <li>더 이상 갱신/삭제 이상문제가 없다</li>
+  <li>매우 적은 중복성을 가지게 된다</li>
+  <li>원래의 테이블을 분해된 테이블로 재구성할 수 있다 (lossless join 특징이라 한다)</li>
+  <li>모든 FD를 보존하지는 않는다는 단점이 있다 → 해결이 필요하다!</li>
+</ul>
+
+<p><br /></p>
+
+<ol>
+  <li>Relation 안의 Key를 찾는다</li>
+  <li>non-trivial FD를 찾는다</li>
+  <li>모든 non-trivial FD의 left-hand side가 key를 포함하는지 확인한다</li>
+  <li>모든 FD가 통과하면 BCNF이다</li>
+</ol>
 
         
       </section>
@@ -371,7 +440,7 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99" class="page__taxonomy-item p-category" rel="tag">이산수학</a>
+      <a href="/categories/#%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4" class="page__taxonomy-item p-category" rel="tag">데이터베이스</a>
     
     </span>
   </p>
@@ -379,7 +448,7 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-06T00:00:00+09:00">November 6, 2022</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-19T00:00:00+09:00">November 19, 2022</time></p>
 
       </footer>
 
@@ -388,22 +457,23 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Ch14.Recursion%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2FRecursion%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=DB%2314-2%20http%3A%2F%2Flocalhost%3A4000%2F%25EB%258D%25B0%25EC%259D%25B4%25ED%2584%25B0%25EB%25B2%25A0%25EC%259D%25B4%25EC%258A%25A4%2FDB-14-2%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2FRecursion%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EB%258D%25B0%25EC%259D%25B4%25ED%2584%25B0%25EB%25B2%25A0%25EC%259D%25B4%25EC%258A%25A4%2FDB-14-2%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2FRecursion%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EB%258D%25B0%25EC%259D%25B4%25ED%2584%25B0%25EB%25B2%25A0%25EC%259D%25B4%25EC%258A%25A4%2FDB-14-2%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" class="pagination--pager" title="전깃줄
+      <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%82%BC%EC%B4%9D%EC%82%AC/" class="pagination--pager" title="삼총사
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%83%9D%EB%B0%B0%EC%83%81%EC%9E%90/" class="pagination--pager" title="택배 상자
+">다음</a>
     
   </nav>
 
@@ -427,7 +497,7 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" rel="permalink">전깃줄
+        <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/k%EC%A7%84%EC%88%98%EC%97%90%EC%84%9C-%EC%86%8C%EC%88%98-%EA%B0%9C%EC%88%98-%EA%B5%AC%ED%95%98%EA%B8%B0/" rel="permalink">k진수에서 소수 개수 구하기
 </a>
       
     </h2>
@@ -445,14 +515,14 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          2 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">전깃줄
+    <p class="archive__item-excerpt" itemprop="description">k진수에서 소수 개수 구하기
 </p>
   </article>
 </div>
@@ -467,7 +537,7 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/" rel="permalink">Ch13.induction
+        <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%A3%BC%EC%B0%A8-%EC%9A%94%EA%B8%88-%EA%B3%84%EC%82%B0/" rel="permalink">주차 요금 계산
 </a>
       
     </h2>
@@ -485,14 +555,14 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          4 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Induction
+    <p class="archive__item-excerpt" itemprop="description">주차 요금 계산
 </p>
   </article>
 </div>
@@ -507,7 +577,7 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" rel="permalink">Maximum vs Maximal
+        <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%B9%9B%EC%9D%98-%EA%B2%BD%EB%A1%9C-%EC%82%AC%EC%9D%B4%ED%81%B4/" rel="permalink">빛의 경로 사이클
 </a>
       
     </h2>
@@ -525,14 +595,14 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          3 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Maximum과 Maximal의 차이점
+    <p class="archive__item-excerpt" itemprop="description">빛의 경로 사이클
 </p>
   </article>
 </div>
@@ -547,7 +617,7 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" rel="permalink">가장 긴 바이토닉 부분 수열
+        <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%96%91%EA%B6%81-%EB%8C%80%ED%9A%8C/" rel="permalink">양궁 대회
 </a>
       
     </h2>
@@ -565,14 +635,14 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          2 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">가장 긴 바이토닉 부분 수열
+    <p class="archive__item-excerpt" itemprop="description">양궁 대회
 </p>
   </article>
 </div>
@@ -638,8 +708,8 @@ full binary tree, denoted by T1 · T2, consisting of a root r together with edge
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/DB-14-2/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4/DB#14-2"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');

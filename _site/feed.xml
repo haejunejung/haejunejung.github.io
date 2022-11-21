@@ -1,599 +1,1115 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-06T14:11:54+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">매일 기록하는 개발자 Blog</title><subtitle>매일 기록하는 습관</subtitle><author><name>정해준</name></author><entry><title type="html">전깃줄</title><link href="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" rel="alternate" type="text/html" title="전깃줄" /><published>2022-11-06T00:00:00+09:00</published><updated>2022-11-06T00:00:00+09:00</updated><id>http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84</id><content type="html" xml:base="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/"><![CDATA[<p>전깃줄</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2022-11-21T21:20:50+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">매일 기록하는 개발자 Blog</title><subtitle>매일 기록하는 습관</subtitle><author><name>정해준</name></author><entry><title type="html">k진수에서 소수 개수 구하기</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/k%EC%A7%84%EC%88%98%EC%97%90%EC%84%9C-%EC%86%8C%EC%88%98-%EA%B0%9C%EC%88%98-%EA%B5%AC%ED%95%98%EA%B8%B0/" rel="alternate" type="text/html" title="k진수에서 소수 개수 구하기" /><published>2022-11-27T00:00:00+09:00</published><updated>2022-11-27T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/k%EC%A7%84%EC%88%98%EC%97%90%EC%84%9C%20%EC%86%8C%EC%88%98%20%EA%B0%9C%EC%88%98%20%EA%B5%AC%ED%95%98%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/k%EC%A7%84%EC%88%98%EC%97%90%EC%84%9C-%EC%86%8C%EC%88%98-%EA%B0%9C%EC%88%98-%EA%B5%AC%ED%95%98%EA%B8%B0/"><![CDATA[<p>k진수에서 소수 개수 구하기</p>
 
-<h3 id="백준-2565번-전깃줄-풀이">백준 2565번 전깃줄 풀이</h3>
+<h3 id="프로그래머스-k진수에서-소수-개수-구하기">프로그래머스 k진수에서 소수 개수 구하기</h3>
 
-<p>처음에는 전깃줄의 정보를 모두 받고 연결하였을 때 교차되는 점의 개수를 구하여 가장 많이 교차되는 부분부터 삭제하는 방식을 사용하려고 하였다. 백준에 나와있는 예시 입력과 출력은 정답을 맞출 수 있었지만 결과를 틀렸다고 나왔다. 어떤 부분에서 틀렸는지 찾아보니, 교차되는 점의 개수가 같을 때 없애는 순서에 따라 결과값이 달라진다는 것을 알 수 있었다.</p>
+<ul>
+  <li>문제 자체는 크게 어렵지 않았다</li>
+  <li>PS에서 중요한 알고리즘 두 개가 들어가 있는 문제였다</li>
+  <li>하나는, n을 k진수로 표현하는 알고리즘</li>
+  <li>또 다른 하나는 Prime Number을 확인하는 알고리즘이다</li>
+  <li>두 가지를 구현하니, 나머지는 조건에 맞게 구할 수 있었다</li>
+  <li>❗️ int형으로 변환해서 할 경우 overflow가 일어날 수 있다</li>
+  <li>❗️ PN을 구할 때, i*i &lt;= n 으로 해줘야한다. 만약 &lt; 로 할 경우 TC 14, 16번에서 틀린다</li>
+</ul>
 
-<p>일반적인 방법으로 풀려고 하였으나, 풀리지 않아 찾아보니 가장 긴 증가하는 부분 수열을 사용하는 것을 알게 되었다. 방법은</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// k 진수로 바꿨을 때, 조건에 맞는 PN이 몇 개인지 찾기
+// 0P0 처럼 소수 양쪽에 0이 있는 경우
+// P0 소수 오른쪽에만 0이 있고 왼쪽에 아무것도 없는 경우
+// 0P 소수 왼쪽에만 0이 있고 오른쪽에 아무것도 없는 경우
+// P처럼 소수 양쪽에 아무것도 없는 경우
 
-<ol>
-  <li>A에 대한 오름차순으로 전깃줄의 정보를 정렬한다</li>
-  <li>B에 대해 가장 긴 증가하는 부분 수열의 길이를 구한다</li>
-  <li>가장 긴 증가하는 부분 수열은 없애지 않아도 되는 전깃줄의 정보이다</li>
-  <li>즉, 전깃줄의 개수 - 가장 긴 증가하는 부분 수열의 길이가 정답이 된다</li>
-</ol>
+/* 
+    1. n을 k진수로 바꾼다
+    2. 바꾼 수에서 PN이 되는 부분을 찾는다
+    3. PN이 되는 부분에서 조건에 맞는 경우를 찾는다
+*/
 
-<p>전깃줄의 정보를 담기 위해서 vector와 pair를 이용하였고,   <br />
-정렬 알고리즘을 사용하기 위해서 sort를 사용하였다.</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cstring&gt;
 #include &lt;vector&gt;
-#include &lt;utility&gt;
 #include &lt;algorithm&gt;
-
-#define MAX 101
-#define type int /* long long 같은 형은 필요없다고 생각해서 모두 int로 통일하였다 */
-
-using namespace std;
-vector &lt;pair&lt;type,type&gt;&gt; v; /* 전깃줄의 정보 */
-type dp[MAX]; 
-
-bool compare (pair&lt;type,type&gt; &amp;a, pair&lt;type,type&gt; &amp;b) {
-    return a.first &lt; b.first;
-}
-
-void input () {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    type T, testcase;
-    cin &gt;&gt; T;
-
-    for(testcase=0; testcase&lt;T; ++testcase) {
-        type A, B;
-        cin &gt;&gt; A &gt;&gt; B;
-
-        v.push_back(make_pair(A,B));
-    }
-
-    sort(v.begin(), v.end(), compare); /* A의 오름차순으로 정렬 -&gt; B의 가장 긴 증가하는 부분 수열을 구할 수 있도록 함 */
-    fill_n(dp, MAX, 1); /* 부분 수열은 최소 1의 길이를 가지므로 1로 초기화 */
-}
-
-void solve () {
-    type i,j;
-
-    for(i=0; i&lt;v.size(); ++i) {
-        for(j=i-1; j&gt;=0; --j) {
-            if (v[i].second &gt; v[j].second) {
-                dp[i] = max(dp[i], dp[j]+1); /* 가장 긴 증가하는 부분 수열 만들기 */
-            }
-        }
-    }
-
-    type maximum = 0;
-    for(i=0; i&lt;v.size(); ++i) {
-        if (dp[i] &gt; maximum) maximum = dp[i]; /* 가장 긴 증가하는 부분 수열 구하기 */
-    }
-
-    /* 가장 긴 증가하는 부분 수열 -&gt; 없애지 않아도 되는 전깃줄의 정보이기 때문에 전체-가장 긴 증가하는 부분 수열 길이가 정답이 된다 */
-    cout &lt;&lt; v.size() - maximum; 
-}
-
-int main (void) {
-
-    input ();
-    solve ();
-    return 0;
-}
-</code></pre></div></div>
-
-<p>DP 문제인지 모르고 푼다면 처음부터 생각해내기는 쉽지 않은 문제라고 생각한다.  <br />
-LCS에 대해 여러 번 반복하고 연습하는 방법이 필요하다고 느꼈다. <br />
-내일부터는 프로그래머스 문제도 같이 풀어봐야겠다 :)</p>]]></content><author><name>정해준</name></author><category term="백준" /><summary type="html"><![CDATA[전깃줄]]></summary></entry><entry><title type="html">Ch14.Recursion</title><link href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/" rel="alternate" type="text/html" title="Ch14.Recursion" /><published>2022-11-06T00:00:00+09:00</published><updated>2022-11-06T00:00:00+09:00</updated><id>http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion</id><content type="html" xml:base="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/"><![CDATA[<p>Recursion</p>
-
-<h1 id="recursion-재귀">Recursion (재귀)</h1>
-
-<h2 id="recursion">Recursion</h2>
-
-<ul>
-  <li>재귀(Recursion)는 새로운 Object를 만들기 위해서 사용된다</li>
-  <li>반면, 귀납법(Induction)은 증명을 하기 위해서 사용된다</li>
-  <li>함수 f (domain N) 을 정의하기 위해 2가지 단계로 구분된다</li>
-</ul>
-
-<ol>
-  <li>Basis step: Specify f(0)</li>
-  <li>Recursive step: n보다 작은 자연수로 f(n)을 찾기 위한 규칙들</li>
-</ol>
-
-<p>이것을 함수 f의 Recursive or Inductive definition라고 한다</p>
-
-<h2 id="structural-induction">Structural Induction</h2>
-
-<ol>
-  <li>Basis step: Show that the result holds for all elements specified in the basis step of the recursive definition</li>
-  <li>Recursive step: Show that if the statment is true for each of the elements used to construct new elements in the recursive step of the definition, the result holds for these new elements</li>
-</ol>
-
-<h2 id="rooted-trees">Rooted Trees</h2>
-
-<ul>
-  <li>vertex(정점)과 edge(간선)으로 구성된다</li>
-  <li>특히, root라고 불리는 vertex를 갖는 트리를 Rooted Tree라고 한다</li>
-</ul>
-
-<ol>
-  <li>Basis step: A single vertex r is a rooted tree</li>
-  <li>Recursive step: Suppose that T1,T2, . . . , Tn are disjoint rooted trees with roots r1,r2, . . . ,rn, respectively. Then the graph formed by starting with a root r, which is not in any of the rooted trees T1,T2, . . . , Tn, and adding an edge from r to each of the vertices r1,r2, . . . ,rn , is also a rooted tree.</li>
-</ol>
-
-<h2 id="extended-binary-trees">Extended Binary Trees</h2>
-
-<ol>
-  <li>Basis step: The empty set is an extended binary tree</li>
-  <li>Recursive step: If T1 and T2 are disjoint extended binary trees, there is an extended binary tree, denoted by T1 · T2, consisting of a root r together with edges connecting the root to each of the roots of the left subtree T1 and the right subtree T2, when these trees are nonempty.</li>
-</ol>
-
-<h2 id="full-binary-trees">Full binary Trees</h2>
-
-<ol>
-  <li>Basis step: There is a full binary tree consisting only of a single vertex r</li>
-  <li>If T1 and T2 are disjoint full binary trees, there is a
-full binary tree, denoted by T1 · T2, consisting of a root r together with edges connecting the root to each of the roots of the left subtree T1 and the right subtree T2.</li>
-</ol>
-
-<p>Tree에 대한 증명은 추가공부자료에서 더 공부해야겠다:)</p>]]></content><author><name>정해준</name></author><category term="이산수학" /><summary type="html"><![CDATA[Recursion]]></summary></entry><entry><title type="html">Ch13.induction</title><link href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/" rel="alternate" type="text/html" title="Ch13.induction" /><published>2022-11-05T00:00:00+09:00</published><updated>2022-11-05T00:00:00+09:00</updated><id>http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction</id><content type="html" xml:base="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/"><![CDATA[<p>Induction</p>
-
-<h1 id="mathematical-induction-수학적-귀납법">Mathematical induction (수학적 귀납법)</h1>
-
-<h2 id="수학적-귀납법">수학적 귀납법</h2>
-
-<ul>
-  <li>수학적 귀납법이란 수학의 증명 방법 중 하나로, 주로 어떠한 명제가 모든 자연수에 대하여 성립함을 보이려고 할 때, 이용된다</li>
-  <li>수학적 귀납법의 일반적인 형식은 5단계로 구분된다</li>
-</ul>
-
-<ol>
-  <li>수학적 귀납법을 사용할 것이라고 명시한다.</li>
-  <li>어떤 명제에 대하여 성립함을 보일 것인지 명시한다.</li>
-  <li>Base case에 대하여 성립함을 보인다.</li>
-  <li>Inductive case에 대하여 성립함을 보인다.</li>
-  <li>명제에 대하여 성립함을 증명했다는 것을 마무리한다.
-<br /><br /></li>
-</ol>
-
-<p>이해를 편하게 하기 위해서 n이 자연수일 때 명제가 성립함을 보이고 싶다고 하자  <br />
-그리고 자연수 n에 대한 명제를 P(n)이라고 하자 <br />
-Base case는 우리가 보이고자 하는 범위의 시작 부분으로 잡는다  <br />
-n이 자연수이기 때문에 0이 시작 부분이므로 P(0)를 Base case로 잡는다         <br />
-Inductive case는 임의의 자연수 k에 대하여 명제가 성립할 때, k+1에도 성립함을 보이는 과정이다  <br />
-즉, P(k) -&gt; P(k+1)을 증명함으로써 모든 자연수가 성립함을 보인다   <br />
-<br />
-위의 과정을 차근차근 해석하면,<br />
-Base case에 의해 P(0)는 true이다 <br />
-Inductive case에 의해 P(0)-&gt;P(1), 즉 P(1)는 true이다  <br />
-P(1)-&gt;P(2), 즉 P(2)는 true이다
-P(2)-&gt;P(3), 즉 P(3)는 true이다<br />
-계속 이어져 나간다면 모든 자연수에 대하여 명제가 성립함을 알 수 있다<br />
-<br /><br /></p>
-
-<h2 id="well-ordering-property-자연수-정렬성">Well-Ordering Property (자연수 정렬성)</h2>
-<ul>
-  <li>자연수 정렬성이란 음수가 아닌 정수들의 집합 중 공집합이 아닌 모든 집합은 최소 원소를 갖는다</li>
-  <li>즉, for every S ⊆ N such that S ̸= ∅, there exists m ∈ S such that
-m ⩽ n for all n ∈ S</li>
-</ul>
-
-<p><br /><br /></p>
-
-<h2 id="strong-induction-강한-수학적-귀납법">Strong Induction (강한 수학적 귀납법)</h2>
-<ul>
-  <li>수학적 귀납법이 쉽게 적용되지 않을 때 사용하는 방법이다</li>
-  <li>P(n)이 모든 자연수에 대하여 성립함을 보이고 싶다면, 두 가지 단계를 거친다</li>
-  <li>Basis step은 수학적 귀납법과 같다</li>
-  <li>Inductive step은 수학적 귀납법과 달리 P(1) ∧ P(2) ∧ · · · ∧ P(k) → P(k + 1)을 보이는 것이다</li>
-  <li>Inductive hypothesis (IH)로 P(m)이 성립함을 보인다 (1 &lt;= m &lt;= k)</li>
-  <li>이후 k+1이 m의 범위 안에 들어가는 수를 기반으로 함을 보여서 증명한다</li>
-</ul>
-
-<p><br /><br /></p>
-
-<p>Induction은 풀면 풀수록 새로운 것을 많이 배워간다 <br />
-데이터 구조시간에 트리 구조에 대해서 증명할 때 배웠었는데, 그 당시에는 이산 수학을 배우지 않아서 이해하기 어려웠었다. 이번 기회에 조금 더 정확하게 배워야겠다는 생각이 든다 :)</p>]]></content><author><name>정해준</name></author><category term="이산수학" /><summary type="html"><![CDATA[Induction]]></summary></entry><entry><title type="html">Maximum vs Maximal</title><link href="http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" rel="alternate" type="text/html" title="Maximum vs Maximal" /><published>2022-11-04T00:00:00+09:00</published><updated>2022-11-04T00:00:00+09:00</updated><id>http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&amp;maximum</id><content type="html" xml:base="http://localhost:4000/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&amp;maximum/"><![CDATA[<p>Maximum과 Maximal의 차이점</p>
-
-<h1 id="maximum-minimum">Maximum (Minimum)</h1>
-<ul>
-  <li>우리가 고려하는 것 중에서 가장 많은 것을 의미한다</li>
-</ul>
-
-<h1 id="maximal-minimal">MaxiMal (Minimal)</h1>
-<ul>
-  <li>Maximal이라는 단어의 앞에는 ‘inclusion-wise’가 생략되어 있다</li>
-  <li>즉, 포함 관계에 따라 최대인 것을 의미한다</li>
-</ul>
-
-<h1 id="property">Property</h1>
-<ul>
-  <li>Maximum인 것은 Maximal이기도 하다</li>
-  <li>하지만 Maximal인 것은 Maximum하다고 할 수 없다 (동일하지 않을 때가 존재한다)</li>
-  <li>정의에 의해 Maximum을 이루는 것들의 크기 (개수)는 모두 동일하다</li>
-  <li>하지만 Maximal의 경우 모두 동일한 것은 아니다</li>
-</ul>
-
-<h1 id="example">Example</h1>
-
-<ul>
-  <li>책상이 9개 있는 곳에 학생을 앉힌다고 하자. 이 때, 앉은 사람의 양 옆에는 사람이 앉지 못한다</li>
-  <li>0이 빈 자리, 1이 사람이 앉는 자리라고 하자
-<br /><br /></li>
-  <li>가장 많은 사람이 앉을 수 있는 경우, 학생 수는 5명이다</li>
-  <li>1 0 1 0 1 0 1 0 1 의 경우가 유일하고 가장 많은 학생이 앉을 수 있다</li>
-  <li>이러한 경우를 Maximum이라고 한다 
-<br /><br /></li>
-  <li>하지만 조건을 만족하면서 더 이상 학생이 앉을 수 없는 경우도 있다</li>
-  <li>0 1 0 0 1 0 0 1 0 의 경우는 더 이상 들어갈 수 없지만 조건을 모두 만족한다</li>
-  <li>이러한 경우를 Maximal이라고 한다</li>
-</ul>
-
-<p>즉, 주어진 조건 속에서 가장 큰 크기를 가지는 경우를 Maximum이라고 하고 주어진 조건을 모두 만족하면서 
-더 이상 넣을 수 없는 경우를 Maximal이라고 한다. 당연하지만 Maximum과 Maximal은 여러 경우가 나올 수 있다. 
-위의 예시에서는 Maximum이 한 가지 경우밖에 없는 경우이다. Minimum과 Minimal은 반대로 생각하면 된다.</p>
-
-<p>비슷하게 생겨서 헷갈릴 수 있지만 알아두면 좋을 것 같아서 따로 기록하게 되었다 :)</p>]]></content><author><name>정해준</name></author><category term="추가공부자료" /><summary type="html"><![CDATA[Maximum과 Maximal의 차이점]]></summary></entry><entry><title type="html">가장 긴 바이토닉 부분 수열</title><link href="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" rel="alternate" type="text/html" title="가장 긴 바이토닉 부분 수열" /><published>2022-11-03T00:00:00+09:00</published><updated>2022-11-03T00:00:00+09:00</updated><id>http://localhost:4000/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5%20%EA%B8%B4%20%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89%20%EB%B6%80%EB%B6%84%20%EC%88%98%EC%97%B4</id><content type="html" xml:base="http://localhost:4000/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/"><![CDATA[<p>가장 긴 바이토닉 부분 수열</p>
-
-<h3 id="백준-11054번-가장-긴-바이토닉-부분-수열-풀이">백준 11054번 가장 긴 바이토닉 부분 수열 풀이</h3>
-
-<p>처음에는 문제를 잘못 이해해서, 바이토닉 부분 수열이 끊기지 않고 연결되야 하는 것으로 생각했다. <br />
-문제의 밑에 힌트를 보고 꼭 연결되지 않아도 바이토닉 부분 수열을 만족하기만 하면 된다는 것을 알게 되었다.  <br />
-풀이 방법은,</p>
-
-<ol>
-  <li>dp를 모두 1로 초기화시킨다. (최소 길이가 1)</li>
-  <li>증가하는 부분 수열로 dp를 변경한다</li>
-  <li>변경된 dp에 감소하는 부분 수열을 추가한다</li>
-  <li>dp에 저장된 값들을 비교하여 가장 큰 값을 도출한다 ## 정답 ##</li>
-</ol>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;sstream&gt;
 
 using namespace std;
 
-int main (void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
+#define MAX 1000000
 
-    int i, j, N, val[1000], dp[1000];
-    cin &gt;&gt; N;
-
-    fill_n(dp, 1000, 1); /* 모든 부분의 최소 개수는 1개이므로 1로 초기화 */
-
-    for(i=0; i&lt;N; ++i) {
-        cin &gt;&gt; val[i]; /* 수를 받아준다 */
+/* n을 k진수로 표현한다 */
+string NtoK (int n, int k) {
+    string ans = "";
+    while (n&gt;0) {
+        ans += to_string(n%k);
+        n /= k;
     }
-
-    /* 증가하는 부분 수열 */
-    for(i=1; i&lt;N; ++i) {
-        for(j=i-1; j&gt;=0; --j) {
-            if (val[i] &gt; val[j]) dp[i] = max(dp[i], dp[j]+1);
-        }
-    }
-
-    /* 감소하는 부분 수열 */
-    for(i=1; i&lt;N; ++i) {
-        for(j=i-1; j&gt;=0; --j) {
-            if(val[i] &lt; val[j]) dp[i] = max(dp[i], dp[j]+1);
-        }
-    }
-
-    /* 최장 길이 구하기 */
-    int maximum = dp[0];
-    for(i=1; i&lt;N; ++i) {
-        maximum = max(maximum, dp[i]);
-    }
-
-    cout &lt;&lt; maximum;
-    return 0;
+    
+    reverse(ans.begin(), ans.end());
+    
+    return ans;
 }
-</code></pre></div></div>
 
-<p>Dynamic Programming 문제는 언제 풀어봐도 새롭다는 느낌을 받는 것 같다.    <br />
-DP와 Greedy에 관한 알고리즘을 배운 후로는 완전 탐색하기보다는 어떤 알고리즘이 더 효율적인지 생각하게 되는 것 같다.    <br />
-아직 많이 부족하지만 꾸준히 문제를 푸는 습관을 들일 것이다 :)</p>]]></content><author><name>정해준</name></author><category term="백준" /><summary type="html"><![CDATA[가장 긴 바이토닉 부분 수열]]></summary></entry><entry><title type="html">스도쿠</title><link href="http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku/" rel="alternate" type="text/html" title="스도쿠" /><published>2022-11-02T00:00:00+09:00</published><updated>2022-11-02T00:00:00+09:00</updated><id>http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku</id><content type="html" xml:base="http://localhost:4000/%EB%B0%B1%EC%A4%80/sudoku/"><![CDATA[<p>스도쿠</p>
-
-<h3 id="백준-2580번-스도쿠-풀이">백준 2580번 스도쿠 풀이</h3>
-
-<ol>
-  <li>입력으로 들어오는 값들을 저장한다. 이 때, 빈칸으로 오는 곳은 따로 저장한다</li>
-  <li>빈칸을 하나씩 채워가며 모두 채웠다면 출력을 하고 종료한다 (Base Case)</li>
-  <li>이 때, return을 하는 것이 아니라 exit를 해줘야 한다.</li>
-  <li>exit하지 않는다면, 다른 방법으로도 되는 경우 출력이 될 수 있기 때문이다</li>
-  <li>check 함수에서 빈 칸에 1~9에 해당하는 수가 들어갈 수 있는지 확인한다</li>
-  <li>만약 들어갈 수 있다면, 재귀를 통해 다음 빈 칸을 채우기 위해 들어간다</li>
-  <li>들어갈 수 없다면, 해당 빈 칸을 0으로 다시 초기화한 후 이전 빈 칸부터 다시 채운다</li>
-</ol>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
-#include &lt;utility&gt;
-#include &lt;vector&gt;
-
-using namespace std;
-
-int board[9][9];
-vector &lt;pair&lt;int,int&gt;&gt; blank;
-
-bool check (int first, int second) {
-    int i,j;
-    for(i=0; i&lt;9; ++i) { /* 가로 방향으로 넣으려는 값이 존재한다면 false */
-        if (i == second) continue; /* 좌표가 같은 것은 비교하지 않는다 */
-        if (board[first][i] == board[first][second]) return false;
+/* n이 소수인지 확인한다 */
+bool IsPrime (unsigned long long n) {
+    if (n == 0 || n == 1) return false;
+    
+    for (size_t i = 2; i*i &lt;= n; ++i) {
+        if (n % i == 0) return false;
     }
-
-    for(i=0; i&lt;9; ++i) { /* 세로 방향으로 넣으려는 값이 존재한다면 false */
-        if (i == first) continue; /* 좌표가 같은 것은 비교하지 않는다 */
-        if (board[i][second] == board[first][second]) return false;
-    }
-
-    /* 3*3 블럭 확인 */
-    int square_first = first / 3;
-    int square_second = second / 3;
-    for(i=3*square_first; i&lt;3*square_first+3; ++i) {
-        for(j=3*square_second; j&lt;3*square_second+3; ++j) {
-            if (i == first &amp;&amp; j == second) continue; /* 좌표가 같은 것은 비교 X */
-            if (board[i][j] == board[first][second]) return false;
-        }
-    }
-
     return true;
 }
 
-void sudoku (size_t fill) {
-    int i,j;
-    if (fill == blank.size()) { /* Base Case */ 
-        for(i=0; i&lt;9; ++i) {
-            for(j=0; j&lt;9; ++j) {
-                cout &lt;&lt; board[i][j] &lt;&lt; " ";
+int solution(int n, int k) {
+    int answer = 0;
+    
+    /* K진수로 바꾸기 */
+    string newNum = NtoK (n, k);
+    size_t len = newNum.size();
+    
+    for (size_t i = 0; i &lt; len; ++i) {    
+        for (size_t j = 1; j &lt;= len - i; ++j) {
+            string num = newNum.substr(i, j);
+            
+            /* P에는 각 자릿수에 0이 들어가면 안된다 =&gt; break를 통해 다음으로 넘어가게끔 했다 */
+            if (num[num.size()-1] == '0') break; 
+            unsigned long long cmpNum;
+            
+            stringstream ss;
+            ss &lt;&lt; num;
+            ss &gt;&gt; cmpNum;
+            
+            ss.str("");
+            ss.clear();
+            
+            if (IsPrime(cmpNum)) {
+                if (i &gt; 0 &amp;&amp; i+j &lt;= len &amp;&amp; newNum[i-1] == '0' &amp;&amp; newNum[i+j] == '0') /* condition 1 */
+                {
+                    answer++;
+                }
+                else if (i == 0 &amp;&amp; i+j &lt;= len &amp;&amp; newNum[i+j] == '0') /* condition 2 */
+                {
+                    answer++;
+                }
+                else if (i &gt; 0 &amp;&amp; i+j == len &amp;&amp; newNum[i-1] == '0') /* condition 3 */
+                {
+                    answer++;
+                }
+                else if (i == 0 &amp;&amp; i+j == len) /* condition 4 */
+                {
+                    answer++;
+                }
             }
-            cout &lt;&lt; "\n";
         }
-
-        exit(0);
-    }
-
-    int first = blank[fill].first; /* 빈 칸의 col 좌표 */
-    int second = blank[fill].second; /* 빈 칸의 row 좌표 */
-    for(i=1; i&lt;=9; ++i) {
-
-        board[first][second] = i; /* i값 저장 */
-        if (check(first, second)) { /* 들어갈 수 있다면 재귀 */
-            sudoku(fill+1);
-        }
-    }
-    /* 끝까지 들어가지 않는다면, 0으로 저장하고 다음으로 넘어간다 */
-    board[first][second] = 0; 
-    return;
-}
-
-int main () {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    int i,j,val;
-    for(i=0; i&lt;9; ++i) {
-        for(j=0; j&lt;9; ++j) {
-            cin &gt;&gt; val;
-            board[i][j] = val;
-
-            if (!val) blank.push_back(make_pair(i,j));
-        }
-    }
-
-    sudoku(0);
-    return 0;
+    }    
+    
+    return answer;
 }
 </code></pre></div></div>
 
-<p>백트래킹의 대표적인 문제로서 N-Queen과 함께 연습해보면 좋은 문제이다  <br />
-처음에는 라이브러리를 쓰지 않고 해결하려고 하였으나, vector와 utility를 사용하게 되었다   <br />
-다음에 풀 때는, 라이브러리를 쓰지 않고 해결하려고 해봐야겠다  <br />
-많은 문제를 풀어보면 더 감이 오지 않을까 :)</p>]]></content><author><name>정해준</name></author><category term="백준" /><summary type="html"><![CDATA[스도쿠]]></summary></entry><entry><title type="html">최대공약수 GCD와 최소공배수 LCM</title><link href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/" rel="alternate" type="text/html" title="최대공약수 GCD와 최소공배수 LCM" /><published>2022-11-01T00:00:00+09:00</published><updated>2022-11-01T00:00:00+09:00</updated><id>http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor</id><content type="html" xml:base="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/GCD,LCD,CommonDivisor/"><![CDATA[<p>최대공약수와 최소공배수를 효율적으로 구하는 알고리즘</p>
-
-<h1 id="gcd-greatest-common-divisor">GCD (Greatest Common Divisor)</h1>
+<h3 id="다른-사람-풀이-보고-다시-푼-코드">다른 사람 풀이 보고 다시 푼 코드</h3>
 
 <ul>
-  <li>최대공약수는 두 수의 공약수 중 가장 큰 공약수를 말한다</li>
-  <li>첫 번째 방법은 1부터 두 수 중 작은 수까지 두 수를 모두 나누어봤을 때, 두 나머지가 0이 되는 수 중 가장 큰 수를 찾는 것이다</li>
-  <li>첫 번째 방법은 1부터 n(작은 수)까지 모두 한 번씩 거쳐야 하기 때문에 O(n)의 시간 복잡도를 가진다</li>
-  <li>조금 더 효율적인 방법으로 유클리드 호제법 (Euclidean Algorithm)을 사용할 수 있다</li>
-  <li>유클리드 호제법을 사용하면 O(logn)의 시간 복잡도를 가진다</li>
+  <li>condition을 4개로 나누지 않아도 해결할 수 있어서, index를 고려할 필요가 없었다</li>
+  <li>k진수로 바꾼 후, ‘0’을 마지막에 추가함으로써 마지막까지 확인할 수 있도록 하였다</li>
+  <li>고려해야하는 사항을 많이 줄여줌으로써 문제를 더 간단하게 볼 수 있었다</li>
 </ul>
 
-<h3 id="유클리드-호제법">유클리드 호제법</h3>
-<p>2개의 자연수 a,b에 대해서 a를 b로 나눈 나머지를 r이라 하면 (단, a&gt;b), <br />
-a와 b의 최대공약수는 b와 r의 최대공약수와 같다</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* C++ GCD function */
-int GCD (int a, int b) {
-    if (b == 0) return a;
-    else return GCD(b, a%b);
-}
-</code></pre></div></div>
+using namespace std;
 
-<h1 id="lcm-least-common-multiple">LCM (Least Common Multiple)</h1>
-
-<ul>
-  <li>최소공배수는 두 수의 공배수 중 가장 작은 공배수를 말한다</li>
-  <li>첫 번째 방법으로는 두 수 중 큰 값으로부터 1씩 더해가면서 두 수를 모두 나누어봤을 때, 두 나머지가 0이 되는 수 중 가장 작은 수를 찾는다</li>
-  <li>어떤 수가 최소공배수가 될 지 모르고 엄청 큰 수가 최소공배수가 될 수 있기 때문에 효율적인 방법이 필요하다</li>
-  <li>그 효율적인 방법으로 사용할 수 있는 것이 GCD이다</li>
-  <li>두 수 a,b의 최소공배수는 (a * b) / gcd로 구할 수 있다</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int LCM (int a, int b) {
-    return (a*b) / GCD(a,b);
-} 
-</code></pre></div></div>
-
-<h1 id="모든-약수를-구하고-싶다면-">모든 약수를 구하고 싶다면 ?</h1>
-
-<ul>
-  <li>어떤 수 N 의 모든 약수들을 구하고 싶을 때 사용할 수 있는 알고리즘이 있다</li>
-  <li>첫 번째로는 N로부터 1까지 나머지가 0이 되는 수를 찾는 방법이다</li>
-  <li>이 방법은 O(n)의 시간복잡도를 가진다</li>
-  <li>더 효율적인 방법은 N의 제곱근까지 수를 확인하여 구하는 방법이다</li>
-  <li>제곱근까지 구하는 이유는 그 이후의 수는 중복되기 때문이다</li>
-  <li>예를 들면, 100의 제곱근은 10이고 공약수는 1,2,5,10,20,50,100인데 제곱근을 기준으로 왼쪽과 오른쪽의 곱이 대칭되는 것을 볼 수 있다</li>
-  <li>1 * 100 = 2 * 50 = 5 * 10 = 10 * 10으로 말이다</li>
-  <li>그렇기 때문에 제곱근까지 약수를 찾은 후, N에서 약수(제곱근보다 작은 수)를 나눈 수 또한 약수(제곱근보다 큰 수)가 된다</li>
-</ul>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/* 최대공약수의 약수들을 구한다고 생각해보자 */
-for (int i = 1; i*i &lt;= GCD; i++) {
-    if (GCD % i == 0) {
-        /* 나머지가 0인 수 =&gt; 약수 */
-        divisor.push_back(i); 
-        /* i가 약수이므로 i * (GCD/i) = GCD를 만족한다. 즉, (GCD/i)도 약수이다 */
-        divisor.push_back(GCD/i); 
+/* n을 k진수로 표현한다 */
+string NtoK (int n, int k) {
+    string ans = "";
+    while (n&gt;0) {
+        ans += to_string(n%k);
+        n /= k;
     }
+    
+    reverse(ans.begin(), ans.end());
+    ans += '0';
+    
+    return ans;
+}
+
+/* n이 소수인지 확인한다 */
+bool IsPrime (unsigned long long n) {
+    if (n == 0 || n == 1) return false;
+    
+    for (size_t i = 2; i*i &lt;= n; ++i) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int solution(int n, int k) {
+    int answer = 0;
+    
+    /* K진수로 바꾸기 */
+    string newNum = NtoK (n, k);
+    
+    unsigned long long hold = 0;
+    for (size_t i=0; i&lt;newNum.size(); ++i) {
+        if (newNum[i] == '0') {
+            if (IsPrime (hold)) answer++;
+            hold = 0;
+            continue;
+        }
+
+        hold = hold * 10 + (newNum[i] - '0');
+    }
+    
+    return answer;
 }
 </code></pre></div></div>
 
-<p>백준 2981 검문 문제에서 이 알고리즘들을 사용해볼 수 있다  <br />
-GCD의 경우 자주 사용될 수 있는 알고리즘이므로 외워두는 것이 좋을 것 같다  <br />
-아직 배울게 많은 걸 다시 한 번 느낀다:)</p>]]></content><author><name>정해준</name></author><category term="알고리즘" /><summary type="html"><![CDATA[최대공약수와 최소공배수를 효율적으로 구하는 알고리즘]]></summary></entry><entry><title type="html">하노이 탑</title><link href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/" rel="alternate" type="text/html" title="하노이 탑" /><published>2022-10-31T00:00:00+09:00</published><updated>2022-10-31T00:00:00+09:00</updated><id>http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi</id><content type="html" xml:base="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/hanoi/"><![CDATA[<p>하노이 탑 알고리즘</p>
+<p>소수 확인 알고리즘과 k진수로 바꾸는 알고리즘이 이렇게 쉽게 표현되는 것을 이번에 알았다.   <br />
+특히, k진수로 표현할 때 항상 int형에서 for문을 돌려서 했었는데, string으로 할 경우 이렇게 편하게 구할 수 있다는 것이 놀라웠다.    <br />
+stringstream을 사용하는 법에 대해서 조금 더 이해가 필요하다고 느꼈다. <br />
+아직 level2를 공부하고 있지만 내년에는 level2를 다 풀고 level3으로 넘어갈 예정이다 :)     <br />
+그리고, 다른 사람들의 풀이를 보면 항상 놀라운 풀이들이 많아서 재밌는 것 같다 👍</p>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[k진수에서 소수 개수 구하기]]></summary></entry><entry><title type="html">주차 요금 계산</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%A3%BC%EC%B0%A8-%EC%9A%94%EA%B8%88-%EA%B3%84%EC%82%B0/" rel="alternate" type="text/html" title="주차 요금 계산" /><published>2022-11-26T00:00:00+09:00</published><updated>2022-11-26T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%A3%BC%EC%B0%A8%20%EC%9A%94%EA%B8%88%20%EA%B3%84%EC%82%B0</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%A3%BC%EC%B0%A8-%EC%9A%94%EA%B8%88-%EA%B3%84%EC%82%B0/"><![CDATA[<p>주차 요금 계산</p>
 
-<h2 id="하노이-탑">하노이 탑</h2>
+<h3 id="프로그래머스-주차-요금-계산">프로그래머스 주차 요금 계산</h3>
 
 <ul>
-  <li>재귀함수를 이해할 수 있는 좋은 문제 중 하나이다</li>
-  <li>재귀를 사용하기 위해서는 Base case와 Inductive case를 잘 나눠야 한다</li>
-  <li>하노이 탑의 경우, N개의 블럭을 옮길 때 N이 1인 경우가 Base case에 해당한다</li>
-  <li>하노이 탑의 기본적인 틀은 1, 2, 3으로 움직일 수 있다고 하고, 1에 있는 N개의 블럭을 3으로 옮기고 싶다고 할 때,</li>
+  <li>어떻게 풀어야 할 지에 대해서는 생각하는데 오래 걸리지 않았지만, 구현하는데 꽤나 애썼던 문제</li>
+  <li>현재 푼 코드는 살짝 읽기 불편하고 더럽게 풀었다고 느껴져서 내일 깔끔하게 다시 풀어서 깔끔 풀이로 밑에 게시할 예정이다</li>
+</ul>
+
+<h3 id="코드-설명">코드 설명</h3>
+
+<ul>
+  <li>STL map을 사용한 이유는, 같은 차의번호가 한 번씩 나오기 때문에 find가 빠른 map이 유용하지 않을까? 라고 생각했다</li>
+  <li>또한, key를 기준으로 오름차순으로 저장되기 때문에 따로 sort를 할 필요가 없다는 장점이 있다</li>
+  <li>조심해야할 점은 내역이 “IN”과 “OUT”이라는 것이다 (“in”과 “out”으로 풀다가 시간날렸음🤣)</li>
+  <li>문제를 푼 알고리즘은 아래의 순서로 풀었다</li>
 </ul>
 
 <ol>
-  <li>N-1개의 블럭을 2에 옮겨 놓는다</li>
-  <li>N을 3에 옮긴다</li>
-  <li>2에 옮겨 놓은 N-1개의 블럭을 3에 옮긴다</li>
+  <li>records 에서 데이터를 하나씩 확인한다. 이 때, 시간과 차의번호 그리고 내역을 각각 time, car_num, info의 변수에 담는다.</li>
+  <li>내역이 “IN”이라면, 차의 정보를 저장하는 CarTime에 차의번호와 시간을 저장한다</li>
+  <li>내역이 “OUT”이라면, 들어온 시간과 나가는 시간의 차를 계산하여 차가 주차장에 존재했던 모든 시간을 저장하는 TotalTime에 저장한다</li>
+  <li>이 때, TotalTime에 차의번호가 처음 저장된다면 삽입하고 이미 저장된 차의번호라면 주차장에 있던 시간만 추가한다</li>
+  <li>records를 모두 확인한 후, CarTime에 아직 데이터가 남아있다면 이 정보들을 “IN”만 되고 “OUT”이 되지 않은 상태이므로 “23:59”에 나가는 것으로 기록한다</li>
+  <li>TotalTime에 저장된 주자창에 머문 시간을 바탕으로 요금을 계산해서 정답에 추가한다</li>
 </ol>
 
-<h2 id="밑의-코드는-백준-11729-하노이-탑-이동-순서-코드이다">밑의 코드는 백준 11729 하노이 탑 이동 순서 코드이다</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
+#include &lt;cmath&gt;
+
+using namespace std;
+int CalTimes (string in_time, string out_time) {
+    int in_hour  = stoi(in_time.substr(0, 2));
+    int out_hour = stoi(out_time.substr(0, 2));
+    int in_min  = stoi(in_time.substr(3, 2));
+    int out_min = stoi(out_time.substr(3, 2));
+    
+    int time = (out_hour - in_hour) * 60 + (out_min - in_min);    
+    return time;
+}
+
+int Calfee (vector &lt;int&gt; fees, int times) {
+    
+    int fee = fees[1];
+    if ((times - fees[0]) &lt;= 0) return fee;
+    
+    if ((times - fees[0]) % fees[2] == 0) fee += ((times - fees[0]) / fees[2]) * fees[3];
+    else fee += ((times - fees[0]) / fees[2] + 1) * fees[3];
+    return fee;
+}
+
+vector&lt;int&gt; solution(vector&lt;int&gt; fees, vector&lt;string&gt; records) {
+    vector&lt;int&gt; answer;
+    
+    map &lt;string, int&gt; TotalTime;
+    map &lt;string, string&gt; CarTime;
+    
+    for (auto data : records) {
+        string time = data.substr(0, 5);
+        string car_num = data.substr(6, 4);
+        string info = data.substr(11);
+        
+        if (info == "IN") CarTime.insert({car_num, time});
+        else 
+        {
+            auto car = CarTime.find(car_num);
+            string in_time  = car-&gt;second;
+            string out_time = time;
+            int times = CalTimes (in_time, out_time);
+
+            auto data = TotalTime.find(car_num);
+            if (data == TotalTime.end()) TotalTime.insert({car_num, times});
+            else data-&gt;second += times;
+            
+            CarTime.erase(car_num);
+        }
+    }
+    
+    while (!CarTime.empty()) {
+        string car_num = CarTime.begin()-&gt;first;
+        string in_time = CarTime.begin()-&gt;second;
+        string out_time = "23:59";
+        
+        int times = CalTimes (in_time, out_time);
+        
+        auto data = TotalTime.find(car_num);
+        if (data == TotalTime.end()) TotalTime.insert({car_num, times});
+        else data-&gt;second += times;
+        
+        CarTime.erase(car_num);
+    }
+    
+    for (auto data : TotalTime) {
+        int fee = Calfee (fees, data.second);
+        answer.push_back(fee);
+    }
+    
+    return answer;
+}
+</code></pre></div></div>
+
+<h3 id="조금-더-깔끔하게-정리한-정답-코드">조금 더 깔끔하게 정리한 정답 코드</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;map&gt;
+#include &lt;cmath&gt;
+#include &lt;sstream&gt;
+
+using namespace std;
+
+/* 들어오는 시간과 나가는 시간을 매개변수로 받아서 분 단위로 얼마만큼의 시간을 보냈는지 return 하는 함수 */
+int CalTimes (string in_time, string out_time) {
+    int out = stoi(out_time.substr(0,2)) * 60 + stoi(out_time.substr(3,2));
+    int in  = stoi(in_time.substr(0,2)) * 60 + stoi(in_time.substr(3,2));
+    return out - in;
+}
+
+/* 어떤 차의 주차장에 머문 총 시간을 매개변수로 받아서 얼마만큼의 요금을 내야 하는지 return 하는 함수 */
+int Calfees (vector &lt;int&gt; fees, int time) {
+    int fee = fees[1];
+    if (time &lt;= fees[0]) return fee;
+
+    if ((time - fees[0]) % fees[2] == 0) fee += ((time - fees[0]) / fees[2]) * fees[3];
+    else fee += ((time - fees[0]) / fees[2] + 1) * fees[3];
+    return fee;
+}
+
+vector&lt;int&gt; solution(vector&lt;int&gt; fees, vector&lt;string&gt; records) {
+    vector&lt;int&gt; answer;
+    
+    map &lt;string, int&gt; TotalTime; /* 주차장에 머문 총 시간을 저장하는 map */
+    map &lt;string, string&gt; CarTime; /* 주차장에 입실할 때 시간을 저장하는 map */
+    
+    /* 입실, 퇴실을 바탕으로 주차장에 들어온 시간 기록 */
+    for (auto record : records) {
+        stringstream ss;
+        ss.str(record);
+
+        string Time, CarNum, State;
+        ss &gt;&gt; Time &gt;&gt; CarNum &gt;&gt; State;
+        
+        if (State == "IN") /* 입실할 때 */
+        {
+            CarTime.insert({CarNum, Time});
+        }
+
+        if (State == "OUT") /* 퇴실할 때 */
+        {
+            auto Car = CarTime.find(CarNum); /* 차의번호로 차를 찾는다 */
+            string in_time = Car-&gt;second; /* 해당 차가 입실한 시간 */
+            string out_time = Time; /* 해당 차가 퇴실하는 시간 */
+            int time = CalTimes (in_time, out_time);
+
+            auto Total = TotalTime.find(CarNum);
+            if (Total == TotalTime.end()) TotalTime.insert({CarNum, time}); /* 차가 주차장에 처음 왔다면, */
+            else Total-&gt;second += time; /* 차가 주차장에 처음이 아니라면, */
+
+            CarTime.erase(CarNum); /* 중요한점 → 퇴실할 때 차를 없애지 않으면 이후 입실해도 map의 특성상 차의 번호가 겹치기 때문에 삽입이 되지 않는다 */ 
+        }
+    }
+
+    /* 입실은 있으나 퇴실이 없는 경우, "23:59"에 퇴실하는 것으로 판단하고 주차장에 머문 시간 추가 */
+    for (auto Car : CarTime) {
+        string in_time = Car.second;
+        string out_time = "23:59";
+        int time = CalTimes (in_time, out_time);
+
+        auto Total = TotalTime.find(Car.first);
+        if (Total == TotalTime.end()) TotalTime.insert({Car.first, time});
+        else Total-&gt;second += time;
+    }
+    
+    /* 최종으로 구해진 주차장에 머문 시간을 토대로 요금 계산 → 오름차순으로 구해야함! */
+    /* map의 특성상 차의번호가 오름차순으로 정리되어있기 때문에, 따로 정렬을 할 필요는 없음 */
+    /* 만약 map이 아닌 다른 방법을 사용했다면 차의번호를 오름차순으로 정리할 필요가 있음 */
+    for (auto Total : TotalTime) {
+        int fee = Calfees (fees, Total.second);
+        answer.push_back(fee);
+    }
+    
+    return answer;
+}
+</code></pre></div></div>
+
+<p>구현이 조금 더 깔끔하게 짤 수 있을 것 같아서 내일 다른 사람들이 푼 풀이도 보면서 다시 짜보려 한다.  ✓   <br />
+최근 들어 중요하다고 생각드는 것이 다른 사람들의 코드를 많이 보면서 좋은 코드를 기억하려고 노력할 필요가 있다는 것이다.   <br />
+PS를 혼자 하다보니 다른 사람들의 코드를 보지 않고 해결하려는 습관이 있는데, 해결한 후에는 다른 사람들의 코드를 통해 성장해야할 것 같다. <br />
+PS를 같이 공부할 사람이 있으면 좋겠지만 다들 바쁘다보니 선뜻 같이 할 사람을 찾기가 어려운 것 같다 :(  <br />
+그래도 컴공에 전과를 많은 시간이 지나지 않았지만 처음보다 많이 성장하고 있는 것을 눈으로 볼 수 있는 것이 PS의 장점인 것 같다 :)    <br />
+마치 점수를 쌓아가는 과정이 게임 속의 캐릭터를 키우는 과정 같달까… 눈으로 보이니까!     <br />
+앞으로도 꾸준히 PS를 하는 습관을 들이자!</p>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[주차 요금 계산]]></summary></entry><entry><title type="html">빛의 경로 사이클</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%B9%9B%EC%9D%98-%EA%B2%BD%EB%A1%9C-%EC%82%AC%EC%9D%B4%ED%81%B4/" rel="alternate" type="text/html" title="빛의 경로 사이클" /><published>2022-11-25T00:00:00+09:00</published><updated>2022-11-25T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%B9%9B%EC%9D%98%20%EA%B2%BD%EB%A1%9C%20%EC%82%AC%EC%9D%B4%ED%81%B4</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%B9%9B%EC%9D%98-%EA%B2%BD%EB%A1%9C-%EC%82%AC%EC%9D%B4%ED%81%B4/"><![CDATA[<p>빛의 경로 사이클</p>
+
+<h3 id="프로그래머스-빛의-경로-사이클">프로그래머스 빛의 경로 사이클</h3>
+
+<ul>
+  <li>현재까지 푼 프로그래머스 문제 중 가장 난이도가 높았고 시간도 오래 걸렸던 문제..</li>
+  <li>문제를 이해하는게 너무 힘들었던 문제였다</li>
+</ul>
+
+<h3 id="문제가-어려웠던-이유">문제가 어려웠던 이유</h3>
+
 <ol>
-  <li>1번에 해당하는 부분은 hanoi(N-1, start, via, to)</li>
-  <li>2번에 해당하는 부분은 move(N, start, to)</li>
-  <li>3번에 해당하는 부분은 hanoi(N-1, via, to, start)</li>
+  <li>사이클의 종료 조건을 정확하게 어떻게 설정해야할지를 몰랐다</li>
+  <li>이미 지나갔던 사이클을 반복하는 조건에 대해 명확하게 규정짓지 못했다</li>
+  <li>들어오는 방향과 나오는 방향을 설정할 때 상하좌우로만 표현을 하려고 했더니 들어오는 방향에 따라 나가는 방향이 달라져서 상하좌우로 표현하기가 힘들었다</li>
 </ol>
 
-<h1 id="code">Code</h1>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
-#include &lt;utility&gt;
+<h3 id="문제를-푸는-방법">문제를 푸는 방법</h3>
+
+<ul>
+  <li>시작 조건 : 위치와 방향이 이미 지나갔던 상태면 안된다</li>
+  <li>종료 조건 : 시작했던 위치와 방향이 같다면 종료한다</li>
+  <li>DFS를 통해 지나지 않은 경로를 계속 추적한다</li>
+  <li>DFS를 사용하는 이유 : input으로 들어온 곳에서 output를 내는 형식의 꼬리물기가 이어지기 때문이다.</li>
+</ul>
+
+<h3 id="코드-설명">코드 설명</h3>
+
+<ul>
+  <li>copy_grid로 grid를 복사 ⇢ grid를 매번 매개변수로 넣을 경우보다 비용↓</li>
+  <li>board[501][501][4] ⇢ 격자마다 4방향에서 들어올 수 있다</li>
+  <li>Row, Col ⇢ 격자의 Row,Col 길이를 저장 ⇢ 격자를 넘어갈 때 사용</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;string&gt; copy_grid;
+bool board[501][501][4];
+int Row, Col;
+</code></pre></div></div>
+
+<ul>
+  <li>dx,dy는 이동방향에 따라 index를 바꿔주는 역할</li>
+  <li>left,right는 들어오는 방향에 따라 나가는 방향으로 변환시켜주는 역할</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>const int dx[] = {0, 0, 1, -1};
+const int dy[] = {1, -1, 0, 0}; 
+const int left[] = {3, 2, 0, 1};
+const int right[] = {2, 3, 1, 0};
+</code></pre></div></div>
+
+<ul>
+  <li>sr, sc, sd ⇢ start_row, start_col, start_dir</li>
+  <li>r, c, in ⇢ row, col, 들어오는 방향</li>
+  <li>out ⇢ 나가는 방향</li>
+  <li>즉, 들어오는 방향에 따라 나가는 방향을 정해준 후 dfs에 넣으면 다음 위치에서는 들어오는 방향으로 받게 된다</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int dfs (int sr, int sc, int sd, int r, int c, int in, int len) {
+    if (sc == c &amp;&amp; sr == r &amp;&amp; sd == in &amp;&amp; len != 0) {
+        return len;
+    }
+    
+    board[r][c][in] = true;
+    
+    int out;
+    
+    if (copy_grid[r][c] == 'L') {
+        out = left[in];
+    }
+    else if (copy_grid[r][c] == 'R') {
+        out = right[in];
+    }
+    else {
+        out = in;
+    }
+    
+    int nc = c + dx[out];
+    int nr = r + dy[out];
+    
+    if (nc &gt;= Col) nc = 0;
+    if (nr &gt;= Row) nr = 0;
+    if (nc &lt; 0) nc = Col - 1;
+    if (nr &lt; 0) nr = Row - 1;
+    
+    return dfs (sr, sc, sd, nr, nc, out, len+1);
+}
+</code></pre></div></div>
+
+<h3 id="전체-코드">전체 코드</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;string&gt;
+#include &lt;cstring&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+using namespace std;
+
+vector&lt;string&gt; copy_grid;
+bool board[501][501][4];
+int Row, Col;
+
+const int dx[] = {0, 0, 1, -1};
+const int dy[] = {1, -1, 0, 0}; 
+const int left[] = {3, 2, 0, 1};
+const int right[] = {2, 3, 1, 0};
+
+int dfs (int sr, int sc, int sd, int r, int c, int in, int len) {
+    if (sc == c &amp;&amp; sr == r &amp;&amp; sd == in &amp;&amp; len != 0) {
+        return len;
+    }
+    
+    board[r][c][in] = true;
+    
+    int out;
+    
+    if (copy_grid[r][c] == 'L') {
+        out = left[in];
+    }
+    else if (copy_grid[r][c] == 'R') {
+        out = right[in];
+    }
+    else {
+        out = in;
+    }
+    
+    int nc = c + dx[out];
+    int nr = r + dy[out];
+    
+    if (nc &gt;= Col) nc = 0;
+    if (nr &gt;= Row) nr = 0;
+    if (nc &lt; 0) nc = Col - 1;
+    if (nr &lt; 0) nr = Row - 1;
+    
+    return dfs (sr, sc, sd, nr, nc, out, len+1);
+}
+
+bool cmp (int &amp;a, int &amp;b) {
+    return a &lt; b;
+}
+
+vector&lt;int&gt; solution(vector&lt;string&gt; grid) {
+    vector&lt;int&gt; answer;
+    
+    copy_grid = grid;
+    memset(board, 0, sizeof(board));
+    Row = grid.size();
+    Col = grid[0].size();
+    
+    int i,j,k;
+    for (i=0; i&lt;Row; ++i) {
+        for (j=0; j&lt;Col; ++j) {
+            for (k=0; k&lt;4; ++k) {
+                if (!board[i][j][k]) {
+                    int res = dfs (i,j,k, i,j,k, 0);
+                    answer.push_back(res);
+                }
+            }
+        }
+    }
+    
+    sort (answer.begin(), answer.end(), cmp);
+    return answer;
+}
+</code></pre></div></div>
+
+<p>코드가 엄청 길지 않지만, 고려해야하는 것이 상당히 많았던 문제였다.    <br />
+혼자 해결하려 했지만 도저히 풀리지가 않아서 인터넷에 검색해서 여러 사람들의 코드를 보고 다시 풀어서 해결한 문제였다.  <br />
+상하좌우로만 표현해야한다는 생각때문에 풀 수가 없었는데, 격자문제에서 이런식으로 문제를 해결할 수 있구나를 생각하게 해준 문제이다.    <br />
+확실히 알고리즘 문제에서 완전 탐색을 깊이 공부하는 것이 중요한 것을 깨달았다. <br />
+어떤 문제든, 완전 탐색을 기반으로 시간을 줄일 수 있는 다른 기법들을 사용하기 때문에 완전 탐색을 깊이 공부할 필요가 있어보인다.    <br />
+JAVA stream를 사용하면 for문을 많이 줄일 수 있다고 들었는데, 방학 때 JAVA를 공부하면서 간결한 코드를 작성할 수 있도록 해야겠다 !  <br />
+오늘의 코딩 끝 :)</p>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[빛의 경로 사이클]]></summary></entry><entry><title type="html">양궁 대회</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%96%91%EA%B6%81-%EB%8C%80%ED%9A%8C/" rel="alternate" type="text/html" title="양궁 대회" /><published>2022-11-24T00:00:00+09:00</published><updated>2022-11-24T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%96%91%EA%B6%81%20%EB%8C%80%ED%9A%8C</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%96%91%EA%B6%81-%EB%8C%80%ED%9A%8C/"><![CDATA[<p>양궁 대회</p>
+
+<h3 id="프로그래머스-양궁-대회">프로그래머스 양궁 대회</h3>
+
+<ul>
+  <li>같은 점수를 같은 수만큼 맞춰도 어피치가 점수를 가져간다 -&gt; 라이언이 점수를 더 많이 얻기 위해서는 어피치가 쏜 횟수 + 1개만큼 쏴야한다</li>
+  <li>최종 점수가 같을 경우 어피치가 우승한다</li>
+  <li>만약 라이언이 우승할 수 없는 경우 -1만 들어있는 vector를 return</li>
+  <li>라이언이 가장 큰 점수 차이로 우승할 수 있는 경우가 여러 가지일 경우, 가장 낮은 점수를 더 많이 맞힌 경우를 return</li>
+  <li>이 때, 조심해야할 점은 라이언이 점수를 가져가면 어피치는 점수를 잃는다는 것이다.</li>
+  <li>또한, 우승의 경우의 수가 여러 가지일 경우, ‘가장 낮은 점수’를 더 많이 맞힌 경우가 정답이 된다는 것을 유의하자!</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 라이언 vs 어피치
+// 한 선수가 연속 우승보다 다양한 선수들이 양궁대회에서 우승하기를 원한다
+// 전 대회 우승자 라이언에게 불리하게 =&gt; 
+// 1. 어피치가 다 쏘고 라이언이 쏜다
+// 2. 같은 점수를 같은 발 수 맞춰도 어피치가 점수를 가져간다
+// 3. 최종 점수가 같을 경우 어피치가 우승자가 된다 
+// 현재 상황 -&gt; 어피치가 다 쏜 후, 라이언이 쏠 차례
+// n 발의 화살을 어떤 과녁 점수에 맞혀야 하는지 구하려 한다
+// 어떤 과녁 점수에 맞혀야 하는지를 10점부터 0점까지 순서대로 정수 배열에 담아 retrun
+// 만약 라이언이 우승할 수 없는 경우 -1 return 
+// 라이언이 가장 큰 점수 차이로 우승할 수 있는 방법이 여러 가지 일 경우, 가장 낮은 점수를 더 많이 맞힌 경우를 return
+#include &lt;string&gt;
 #include &lt;vector&gt;
 
 using namespace std;
 
-/* vector를 이용하여 동적 할당을 해주었고, pair를 이용하여 현 위치와 이동할 위치를 저장하였다 */
-vector&lt;pair&lt;int,int&gt;&gt; v; 
-
-void move (int N, int start, int to) {
-    /* 이동할 때 v에 저장함으로써 하노이 탑 이동 순서를 추적할 수 있다 */
-    v.push_back(make_pair(start, to)); 
+vector&lt;int&gt; answer; /* 정답을 넣을 vector */
+int maxdiff; /* 라이언과 어피치의 차이의 최댓값 */
+bool cmp(vector&lt;int&gt; ryan) { /* 차이가 똑같을 때, 더 낮은 점수가 많은 것이 정답이 되어야 한다는 조건 */
+    for (int i=10; i&gt;=0; --i) {
+        if (ryan[i] &gt; answer[i]) return true;
+        else if (ryan[i] &lt; answer[i]) return false;
+        else continue;
+    }
 }
 
-/* N은 블럭의 수, start는 현재 위치, to는 목적지, via는 목적지에 가기 위해 경유하는 위치이다 */
-void hanoi (int N, int start, int to, int via) { 
-    if (N == 1) { /* Base case */
-        move (1, start, to);
+void CheckAnswer (vector&lt;int&gt; ryan, vector&lt;int&gt; apeach) { /* Answer인지 check */
+    int ryanScore = 0;
+    int apeachScore = 0;
+    
+    for (int i=0; i&lt;=10; ++i) {
+        if (ryan[i] &gt; apeach[i]) ryanScore += 10 - i;
+        else if (apeach[i] &gt; 0) apeachScore += 10 - i;
+    }
+    
+    int diff = ryanScore - apeachScore;
+    if (diff &gt; 0 &amp;&amp; maxdiff &lt;= diff) {
+        if (maxdiff == diff &amp;&amp; !cmp(ryan)) return;
+        maxdiff = diff;
+        answer = ryan;
+    }
+}
+
+void dfs (int idx, int arrow, vector&lt;int&gt; ryan, vector&lt;int&gt; apeach) {
+    if (idx == 11 || arrow == 0) { /* 0점까지 모두 돌았거나, 화살을 모두 쐈을 경우 종료 */
+        ryan[10] = arrow; /* 0점까지 모두 돌았는데 남은 화살들은 모두 마지막에 들어감. 화살을 모두 쏘면 arrow가 0임. */
+        CheckAnswer (ryan, apeach);
+        ryan[10] = 0; /* 전 상태로 돌려주기 (백트래킹) */
         return;
     }
-
-    /* Inductive case */
-    hanoi(N-1, start, via, to);
-    move (N, start, to);
-    hanoi(N-1, via, to, start);
-}
-
-int main (void) {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL); cout.tie(NULL);
-
-    int N;
-    cin &gt;&gt; N;
-
-    /* 1은 시작 지점, 3은 목적지, 2는 경유하는 지점이다 */
-    hanoi (N, 1, 3, 2); 
-
-    cout &lt;&lt; v.size() &lt;&lt; "\n"; /* 하노이 탑 이동 횟수 */
-    for (int i = 0; i &lt; v.size(); ++i) {
-        cout &lt;&lt; v[i].first &lt;&lt; " " &lt;&lt; v[i].second &lt;&lt; "\n"; /* 하노이 탑 이동 순서 추적 */
+    
+    if (arrow - apeach[idx] &gt; 0) {
+        ryan[idx] = apeach[idx] + 1;
+        dfs(idx+1, arrow-(apeach[idx]+1), ryan, apeach);
+        ryan[idx] = 0; /* 백트래킹 */
     }
-
-    return 0;
+    
+    dfs(idx+1, arrow, ryan, apeach); /* 0발 쏘고 넘어가는 경우 */
 }
-</code></pre></div></div>]]></content><author><name>정해준</name></author><category term="알고리즘" /><summary type="html"><![CDATA[하노이 탑 알고리즘]]></summary></entry><entry><title type="html">Merge Sort</title><link href="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort/" rel="alternate" type="text/html" title="Merge Sort" /><published>2022-10-30T00:00:00+09:00</published><updated>2022-10-30T00:00:00+09:00</updated><id>http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort</id><content type="html" xml:base="http://localhost:4000/%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/mergesort/"><![CDATA[<p>Merge Sort 알고리즘</p>
+
+vector&lt;int&gt; solution(int n, vector&lt;int&gt; info) {
+    maxdiff = 0;
+    vector&lt;int&gt; ryan(11, 0); /* 라이언은 모두 0점으로 초기화 */
+    vector&lt;int&gt; apeach = info; /* 이름으로 편하게 표현하기 위해서 apeach라 표현 */
+    dfs (0, n, ryan, apeach);
+    
+    if (answer.empty()) { /* 만약, answer가 하나도 없었다면 -1로 return */
+        answer.push_back(-1);
+    }
+    return answer;
+}
+</code></pre></div></div>
+
+<p>코딩 테스트 문제는 완전 탐색이 많이 나오는 것 같아서 완전 탐색 문제를 많이 풀어봐야곘다고 생각했다.   <br />
+코딩 테스트를 보기 전까지 완전 탐색 100문제 이상은 풀어봐야겠다 :)    <br />
+차 사고를 비롯해 많은 일들이 있었지만, 지나간 일은 어쩔 수 없으니 앞으로 나아갈 생각만 하자!!!    <br />
+많은 일들이 있고 난 후, 돈에 대한 목표는 없었는데 돈을 많이 벌고 싶다고 생각하게 되었다.  <br />
+액땜했다고 생각하고 앞으로 할 일을 잘하자 화이팅!!</p>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[양궁 대회]]></summary></entry><entry><title type="html">두 큐 합 같게 만들기</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%91%90-%ED%81%90-%ED%95%A9-%EA%B0%99%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0/" rel="alternate" type="text/html" title="두 큐 합 같게 만들기" /><published>2022-11-23T00:00:00+09:00</published><updated>2022-11-23T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%91%90%20%ED%81%90%20%ED%95%A9%20%EA%B0%99%EA%B2%8C%20%EB%A7%8C%EB%93%A4%EA%B8%B0</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%91%90-%ED%81%90-%ED%95%A9-%EA%B0%99%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0/"><![CDATA[<p>두 큐 합 같게 만들기</p>
+
+<h3 id="프로그래머스-두-큐-합-같게-만들기">프로그래머스 두 큐 합 같게 만들기</h3>
 
 <ul>
-  <li>정렬 알고리즘 중 시간 복잡도 O(nlongn)을 가지는 알고리즘</li>
-  <li>같은 시간 복잡도를 가지는 알고리즘으로는 Quick Sort가 있다</li>
-  <li>Quick Sort에 비해 공간 복잡도를 더 많이 사용하게 된다</li>
-  <li>이미 정렬되어 있는 배열에 대해서 정렬을 하는 특정 상황에서는 다른 정렬 알고리즘이 더 빠를 수 있다</li>
+  <li>생각해야 하는 상황 : 어떤 방법으로도 각 큐의 원소 합을 같게 만들 수 없는 경우</li>
+  <li>모든 원소의 합 / 2인 개수가 2개가 만들어져야 한다</li>
+  <li>(1) (sum1 + sum2) % 2 == 1인 경우와</li>
+  <li>(2) answer == 2 * (queue1.size() + queue2.size())</li>
+  <li>위의 두 가지 경우가 두 큐 합을 같게 만들 수 없는 경우이다</li>
+  <li>(1)의 경우는 쉽게 생각할 수 있는데, 홀수의 경우는 2개로 나눠질 수 없기 때문이다.</li>
+  <li>특히, (2)의 경우는 모든 경우의 수를 돌고 처음과 같은 queue가 나올 때 종료한다는 것이다.</li>
 </ul>
 
-<p><br /><br /></p>
-<h1 id="code">Code</h1>
-<ul>
-  <li>재귀를 사용하여 배열에 있는 모든 수를 하나씩 쪼갠다 - partition -</li>
-  <li>오름차순 혹은 내림차순으로 병합하면서 정렬한다 - merge -</li>
-</ul>
+<ol>
+  <li>두 큐의 합을 각각 구한다</li>
+  <li>1번 큐의 합이 2번 큐의 합보다 크다면, 1번 큐에서 하나 빼서 2번 큐에 넣는다</li>
+  <li>반대의 경우도 똑같이 한다.</li>
+  <li>합이 같아지거나, 모든 경우의 수를 돌고 처음과 같은 queue가 나오면 answer = -1 후 종료</li>
+</ol>
 
-<p><br /><br /></p>
+<p>풀이1 -&gt; TC 24 시간초과 =&gt; vector의 erase 연산이 시간이 많이 드는 것을 확인
+vector가 아닌 queue로 풀어야겠다고 생각이 들어 풀이2로 풀었더니 정답이 나왔다</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int A[500000];  /* 입력 받는 배열 */
-int temp[500000]; /* merge하기 위해 사용되는 배열 */
+using namespace std;
 
-void merge (int left, int right) {  /* 실제로 병합, 정렬되는 함수 */
-    int mid = (left + right) / 2; /* mid를 기준으로 배열이 2개 있다고 생각 */
-
-    int i = left;  /* 1번 배열의 맨 왼쪽 index */
-    int j = mid + 1; /* 2번 배열의 맨 왼쪽 index */
-    int k = left; /* temp 배열의 시작점을 1번 배열의 맨 왼쪽으로 잡았다
-            그 이유는 병합하려는 두 배열의 제일 작은 index가 left이기 때문이다 */ 
-
-    while (i &lt;= mid &amp;&amp; j &lt;= right) { /* temp의 왼쪽부터 작은 수를 채워넣는다 */
-        if (A[i] &lt;= A[j]) temp[k++] = A[i++];
-        else temp[k++] = A[j++];
-    }
-
-    /* 2번 배열의 수가 다 사용되고 1번 배열에는 남아있다면, 나머지를 채워넣는다 */
-    while (i &lt;= mid) { 
-        temp[k++] = A[i++];
-    }
-
-    /* 위와 반대로 1번 배열의 수가 다 사용되었다면, 나머지 2번 배열의 수를 채워넣는다 */
-    while (j &lt;= right) { 
-        temp[k++] = A[j++];
-    }
-
-    /* temp에 정렬된 수를 실제 배열 A에 넣어준다 -&gt; 정렬된 수를 넣는다 */
-    for (int i = left; i &lt;= right; ++i) {
-        A[i] = temp[i];
+void pop_front(std::vector&lt;int, std::allocator&lt;int&gt;&gt; &amp;v) {
+    if (v.size() &gt; 0) {
+        v.erase(v.begin());
     }
 }
 
-void partition (int left, int right) { /* 배열을 가장 작은 단위로 쪼갠다 */
-    if (left &lt; right) {
-        int mid = (left + right) / 2;
-        partition(left, mid);
-        partition(mid+1, right);
-        merge(left, right);
+int solution(vector&lt;int&gt; queue1, vector&lt;int&gt; queue2) {
+    int answer = 0;
+
+    long long sum1 = 0, sum2 = 0;
+    for (auto val : queue1) {
+        sum1 += val;
     }
+    
+    for (auto val : queue2) {
+        sum2 += val;
+    }
+    
+    if ((sum1 + sum2) % 2 == 1) return -1;
+    
+    while (true) {
+        if (answer == 2 * (queue1.size() + queue2.size())) {
+            answer = -1;
+            break;
+        }
+        
+        int temp;
+        if (sum1 &gt; sum2) {
+            temp = queue1.front();
+            pop_front(queue1);
+            sum1 -= temp;
+            
+            sum2 += temp;
+            queue2.push_back(temp);
+        }
+        
+        else if (sum1 &lt; sum2) {
+            temp = queue2.front();
+            pop_front(queue2);
+            sum2 -= temp;
+            
+            sum1 += temp;
+            queue1.push_back(temp);
+        }
+        
+        else break; 
+        
+        answer++;
+    }
+    
+    return answer;
 }
-</code></pre></div></div>]]></content><author><name>정해준</name></author><category term="알고리즘" /><summary type="html"><![CDATA[Merge Sort 알고리즘]]></summary></entry><entry><title type="html">정해준의 개발 일지의 시작</title><link href="http://localhost:4000/%EB%B8%94%EB%A1%9C%EA%B7%B8/start/" rel="alternate" type="text/html" title="정해준의 개발 일지의 시작" /><published>2022-10-29T00:00:00+09:00</published><updated>2022-10-29T00:00:00+09:00</updated><id>http://localhost:4000/%EB%B8%94%EB%A1%9C%EA%B7%B8/start</id><content type="html" xml:base="http://localhost:4000/%EB%B8%94%EB%A1%9C%EA%B7%B8/start/"><![CDATA[<p>깃허브 블로그를 쓰기 시작한 날  -2022.10.29-</p>
+</code></pre></div></div>
+
+<p>풀이 2</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;queue&gt;
+
+using namespace std;
+
+int solution(vector&lt;int&gt; queue1, vector&lt;int&gt; queue2) {
+    int answer = 0;
+    
+    long long sum1 = 0, sum2 = 0;
+    queue &lt;int&gt; q1, q2;
+    for (auto val : queue1) {
+        sum1 += val;
+        q1.push(val);
+    }
+    
+    for (auto val : queue2) {
+        sum2 += val;
+        q2.push(val);
+    }
+    
+    if ((sum1 + sum2) % 2 == 1) return -1;
+    
+    int return_condition = 4 * queue1.size();
+    while (true) {
+        if (answer == return_condition) {
+            answer = -1;
+            break;
+        }
+        
+        int temp;
+        if (sum1 &lt; sum2) {
+            temp = q2.front();
+            q2.pop();
+            sum2 -= temp;
+            
+            q1.push(temp);
+            sum1 += temp;
+        }
+        
+        else if (sum1 &gt; sum2) {
+            temp = q1.front();
+            q1.pop();
+            sum1 -= temp;
+            
+            q2.push(temp);
+            sum2 += temp;
+        }
+        
+        else break;
+        
+        answer++;
+    }
+    
+    return answer;
+}
+</code></pre></div></div>
+
+<p>vector의 pop_front()의 경우 원소를 제거한 후, 모든 원소를 한 칸씩 옮기게 되서 시간이 많이 든다.   <br />
+이 부분을 간과하고 풀었다가 TC24에서 시간 초과가 발생하였다.  <br />
+queue를 사용할 수 있다는 것을 알고 있었지만, queue를 사용하는 것과 큰 차이가 있을까 해서 처음에는 vector를 이용해서 풀었지만, 틀리고 나서 찾아봤을 때, 배열을 한 칸씩 모두 옮기는 것이나 다름 없다는 것을 보고 아차 싶었다. <br />
+조금 더 나은 방법이 있을 때, 주저하지 말고 바꾸는 것을 습관화할 필요가 있다는 것을 느끼게 해준 문제이다 :)</p>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[두 큐 합 같게 만들기]]></summary></entry><entry><title type="html">할인 행사</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%95%A0%EC%9D%B8-%ED%96%89%EC%82%AC/" rel="alternate" type="text/html" title="할인 행사" /><published>2022-11-22T00:00:00+09:00</published><updated>2022-11-22T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%95%A0%EC%9D%B8%20%ED%96%89%EC%82%AC</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%95%A0%EC%9D%B8-%ED%96%89%EC%82%AC/"><![CDATA[<p>할인 행사</p>
+
+<h3 id="프로그래머스-할인-행사">프로그래머스 할인 행사</h3>
 
 <ul>
-  <li>왜 블로그를 하게 되었나?<br />
-개발자들이 다들 Today I learn… TIL… 이렇게 말하길래 나도 써볼까해서 써본다.  <br />
-솔직히 얼마나 도움이 될 지는 모르겠다.    <br />
-그래도 안하는 것보다 낫지않을까?      <br />
-블로그를 하면서 내가 공부했던 것들을 정리하는 시간을 가질 수 있지 않을까? 라는 생각으로 쓰게 되었다 <br />
-앞으로도 계속 풀게 될 알고리즘 문제들과 혼자 공부했던 개념들에 대해 주로 쓰게 될 것 같다  <br />
-누가 내 블로그를 보고 도움이 된다면 좋겠다<br /><br /></li>
-  <li>다른 플랫폼이 아니라 깃허브를 사용하는 이유?    <br />
-깃허브 블로그를 어떻게 쓰는지 jekyll은 어떻게 쓰는지 잘 몰라서 엄청 해맸고 아직도 잘 모른다   <br />
-그래도 꾸준히 사용하려고 하다보면 익숙해지지 않을까 싶다  <br />
-다른 블로그들도 많은데 굳이 깃허브로 쓰게 된 이유는 블로그를 이용해서 돈을 벌거나 다른 활동을 하려고
-만든 것이 아니고, 깃허브에 조금 더 익숙해지면 미래에 도움이 되지 않을까? 라는 생각으로 깃허브를 선택하게 되었다<br /><br /></li>
+  <li>for문을 잘 이용한다면, 쉽게 풀어나갈 수 있는 문제였다.</li>
+  <li>첫 번째 풀이는 코드가 조금 조잡하다고 생각하여 두 번째 풀이에서 코드가 간결하게 바꿨다.</li>
+  <li>하지만 처리 속도를 봤을 때는, bool타입의 IsFind과 속도를 줄이기 위해 처음과 마지막 날짜 + 1일의 제품이 같은지만 비교하고 넘어가는 부분이 있어 풀이1이 더 빠를 것이다.</li>
 </ul>
 
-<p>하루에 한 개라도 적는 습관을 길러보자 !</p>]]></content><author><name>정해준</name></author><category term="블로그" /><summary type="html"><![CDATA[깃허브 블로그를 쓰기 시작한 날 -2022.10.29-]]></summary></entry></feed>
+<p>풀이 1</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 10일을 연속으로 일치해야 하므로, 1일 ~ (n-10)일이 할인하는 시작 날짜
+// 정현이가 원하는 제품의 수량을 나타낼 수 있는 number을 copy하여 사용
+// 만약 10일 연속 맞다면, 그 다음날에는 첫 번째 날과 마지막 날 + 1의 날짜가 같다면 넘어갈 수 있도록 (시간 줄이기)
+// recursion을 사용하려면 want, number, discount를 모두 복사해야 하는데, 비용이 많이 든다고 생각하여 반복문을 활용하였음
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int solution(vector&lt;string&gt; want, vector&lt;int&gt; number, vector&lt;string&gt; discount) {
+    int answer = 0;
+    int i = 0; // 10일 중 시작 날짜 (index)
+    
+    while (i &lt;= discount.size()-10) {
+        vector&lt;int&gt; copy_number = number;
+        bool flag = true; // 10일간 할인하는 제품이 정현이가 원하는 제품만으로 구성되어 있는지,
+        for (int j=i; j&lt;i+10; ++j) {
+            bool IsFind = false; // 정현이가 원하는 제품이 해당 일자에 있는지,
+            for (int k=0; k&lt;want.size(); ++k) {
+                if (want[k] == discount[j]) {
+                    IsFind = true; // 해당 일자의 할인 제품이 정현이가 원하는 제품 중 하나가 맞다면,
+                    copy_number[k]--;
+                    if (copy_number[k] &lt; 0) flag = false; // 정현이가 원하는 제품의 수보다 많이 할인하면 10일 연속이 안된다
+                }
+            }
+            
+            if (!IsFind) { // 해당 일자의 할인 제품이 정현이가 원하는 제품 중 하나에도 속하지 않는다면,
+                flag = false; // 10일 연속으로 일치하지 않는다
+                break;
+            }
+            
+            if (!flag) break;
+        }
+        
+        if (flag) {
+            answer++;
+            
+            // 속도를 줄이기 위해서 10일 연속이면 처음과 마지막 + 1일의 제품만 비교하여 다음 날짜부터 10일도 연속인지 확인
+            while (i+10 &lt;= discount.size()-10 &amp;&amp; discount[i] == discount[i+10]) { 
+                answer++;
+                i++;
+            }
+        }
+        
+        i++;
+    }
+    return answer;
+}
+</code></pre></div></div>
+
+<p>풀이 2</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int solution(vector&lt;string&gt; want, vector&lt;int&gt; number, vector&lt;string&gt; discount) {
+    int answer = 0;
+
+    int start_data = 0;
+    while (start_data &lt;= discount.size() - 10) {
+        vector &lt;int&gt; copy_number = number;
+        bool flag = true;
+
+        for (int i=start_data; i&lt;start_data+10; ++i) {
+            for (int j=0; j&lt;want.size(); ++j) {
+                if (want[j] == discount[i]) {
+                    copy_number[j]--;
+                }
+            }
+        }
+
+        for (auto val : copy_number) {
+            if (val != 0) {
+                flag = false;
+                break;
+            }
+        }
+
+        if (flag) {
+            answer++;
+        }
+
+        start_data++;
+    }
+
+    return answer;
+}
+</code></pre></div></div>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[할인 행사]]></summary></entry><entry><title type="html">혼자 놀기 달인</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%98%BC%EC%9E%90-%EB%86%80%EA%B8%B0-%EB%8B%AC%EC%9D%B8/" rel="alternate" type="text/html" title="혼자 놀기 달인" /><published>2022-11-21T00:00:00+09:00</published><updated>2022-11-21T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%98%BC%EC%9E%90%20%EB%86%80%EA%B8%B0%20%EB%8B%AC%EC%9D%B8</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%98%BC%EC%9E%90-%EB%86%80%EA%B8%B0-%EB%8B%AC%EC%9D%B8/"><![CDATA[<p>혼자 놀기 달인</p>
+
+<h3 id="프로그래머스-혼자-놀기-달인">프로그래머스 혼자 놀기 달인</h3>
+
+<ul>
+  <li>중요하게 생각해야 하는 포인트는 두 번째 그룹이 될 수 있는 경우의 수가 1개 이상이 될 수 있다는 점이다.</li>
+  <li>또한, index는 0부터 시작되기 때문에 cards 안에 있는 데이터의 1을 뺀 값이 index가 된다는 점이다.</li>
+  <li>두 가지 경우만 잘 생각해서 푼다면 어렵지 않게 풀 수 있다.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 1~100 숫자가 있다
+// 2~100 숫자 하나를 정해 그 수보다 작거나 같은 숫자를 준비
+// 준비한 카드 수 만큼 작은 상자 준비
+// 상자에 카드 한 장씩 넣고 무작위로 섞어 일렬로 나열
+// 상자에 1~ 순차적으로 증가하는 번호를 붙인다
+// 임의의 상자 확인 -&gt; 상자 안 숫자의 상자 확인 반복
+// 열어야 하는 상자가 이미 열려있으면 그룹 종료
+// 만약 1번 상자 그룹 제외 남는 상자 없으면 종료 -&gt; Base case
+// 1번 그룹 상자 수 * 2번 그룹 상자 수 = 게임의 점수 
+// 최고 점수를 구하기 
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+bool checkCards[101]; /* 해당 카드가 사용되었는지 check */
+vector &lt;int&gt; copy_cards; /* cards copy */
+
+int group_count (int idx, int data, int cnt) {
+    checkCards[idx] = true; /* 해당 idx의 카드는 사용되었다 */
+    
+    if (checkCards[data]) { /* 다음 idx의 카드가 이미 사용되었다면, 종료 */
+        return cnt;
+    }
+    
+    return group_count (data, copy_cards[data]-1, cnt+1); 
+}
+
+int solution(vector&lt;int&gt; cards) {
+    int answer = 0;
+    
+    int len = cards.size();
+    copy_cards = cards;
+    for (int i=0; i&lt;len; ++i) { /* first group*/
+        fill_n(checkCards, 101, false);
+        
+        int first_group = group_count (i, cards[i] - 1, 1);
+        for (int j=0; j&lt;len; ++j) { /* second group */
+            /* second group으로 나올 수 있는 경우가 여러 가지가 나올 수 있다는 것 조심!!! */
+            if (!checkCards[j]) {
+                int second_group = group_count (j, cards[j] - 1, 1);
+                answer = max (answer, first_group * second_group);
+            }
+        }
+    }
+    
+    return answer;
+}
+</code></pre></div></div>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[혼자 놀기 달인]]></summary></entry><entry><title type="html">면접준비</title><link href="http://localhost:4000/%EC%97%90%EC%9D%B4%EC%8A%A4%EB%9E%A9/%EB%A9%B4%EC%A0%91%EC%A4%80%EB%B9%841/" rel="alternate" type="text/html" title="면접준비" /><published>2022-11-21T00:00:00+09:00</published><updated>2022-11-21T00:00:00+09:00</updated><id>http://localhost:4000/%EC%97%90%EC%9D%B4%EC%8A%A4%EB%9E%A9/%EB%A9%B4%EC%A0%91%EC%A4%80%EB%B9%841</id><content type="html" xml:base="http://localhost:4000/%EC%97%90%EC%9D%B4%EC%8A%A4%EB%9E%A9/%EB%A9%B4%EC%A0%91%EC%A4%80%EB%B9%841/"><![CDATA[<p>면접준비</p>
+
+<h3 id="에이스랩-인턴-면접준비">에이스랩 인턴 면접준비</h3>
+
+<p><br /></p>
+
+<h3 id="1-지원동기">1. 지원동기</h3>
+
+<p>항상 궁금했던 점이 학교에서 공부하는 것이 실제로 회사에서 어떻게 쓰이는지 궁금했습니다. COOP라는 좋은 프로그램 속에서 여러 회사들을 보았고, 그 중 에이스랩에서 연구하고 있는 주제가 눈에 들어왔습니다. 에이스랩에서 연구하고 있는 주제가 눈에 들어온 이유는, 자율주행 자동차라는 주제가 컴퓨터 공학과로 오게 된 이유 중 큰 부분을 차지하기 때문입니다. 고등학교 재학 당시 1년간 R&amp;E활동으로 자율주행 자동차를 만드는 활동을 한 기억이 있는데, 그 때의 기억이 너무나 좋은 추억이었기 때문입니다. 또한, 에이스랩 인터뷰에서 어떻게 성장해나가는지를 스스로 느끼고 있다는 것을 보고 이곳에서 인턴을 하게 되면 조금 더 성장할 수 있겠다고 생각했습니다. 뿐만 아니라, 개별 관심 주제로 프로젝트를 진행하는 것도 장점으로 다가와 지원하게 되었습니다.</p>
+
+<p><br /></p>
+
+<h3 id="2-re-활동에-대해서">2. R&amp;E 활동에 대해서</h3>
+
+<p>고등학교에서 과학 동아리를 같이 하는 친구 3명을 포함하여 총 4명이 함께 한 활동이었습니다. 아두이노를 중심으로 차 형태의 레고를 만들었고, 그것에 감지 센서들을 배치해 프로그래밍을 통해 특정 물체 혹은 색을 읽어나감으로써 도로를 주행할 수 있도록 만들었습니다. 당시 C언어를 사용해 프로그램을 만들었고, 오랜 시간이 지났지만 트랙의 형태가 기억날 정도로 인상깊은 활동이었습니다. 해결하고 싶었지만 해결하지 못했던 것들도 있었습니다. 감지 센서를 통해 갑자기 들어온 장애물을 인식했을 때, 장애물을 피해 원래 가던 길로 가게끔 하고 싶었지만 저희가 만든 도로의 형태는 차 한 대가 들어갈 수 있도록 설계되었었기 때문에 이를 해결하기가 힘들었습니다. 왜냐하면, 애물을 피하면 도로의 흰 부분으로 나가게 되고 그렇게 됐을 때 까만 선 (차선)이 없어져서 이동하지 못하는 문제가 생겼습니다. 물론, 장애물이 나왔을 때 특정 행동을 하게끔 프로그래밍을 해서 해결할 수도 있었지만 그렇게 한다면 장애물이 어떤 상황에 발생하든 똑같은 패턴으로 움직이기 때문에 움직이는 방향에 따라 트랙을 따라가기가 힘들었습니다. 이번 기회에 이러한 프로젝트를 하게 된다면, T자 주차와 장애물이 나왔을 때와 같은 상황에 대한 알고리즘을 짜 해결해보고 싶습니다.</p>
+
+<p><br /></p>
+
+<h3 id="3-회사에-들어가기-위해서-하고-있는-일">3. 회사에 들어가기 위해서 하고 있는 일</h3>
+
+<p>회사에 들어가기 위해서 하고 있는 일은, 현재 컴퓨터 구조 수업을 배우면서 소프트웨어에 대해서 공부하고 있습니다.    <br />
+또한, 알고리즘 문제 풀이 사이트인 프로그래머스와 백준을 통해 꾸준히 C++ 언어로 공부하고 있습니다. <br />
+이후 방학 동안, 자율주행 자동차 시스템이 정확히 어떻게 되는지 그리고 ROS에 대해서 공부할 예정입니다.</p>
+
+<p><br /></p>
+
+<h3 id="4-성격-및-장단점">4. 성격 및 장단점</h3>
+
+<p>제가 생각하는 저의 장점은 “일단 해본다” 그리고 “최선을 다한다” 라는 것입니다. <br />
+열심히 하는 것, 잘하는 것과 다르게 어떤 일이 되었든 시작을 한다는 것은 큰 의미를 가집니다.<br />
+생각하는 것을 바로 행동으로 옮길 수 있다는 것은 실패를 많이 해볼 수 있다는 뜻 입니다.         <br />
+저는 항상 실패하고 오류를 만나면서 성장해왔었기 떄문에 실패하는 것에 대한 두려움이 적고 이는 큰 장점으로 돌아온 다고 믿고 있습니다.   <br />
+또한, 한 번 시작한 일을 제가 만족할 때까지 놓치지 않으려 합니다.  <br />
+항상 스스로 “왜?” 라는 질문을 던지며 모든 궁금증이 해소될 때까지 시작한 일에 대해 마무리를 하려고 합니다.</p>
+
+<p>제가 생각하는 저의 단점은 “하루하루가 계획적이지 못하다” 라는 것입니다.  <br />
+한 번 시작한 일을 만족할 때까지 하려고 하다보니, 한 번에 여러가지 일을 해결하기보다는 한 가지 일을 다 하고 다음 일로 넘어갑니다.  <br />
+그렇게 되다보니 하루단위로 계획을 세우는 일을 잘 하지 못합니다.   <br />
+저는 그래서 일주일단위로 계획을 세워 일을 해결하는 방식으로 이러한 단점을 보완하려고 하고 있습니다.</p>
+
+<p><br /></p>
+
+<h3 id="5-회사에게-궁금한-점">5. 회사에게 궁금한 점</h3>
+
+<ul>
+  <li>에이스랩 인터뷰에서 캡스톤 프로젝트를 한다는 것을 보았는데, 어떤 주제로 다들 캡스톤 프로젝트를 하시는지에 대해서 궁금합니다.</li>
+  <li>만약, 제가 면접에서 붙게 된다면 인턴을 하기 전에 공부해야 할 것들에 대해 구체적으로 어떤 것을 해야하는지 알고싶습니다.</li>
+  <li>지난 여름 5명의 인턴이 프로젝트를 진행했다는 기사를 보았는데, 어떤 주제로 프로젝트를 하셨었는지 궁금합니다.</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="6-자율주행자동차가-주는-영향">6. 자율주행자동차가 주는 영향</h3>
+
+<ul>
+  <li>교통 체중 완화</li>
+  <li>안전 사고 예방</li>
+  <li>항만 전기 야드트랙터 → 항만 내 종사자들의 안전을 보장할 뿐만 아니라, 항만 물류 시스템 효율 향상과 자동화</li>
+  <li>몸이 불편해서 운전을 할 수 없는 사람들이 차로 움직일 수 있게 도와준다 (노인, 장애인)</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="7-회사에-들어가서-해보고-싶은-것">7. 회사에 들어가서 해보고 싶은 것</h3>
+
+<ul>
+  <li>최단 경로나 어린이 보호 구역을 지나지 않는 최단 경로로 목표 지점까지 움직이는 것뿐만 아니라,</li>
+  <li>DB에서 사고가 많이 일어나는 구간을 불러와서 사고가 많은 지역을 피해갈 수 있도록 하는 알고리즘 개발</li>
+  <li>추가로, 사고 중에서도 차 사이로 갑자기 사람이 튀어나오거나 차 문이 열리는 것과 같은 상황이 많이 나오는 곳을 피해가거나</li>
+  <li>해당 지역이 되면 더 안전하게 이동할 수 있도록 하는 알고리즘 개발</li>
+</ul>]]></content><author><name>정해준</name></author><category term="에이스랩" /><summary type="html"><![CDATA[면접준비]]></summary></entry><entry><title type="html">연속 부분 수열 합의 개수</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%97%B0%EC%86%8D-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4-%ED%95%A9%EC%9D%98-%EA%B0%9C%EC%88%98/" rel="alternate" type="text/html" title="연속 부분 수열 합의 개수" /><published>2022-11-20T00:00:00+09:00</published><updated>2022-11-20T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%97%B0%EC%86%8D%20%EB%B6%80%EB%B6%84%20%EC%88%98%EC%97%B4%20%ED%95%A9%EC%9D%98%20%EA%B0%9C%EC%88%98</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%97%B0%EC%86%8D-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4-%ED%95%A9%EC%9D%98-%EA%B0%9C%EC%88%98/"><![CDATA[<p>연속 부분 수열 합의 개수</p>
+
+<h3 id="프로그래머스-연속-부분-수열-합의-개수">프로그래머스 연속 부분 수열 합의 개수</h3>
+
+<ul>
+  <li>작년 데이터 구조를 배우면서 원형 큐를 구현했었던 적이 있었는데, 그 때 modulo 계산을 해봤던 적이 있어 어렵지 않게 해결할 수 있었다.</li>
+  <li>중복을 허용하지 않으면서 저장할 수 있는 STL map을 사용하였는데, 생각해보니 트리 형태로 만들었어도 괜찮았을 것 같다.</li>
+  <li>중복이 되지 않게 크거나, 작거나 두 종류에만 입력할 수 있게끔 말이다.</li>
+  <li>왜냐하면 트리에서 입력은 O(logn)의 시간복잡도를 가지기 때문이다.</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+#include &lt;map&gt;
+
+using namespace std;
+
+map &lt;int ,int&gt; m; /* 맵은 중복을 허용하지 않으므로 유용한 STL일 것이라 생각했다 */
+vector &lt;int&gt; copy_elements; /* elements copy */
+
+void solve (int n, int sum, int idx) {
+    m.insert ({sum, 1}); /* sum이 중복이 안된다면, insert */
+    if (n == copy_elements.size()) { /* elements 크기 만큼 돌았다면 종료 */
+        return;
+    }
+    
+    idx = (idx + 1) % (copy_elements.size()); /* 원형 배열을 만드는 방법 */
+    solve (n+1, sum+copy_elements[idx], idx); /* recursion */
+}
+
+int solution(vector&lt;int&gt; elements) {
+    int answer = 0;
+    copy_elements = elements;
+    
+    for (int i=0; i&lt;elements.size(); ++i) {
+        solve (1, elements[i], i);
+    }
+    
+    answer = m.size(); /* 중복되지 않은 map의 크기 =&gt; 결과값 */
+    
+    return answer;
+}
+</code></pre></div></div>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[연속 부분 수열 합의 개수]]></summary></entry><entry><title type="html">택배 상자</title><link href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%83%9D%EB%B0%B0%EC%83%81%EC%9E%90/" rel="alternate" type="text/html" title="택배 상자" /><published>2022-11-19T00:00:00+09:00</published><updated>2022-11-19T00:00:00+09:00</updated><id>http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%83%9D%EB%B0%B0%EC%83%81%EC%9E%90</id><content type="html" xml:base="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%83%9D%EB%B0%B0%EC%83%81%EC%9E%90/"><![CDATA[<p>택배 상자</p>
+
+<h3 id="프로그래머스-택배-상자">프로그래머스 택배 상자</h3>
+
+<ul>
+  <li>1~n까지 차례로 증가할 때, 처리하는 방법을 나눠서 생각하면 된다.</li>
+  <li>첫 번째로, 현재 order의 값과 같다면 answer++</li>
+  <li>두 번째로, 현재 order의 값보다 크다면, 값이 똑같아질 때까지 sub_container에 넣은 후 answer++</li>
+  <li>마지막으로, 현재 orderd의 값보다 작다면, sub_container의 맨 앞에 있는 것과 같은지 확인한다.</li>
+  <li>같다면, sub_container의 맨 앞을 제거하고 answer++</li>
+</ul>
+
+<p>주의할 점 : sub_container에서 택배를 싣는 경우, 수를 증가시키면 안된다<br />
+왜냐하면, 이미 담겨있던 것을 빼는 것이기 때문이다.<br />
+이 부분에서 틀렸었는데 TC 6~10번에 해당하는 내용인 것 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 1-&gt;n번 상자까지 번호가 증가하는 순서대로 영재에게 전달된다
+// 1번 상자부터 내릴 수 있다
+
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+
+int solution(vector&lt;int&gt; order) {
+    int answer = 0;
+    vector &lt;int&gt; sub_container;
+    size_t length = order.size(), cnt=0;
+    
+    for (size_t i=1; i&lt;=length; ++i) {
+        if (order[cnt] &lt; i) {
+            if (!sub_container.empty() &amp;&amp; sub_container.back() == order[cnt]) {
+                answer++;
+                sub_container.pop_back();
+                cnt++;
+                i--; /* 증가시키면 안됨!! */
+            }
+            else {
+                break;
+            }
+        }
+        
+        else if (order[cnt] &gt; i) {
+            while (i &lt; order[cnt]) {
+                sub_container.push_back(i);
+                i++;
+            }
+            
+            answer++;
+            cnt++;
+        }
+        
+        else {
+            answer++;
+            cnt++;
+        }
+    }
+    
+    while (!sub_container.empty()) {
+        if (sub_container.back() == order[cnt++]) {
+            sub_container.pop_back();
+            answer++;
+        }
+        else break;
+    }
+    return answer;
+}
+</code></pre></div></div>]]></content><author><name>정해준</name></author><category term="프로그래머스" /><summary type="html"><![CDATA[택배 상자]]></summary></entry></feed>

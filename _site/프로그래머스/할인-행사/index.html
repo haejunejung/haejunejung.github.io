@@ -9,8 +9,8 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Ch13.induction - 매일 기록하는 개발자 Blog</title>
-<meta name="description" content="Induction">
+<!-- begin _includes/seo.html --><title>할인 행사 - 매일 기록하는 개발자 Blog</title>
+<meta name="description" content="할인 행사">
 
 
   <meta name="author" content="정해준">
@@ -22,30 +22,30 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="매일 기록하는 개발자 Blog">
-<meta property="og:title" content="Ch13.induction">
-<meta property="og:url" content="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/">
+<meta property="og:title" content="할인 행사">
+<meta property="og:url" content="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%95%A0%EC%9D%B8-%ED%96%89%EC%82%AC/">
 
 
-  <meta property="og:description" content="Induction">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2022-11-05T00:00:00+09:00">
+  <meta property="og:description" content="할인 행사">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2022-11-22T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/">
+
+<link rel="canonical" href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%95%A0%EC%9D%B8-%ED%96%89%EC%82%AC/">
 
 
 
@@ -261,16 +261,16 @@
 
 
   <article class="page h-entry" itemscope itemtype="https://schema.org/CreativeWork">
-    <meta itemprop="headline" content="Ch13.induction">
-    <meta itemprop="description" content="Induction">
-    <meta itemprop="datePublished" content="2022-11-05T00:00:00+09:00">
+    <meta itemprop="headline" content="할인 행사">
+    <meta itemprop="description" content="할인 행사">
+    <meta itemprop="datePublished" content="2022-11-22T00:00:00+09:00">
     
 
     <div class="page__inner-wrap">
       
         <header>
           <h1 id="page-title" class="page__title p-name" itemprop="headline">
-            <a href="http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/" class="u-url" itemprop="url">Ch13.induction
+            <a href="http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%95%A0%EC%9D%B8-%ED%96%89%EC%82%AC/" class="u-url" itemprop="url">할인 행사
 </a>
           </h1>
           
@@ -299,64 +299,110 @@
 
       <section class="page__content e-content" itemprop="text">
         
-        <p>Induction</p>
+        <p>할인 행사</p>
 
-<h1 id="mathematical-induction-수학적-귀납법">Mathematical induction (수학적 귀납법)</h1>
-
-<h2 id="수학적-귀납법">수학적 귀납법</h2>
+<h3 id="프로그래머스-할인-행사">프로그래머스 할인 행사</h3>
 
 <ul>
-  <li>수학적 귀납법이란 수학의 증명 방법 중 하나로, 주로 어떠한 명제가 모든 자연수에 대하여 성립함을 보이려고 할 때, 이용된다</li>
-  <li>수학적 귀납법의 일반적인 형식은 5단계로 구분된다</li>
+  <li>for문을 잘 이용한다면, 쉽게 풀어나갈 수 있는 문제였다.</li>
+  <li>첫 번째 풀이는 코드가 조금 조잡하다고 생각하여 두 번째 풀이에서 코드가 간결하게 바꿨다.</li>
+  <li>하지만 처리 속도를 봤을 때는, bool타입의 IsFind과 속도를 줄이기 위해 처음과 마지막 날짜 + 1일의 제품이 같은지만 비교하고 넘어가는 부분이 있어 풀이1이 더 빠를 것이다.</li>
 </ul>
 
-<ol>
-  <li>수학적 귀납법을 사용할 것이라고 명시한다.</li>
-  <li>어떤 명제에 대하여 성립함을 보일 것인지 명시한다.</li>
-  <li>Base case에 대하여 성립함을 보인다.</li>
-  <li>Inductive case에 대하여 성립함을 보인다.</li>
-  <li>명제에 대하여 성립함을 증명했다는 것을 마무리한다.
-<br /><br /></li>
-</ol>
+<p>풀이 1</p>
 
-<p>이해를 편하게 하기 위해서 n이 자연수일 때 명제가 성립함을 보이고 싶다고 하자  <br />
-그리고 자연수 n에 대한 명제를 P(n)이라고 하자 <br />
-Base case는 우리가 보이고자 하는 범위의 시작 부분으로 잡는다  <br />
-n이 자연수이기 때문에 0이 시작 부분이므로 P(0)를 Base case로 잡는다         <br />
-Inductive case는 임의의 자연수 k에 대하여 명제가 성립할 때, k+1에도 성립함을 보이는 과정이다  <br />
-즉, P(k) -&gt; P(k+1)을 증명함으로써 모든 자연수가 성립함을 보인다   <br />
-<br />
-위의 과정을 차근차근 해석하면,<br />
-Base case에 의해 P(0)는 true이다 <br />
-Inductive case에 의해 P(0)-&gt;P(1), 즉 P(1)는 true이다  <br />
-P(1)-&gt;P(2), 즉 P(2)는 true이다
-P(2)-&gt;P(3), 즉 P(3)는 true이다<br />
-계속 이어져 나간다면 모든 자연수에 대하여 명제가 성립함을 알 수 있다<br />
-<br /><br /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 10일을 연속으로 일치해야 하므로, 1일 ~ (n-10)일이 할인하는 시작 날짜
+// 정현이가 원하는 제품의 수량을 나타낼 수 있는 number을 copy하여 사용
+// 만약 10일 연속 맞다면, 그 다음날에는 첫 번째 날과 마지막 날 + 1의 날짜가 같다면 넘어갈 수 있도록 (시간 줄이기)
+// recursion을 사용하려면 want, number, discount를 모두 복사해야 하는데, 비용이 많이 든다고 생각하여 반복문을 활용하였음
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
 
-<h2 id="well-ordering-property-자연수-정렬성">Well-Ordering Property (자연수 정렬성)</h2>
-<ul>
-  <li>자연수 정렬성이란 음수가 아닌 정수들의 집합 중 공집합이 아닌 모든 집합은 최소 원소를 갖는다</li>
-  <li>즉, for every S ⊆ N such that S ̸= ∅, there exists m ∈ S such that
-m ⩽ n for all n ∈ S</li>
-</ul>
+using namespace std;
 
-<p><br /><br /></p>
+int solution(vector&lt;string&gt; want, vector&lt;int&gt; number, vector&lt;string&gt; discount) {
+    int answer = 0;
+    int i = 0; // 10일 중 시작 날짜 (index)
+    
+    while (i &lt;= discount.size()-10) {
+        vector&lt;int&gt; copy_number = number;
+        bool flag = true; // 10일간 할인하는 제품이 정현이가 원하는 제품만으로 구성되어 있는지,
+        for (int j=i; j&lt;i+10; ++j) {
+            bool IsFind = false; // 정현이가 원하는 제품이 해당 일자에 있는지,
+            for (int k=0; k&lt;want.size(); ++k) {
+                if (want[k] == discount[j]) {
+                    IsFind = true; // 해당 일자의 할인 제품이 정현이가 원하는 제품 중 하나가 맞다면,
+                    copy_number[k]--;
+                    if (copy_number[k] &lt; 0) flag = false; // 정현이가 원하는 제품의 수보다 많이 할인하면 10일 연속이 안된다
+                }
+            }
+            
+            if (!IsFind) { // 해당 일자의 할인 제품이 정현이가 원하는 제품 중 하나에도 속하지 않는다면,
+                flag = false; // 10일 연속으로 일치하지 않는다
+                break;
+            }
+            
+            if (!flag) break;
+        }
+        
+        if (flag) {
+            answer++;
+            
+            // 속도를 줄이기 위해서 10일 연속이면 처음과 마지막 + 1일의 제품만 비교하여 다음 날짜부터 10일도 연속인지 확인
+            while (i+10 &lt;= discount.size()-10 &amp;&amp; discount[i] == discount[i+10]) { 
+                answer++;
+                i++;
+            }
+        }
+        
+        i++;
+    }
+    return answer;
+}
+</code></pre></div></div>
 
-<h2 id="strong-induction-강한-수학적-귀납법">Strong Induction (강한 수학적 귀납법)</h2>
-<ul>
-  <li>수학적 귀납법이 쉽게 적용되지 않을 때 사용하는 방법이다</li>
-  <li>P(n)이 모든 자연수에 대하여 성립함을 보이고 싶다면, 두 가지 단계를 거친다</li>
-  <li>Basis step은 수학적 귀납법과 같다</li>
-  <li>Inductive step은 수학적 귀납법과 달리 P(1) ∧ P(2) ∧ · · · ∧ P(k) → P(k + 1)을 보이는 것이다</li>
-  <li>Inductive hypothesis (IH)로 P(m)이 성립함을 보인다 (1 &lt;= m &lt;= k)</li>
-  <li>이후 k+1이 m의 범위 안에 들어가는 수를 기반으로 함을 보여서 증명한다</li>
-</ul>
+<p>풀이 2</p>
 
-<p><br /><br /></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;vector&gt;
 
-<p>Induction은 풀면 풀수록 새로운 것을 많이 배워간다 <br />
-데이터 구조시간에 트리 구조에 대해서 증명할 때 배웠었는데, 그 당시에는 이산 수학을 배우지 않아서 이해하기 어려웠었다. 이번 기회에 조금 더 정확하게 배워야겠다는 생각이 든다 :)</p>
+using namespace std;
+
+int solution(vector&lt;string&gt; want, vector&lt;int&gt; number, vector&lt;string&gt; discount) {
+    int answer = 0;
+
+    int start_data = 0;
+    while (start_data &lt;= discount.size() - 10) {
+        vector &lt;int&gt; copy_number = number;
+        bool flag = true;
+
+        for (int i=start_data; i&lt;start_data+10; ++i) {
+            for (int j=0; j&lt;want.size(); ++j) {
+                if (want[j] == discount[i]) {
+                    copy_number[j]--;
+                }
+            }
+        }
+
+        for (auto val : copy_number) {
+            if (val != 0) {
+                flag = false;
+                break;
+            }
+        }
+
+        if (flag) {
+            answer++;
+        }
+
+        start_data++;
+    }
+
+    return answer;
+}
+</code></pre></div></div>
 
         
       </section>
@@ -375,7 +421,7 @@ m ⩽ n for all n ∈ S</li>
     <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
     <span itemprop="keywords">
     
-      <a href="/categories/#%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99" class="page__taxonomy-item p-category" rel="tag">이산수학</a>
+      <a href="/categories/#%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4" class="page__taxonomy-item p-category" rel="tag">프로그래머스</a>
     
     </span>
   </p>
@@ -383,7 +429,7 @@ m ⩽ n for all n ∈ S</li>
 
         
 
-  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-05T00:00:00+09:00">November 5, 2022</time></p>
+  <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time class="dt-published" datetime="2022-11-22T00:00:00+09:00">November 22, 2022</time></p>
 
       </footer>
 
@@ -392,22 +438,22 @@ m ⩽ n for all n ∈ S</li>
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=Ch13.induction%20http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2Finduction%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%ED%95%A0%EC%9D%B8+%ED%96%89%EC%82%AC%20http%3A%2F%2Flocalhost%3A4000%2F%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25A8%25B8%25EC%258A%25A4%2F%25ED%2595%25A0%25EC%259D%25B8-%25ED%2596%2589%25EC%2582%25AC%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2Finduction%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A4000%2F%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25A8%25B8%25EC%258A%25A4%2F%25ED%2595%25A0%25EC%259D%25B8-%25ED%2596%2589%25EC%2582%25AC%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25EC%259D%25B4%25EC%2582%25B0%25EC%2588%2598%25ED%2595%2599%2Finduction%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A%2F%2Flocalhost%3A4000%2F%25ED%2594%2584%25EB%25A1%259C%25EA%25B7%25B8%25EB%259E%2598%25EB%25A8%25B8%25EC%258A%25A4%2F%25ED%2595%25A0%25EC%259D%25B8-%25ED%2596%2589%25EC%2582%25AC%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" class="pagination--pager" title="Maximum vs Maximal
+      <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%98%BC%EC%9E%90-%EB%86%80%EA%B8%B0-%EB%8B%AC%EC%9D%B8/" class="pagination--pager" title="혼자 놀기 달인
 ">이전</a>
     
     
-      <a href="/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" class="pagination--pager" title="전깃줄
+      <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%91%90-%ED%81%90-%ED%95%A9-%EA%B0%99%EA%B2%8C-%EB%A7%8C%EB%93%A4%EA%B8%B0/" class="pagination--pager" title="두 큐 합 같게 만들기
 ">다음</a>
     
   </nav>
@@ -432,7 +478,7 @@ m ⩽ n for all n ∈ S</li>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/Recursion/" rel="permalink">Ch14.Recursion
+        <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/k%EC%A7%84%EC%88%98%EC%97%90%EC%84%9C-%EC%86%8C%EC%88%98-%EA%B0%9C%EC%88%98-%EA%B5%AC%ED%95%98%EA%B8%B0/" rel="permalink">k진수에서 소수 개수 구하기
 </a>
       
     </h2>
@@ -450,14 +496,14 @@ m ⩽ n for all n ∈ S</li>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          2 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Recursion
+    <p class="archive__item-excerpt" itemprop="description">k진수에서 소수 개수 구하기
 </p>
   </article>
 </div>
@@ -472,7 +518,7 @@ m ⩽ n for all n ∈ S</li>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EB%B0%B1%EC%A4%80/%EC%A0%84%EA%B9%83%EC%A4%84/" rel="permalink">전깃줄
+        <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%A3%BC%EC%B0%A8-%EC%9A%94%EA%B8%88-%EA%B3%84%EC%82%B0/" rel="permalink">주차 요금 계산
 </a>
       
     </h2>
@@ -490,14 +536,14 @@ m ⩽ n for all n ∈ S</li>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          4 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">전깃줄
+    <p class="archive__item-excerpt" itemprop="description">주차 요금 계산
 </p>
   </article>
 </div>
@@ -512,7 +558,7 @@ m ⩽ n for all n ∈ S</li>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EC%B6%94%EA%B0%80%EA%B3%B5%EB%B6%80%EC%9E%90%EB%A3%8C/maximal&maximum/" rel="permalink">Maximum vs Maximal
+        <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EB%B9%9B%EC%9D%98-%EA%B2%BD%EB%A1%9C-%EC%82%AC%EC%9D%B4%ED%81%B4/" rel="permalink">빛의 경로 사이클
 </a>
       
     </h2>
@@ -530,14 +576,14 @@ m ⩽ n for all n ∈ S</li>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          3 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">Maximum과 Maximal의 차이점
+    <p class="archive__item-excerpt" itemprop="description">빛의 경로 사이클
 </p>
   </article>
 </div>
@@ -552,7 +598,7 @@ m ⩽ n for all n ∈ S</li>
     
     <h2 class="archive__item-title no_toc" itemprop="headline">
       
-        <a href="/%EB%B0%B1%EC%A4%80/%EA%B0%80%EC%9E%A5-%EA%B8%B4-%EB%B0%94%EC%9D%B4%ED%86%A0%EB%8B%89-%EB%B6%80%EB%B6%84-%EC%88%98%EC%97%B4/" rel="permalink">가장 긴 바이토닉 부분 수열
+        <a href="/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%EC%96%91%EA%B6%81-%EB%8C%80%ED%9A%8C/" rel="permalink">양궁 대회
 </a>
       
     </h2>
@@ -570,14 +616,14 @@ m ⩽ n for all n ∈ S</li>
       <span class="page__meta-readtime">
         <i class="far fa-clock" aria-hidden="true"></i>
         
-          1 분 소요
+          2 분 소요
         
       </span>
     
   </p>
 
 
-    <p class="archive__item-excerpt" itemprop="description">가장 긴 바이토닉 부분 수열
+    <p class="archive__item-excerpt" itemprop="description">양궁 대회
 </p>
   </article>
 </div>
@@ -643,8 +689,8 @@ m ⩽ n for all n ∈ S</li>
     
   <script>
     var disqus_config = function () {
-      this.page.url = "http://localhost:4000/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction/";  /* Replace PAGE_URL with your page's canonical URL variable */
-      this.page.identifier = "/%EC%9D%B4%EC%82%B0%EC%88%98%ED%95%99/induction"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
+      this.page.url = "http://localhost:4000/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/%ED%95%A0%EC%9D%B8-%ED%96%89%EC%82%AC/";  /* Replace PAGE_URL with your page's canonical URL variable */
+      this.page.identifier = "/%ED%94%84%EB%A1%9C%EA%B7%B8%EB%9E%98%EB%A8%B8%EC%8A%A4/할인 행사"; /* Replace PAGE_IDENTIFIER with your page's unique identifier variable */
     };
     (function() { /* DON'T EDIT BELOW THIS LINE */
       var d = document, s = d.createElement('script');
