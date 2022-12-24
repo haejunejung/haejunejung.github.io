@@ -1,75 +1,40 @@
-# Site Settings
-baseurl: "haejungjung.github.io"
-future: true
-published: true
+# visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
 
-# Features Setting
-# Turn subpages on or off
-publications: True
-presentations: True
-blog: True
+paginate: 10 # pagination based on number of posts
+paginate_path: "page:num"
+exclude: ["README.md"] # files to exclude
+highlighter: rouge
+markdown: kramdown
+disqus: dbyll
+google_analytics: dbyll
+title: dbyll
 
-# Language of the website
-lang: en
+defaults:
+  -
+    scope:
+      path: "" # empty string for all files
+    values:
+      title: dbyll
 
-# Search engine optimization settings
-title: Grape Academic Theme
-tagline: A jekyll theme for academic portfolios
-description: The demonstration page for the Grape Academic Theme, a jekyll theme for academic portfolios based on the Grape Theme.
-author: Christoph Jabs (chrjabs)
-twitter:
-  username: chrjabs
-  card: A jekyll theme for academic portfolios
-logo: /assets/img/smile.png
-social:
-  name: Christoph Jabs
-  links:
-    - https://twitter.com/chrjabs
-    - https://github.com/chrjabs
-locale: en_GB
+description: Stylish Jekyll Theme
+author:
+  name: dbyll
+  email: dbyll@ismaildemirbilek.com
+  github: dbtek
+  twitter: dbtek
+  pinterest: asd123
+  linkedin: asd123
+  bio: Your stylish, minimalist theme!
+  email_md5: 726351295ec82e145928582f595aa3aa
 
-# Page Settings
-theme_settings:
-  title: Grape Academic Theme
+rss_path: feed.xml
+categories_path: categories.html
+tags_path: tags.html
 
-  experience_title: EXPERIENCE
-  interests_title: RESEARCH INTERESTS
-  skills_title: SKILLS
-  awards_title: AWARDS
-  projects_title: PROJECTS
-  recentpubs_title: RECENT PUBLICATIONS
+# set it as url of an image
+# sidebar_background_image: https://www.dropbox.com/s/g9h23zrycedxtk5/sky.png?raw=1
 
-# Pagination
-paginate: 5
-paginate_path: "blog/page:num"
+BASE_PATH:
 
-# Build Settings
-sass:
-  sass_dir: _sass
-  style: :compressed
-plugins: ['jekyll-paginate', 'jekyll/scholar', 'jekyll-seo-tag']
-bootstrap:
-  assets: true
-
-# Bibliography settings
-scholar:
-  bibliography: publications.bib
-  bibliography_template: pubstemplate
-  style: apa
-  locale: en
-  last_name: Me
-  first_name: [Myself, M.]
-  sort_by: year,month
-  order: descending,ascending
-
-filtered_bibtex_keywords: [abbr, abstract, arxiv, bibtex_show, html, pdf, selected, supp, blog, code, poster, slides, website] # Filter out certain bibtex entry keywords used internally from the bib output
-
-academicons:
-  version: "1.9.1"
-  integrity: "sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg="
-fontawesome:
-  version: "5.15.4"
-  integrity: "sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4="
-jquery:
-  version: "3.6.0"
-  integrity: "sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+plugins:
+  - jekyll-paginate
