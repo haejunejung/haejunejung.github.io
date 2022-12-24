@@ -1,5 +1,6 @@
 # Site Settings
 baseurl: "haejungjung.github.io"
+future: True
 
 # Features Setting
 # Turn subpages on or off
