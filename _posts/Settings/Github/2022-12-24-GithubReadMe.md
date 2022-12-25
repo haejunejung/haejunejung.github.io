@@ -13,9 +13,6 @@ description: Github Readme File setting
 Github를 조금 더 개발자스럽게 만들고 싶어서 Readme File을 통해 Github를 꾸미고 있다 :)      
 
 1. Github에 자신의 이름의 repository를 만든다
-
-![CreateRepo](../../../jepgSet/CreateRepo.jepg.png)
-
 2. 생성된 Readme File에 ***HTML*** 형식을 사용하여 Github를 꾸민다
 
 <br><br/>
