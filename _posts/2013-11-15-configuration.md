@@ -1,4 +1,4 @@
-<!-- ---
+---
 layout: post
 title: Configuration
 categories: [general, setup, demo]
@@ -20,4 +20,4 @@ author:
   resume: asd123  
   bio: Your stylish,  minimalist theme!  
   email_md5: md5ofemail  
-{% endhighlight %} -->
+{% endhighlight %}

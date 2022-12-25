@@ -1,19 +1,8 @@
 <!DOCTYPE html>
 <html>
-
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Karla:ital@1&display=swap" rel="stylesheet"> -->
-
-<style>
-	* {
-		line-height: 180%;
-	}
-</style>
-
 <head>
 	<meta charset="utf-8">
-	<title>스도쿠</title>
-	
-	<meta name="description" content="백준 2580번 스도쿠">
+	<title>Hello World!</title>
 	
 	<meta name="author" content="Haejunejung">
 
@@ -95,15 +84,6 @@
 
 	<div class="col-sm-3 sidebar hidden-xs" style="">
 		<!-- sidebar.html -->
-<!-- <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
-<style>
-	* {
-		font-family: 'Noto Sans KR', sans-serif;
-		line-height: 180%;
-	}
-</style> -->
-
 <header class="sidebar-header" role="banner">
 	<a href="/">
 		<img src="//www.gravatar.com/avatar/?s=150" class="img-circle" />
@@ -152,135 +132,28 @@
 	</div>
 
 	<div class="col-sm-9 col-sm-offset-3">
-		<!-- <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
-
-<style>
-	* {
-		font-family: 'Noto Sans KR', sans-serif;
-		line-height: 170%;
-	}
-</style> -->
-
-<div class="page-header">
-  <h1>스도쿠 </h1>
+		<div class="page-header">
+  <h1>Hello World! </h1>
 </div>
 	
 <article>
-	<div>
-		<script src="https://utteranc.es/client.js"
-			repo="haejunejung / haejunejung.github.io"
-			issue-term="pathname"
-			theme="boxy-light"
-			crossorigin="anonymous"
-			async>
-		</script>
-	</div>
+
 	<div class="col-sm-10">
 	 <span class="post-date">
 	   
 	   November 
-	   2nd,
-	     
-	   2022
+	   15th,
+	   
+	   2013
 	 </span>
 	  <div class="article_body">
-	  <h3 id="백준-2580번-스도쿠-풀이">백준 2580번 스도쿠 풀이</h3>
+	  <p><strong>dbyll</strong> is minimalist, stylish theme for jekyll. Supports gravatar, account links (github, twitter, e-mail, pinterest, résume file) and a bio.</p>
 
-<ol>
-  <li>입력으로 들어오는 값들을 저장한다. 이 때, 빈칸으로 오는 곳은 따로 저장한다</li>
-  <li>빈칸을 하나씩 채워가며 모두 채웠다면 출력을 하고 종료한다 (Base Case)</li>
-  <li>이 때, return을 하는 것이 아니라 exit를 해줘야 한다.</li>
-  <li>exit하지 않는다면, 다른 방법으로도 되는 경우 출력이 될 수 있기 때문이다</li>
-  <li>check 함수에서 빈 칸에 1~9에 해당하는 수가 들어갈 수 있는지 확인한다</li>
-  <li>만약 들어갈 수 있다면, 재귀를 통해 다음 빈 칸을 채우기 위해 들어간다</li>
-  <li>들어갈 수 없다면, 해당 빈 칸을 0으로 다시 초기화한 후 이전 빈 칸부터 다시 채운다</li>
-</ol>
+<p><strong>dbyll</strong> is brought to you by <strong><a href="http://ismaildemirbilek.com">dbtek</a></strong>. Open sourced under <a href="http://opensource.org/licenses/MIT">MIT</a> license.</p>
 
-<pre><code class="language-C++">#include &lt;iostream&gt;
-#include &lt;utility&gt;
-#include &lt;vector&gt;
+<h3 id="dbyll-is-on-github">dbyll is on GitHub</h3>
 
-using namespace std;
-
-int board[9][9];
-vector &lt;pair&lt;int,int&gt;&gt; blank;
-
-bool check (int first, int second) {
-    int i,j;
-    for(i=0; i&lt;9; ++i) { /* 가로 방향으로 넣으려는 값이 존재한다면 false */
-        if (i == second) continue; /* 좌표가 같은 것은 비교하지 않는다 */
-        if (board[first][i] == board[first][second]) return false;
-    }
-
-    for(i=0; i&lt;9; ++i) { /* 세로 방향으로 넣으려는 값이 존재한다면 false */
-        if (i == first) continue; /* 좌표가 같은 것은 비교하지 않는다 */
-        if (board[i][second] == board[first][second]) return false;
-    }
-
-    /* 3*3 블럭 확인 */
-    int square_first = first / 3;
-    int square_second = second / 3;
-    for(i=3*square_first; i&lt;3*square_first+3; ++i) {
-        for(j=3*square_second; j&lt;3*square_second+3; ++j) {
-            if (i == first &amp;&amp; j == second) continue; /* 좌표가 같은 것은 비교 X */
-            if (board[i][j] == board[first][second]) return false;
-        }
-    }
-
-    return true;
-}
-
-void sudoku (size_t fill) {
-    int i,j;
-    if (fill == blank.size()) { /* Base Case */ 
-        for(i=0; i&lt;9; ++i) {
-            for(j=0; j&lt;9; ++j) {
-                cout &lt;&lt; board[i][j] &lt;&lt; " ";
-            }
-            cout &lt;&lt; "\n";
-        }
-
-        exit(0);
-    }
-
-    int first = blank[fill].first; /* 빈 칸의 col 좌표 */
-    int second = blank[fill].second; /* 빈 칸의 row 좌표 */
-    for(i=1; i&lt;=9; ++i) {
-
-        board[first][second] = i; /* i값 저장 */
-        if (check(first, second)) { /* 들어갈 수 있다면 재귀 */
-            sudoku(fill+1);
-        }
-    }
-    /* 끝까지 들어가지 않는다면, 0으로 저장하고 다음으로 넘어간다 */
-    board[first][second] = 0; 
-    return;
-}
-
-int main () {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    int i,j,val;
-    for(i=0; i&lt;9; ++i) {
-        for(j=0; j&lt;9; ++j) {
-            cin &gt;&gt; val;
-            board[i][j] = val;
-
-            if (!val) blank.push_back(make_pair(i,j));
-        }
-    }
-
-    sudoku(0);
-    return 0;
-}
-</code></pre>
-
-<p>백트래킹의 대표적인 문제로서 N-Queen과 함께 연습해보면 좋은 문제이다  <br />
-처음에는 라이브러리를 쓰지 않고 해결하려고 하였으나, vector와 utility를 사용하게 되었다   <br />
-다음에 풀 때는, 라이브러리를 쓰지 않고 해결하려고 해봐야겠다  <br />
-많은 문제를 풀어보면 더 감이 오지 않을까 :)</p>
+<p><a class="btn btn-default" href="https://github.com/dbtek/dbyll">Grab your copy now!</a></p>
 
 	  </div>
 
@@ -290,13 +163,18 @@ int main () {
 		  
 		  
 			 
-				<li><a href="/categories.html#Baekjoon-ref">
-					Baekjoon <span>(1)</span>
+				<li><a href="/categories.html#general-ref">
+					general <span>(4)</span>
 					,
 				</a></li>
 			 
-				<li><a href="/categories.html#C++-ref">
-					C++ <span>(1)</span>
+				<li><a href="/categories.html#setup-ref">
+					setup <span>(2)</span>
+					,
+				</a></li>
+			 
+				<li><a href="/categories.html#demo-ref">
+					demo <span>(4)</span>
 					
 				</a></li>
 			
@@ -304,6 +182,43 @@ int main () {
 		</ul>
 		  
 
+		
+		<ul class="list-inline">
+		  <li><i class="fa fa-tags"></i></li>
+		  
+		  
+			 
+				<li>
+					<a href="/tags.html#demo-ref">
+					demo <span>(4)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#dbyll-ref">
+					dbyll <span>(4)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#dbtek-ref">
+					dbtek <span>(4)</span>
+					,
+					</a>
+				</li>
+			 
+				<li>
+					<a href="/tags.html#setup-ref">
+					setup <span>(2)</span>
+					
+					</a>
+				</li>
+			
+		  
+		  
+		</ul>
 		  
 
 		<hr>
@@ -311,7 +226,7 @@ int main () {
 		<div>
       <section class="share col-sm-6">
         <h4 class="section-title">Share Post</h4>
-        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=스도쿠"
+        <a class="btn btn-default btn-sm twitter" href="http://twitter.com/share?text=Hello World!"
            onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
           <i class="fa fa-twitter fa-lg"></i>
           Twitter
@@ -339,10 +254,10 @@ int main () {
 
 		<ul class="pager">
 		  
-		  <li class="previous"><a href="/2013/11/15/hello-world.html" title="Hello World">&larr; Previous</a></li>
+		  <li class="previous"><a href="/general/setup/demo/2013/11/15/configuration.html" title="Configuration">&larr; Previous</a></li>
 		  
 		  
-		  <li class="next"><a href="/%EC%97%90%EC%9D%B4%EC%8A%A4%EB%9E%A9/2022/11/21/%EB%A9%B4%EC%A0%91%EC%A4%80%EB%B9%84.html" title="면접준비">Next &rarr;</a></li>
+			<li class="next disabled"><a>Next &rarr;</a>
 		  
 		</ul>
 

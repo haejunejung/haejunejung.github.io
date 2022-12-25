@@ -1,32 +1,31 @@
 # visit https://github.com/mojombo/jekyll/wiki/Configuration for more settings
 
-paginate: 3 # pagination based on number of posts
+paginate: 10 # pagination based on number of posts
 paginate_path: "page:num"
 exclude: ["README.md"] # files to exclude
 highlighter: rouge
 markdown: kramdown
-repository: "haejunejung/haejunejung.github.io"
-# disqus_shortname: haejunejung-github-io ### 
-google_analytics: dbyll ### 
-title: HaeJune
+disqus: dbyll
+google_analytics: dbyll
+title: dbyll
 
 defaults:
   -
     scope:
       path: "" # empty string for all files
     values:
-      title: HaeJune
+      title: dbyll
 
-# description: Stylish Jekyll Theme
+description: Stylish Jekyll Theme
 author:
-  name: Haejunejung
-  email: jhj9422@unist.ac.kr
-  github: haejunejung
-  # twitter: dbtek
-  # pinterest: asd123
-  # linkedin: asd123
-  bio: Record Everything!
-  # email_md5: 726351295ec82e145928582f595aa3aa
+  name: dbyll
+  email: dbyll@ismaildemirbilek.com
+  github: dbtek
+  twitter: dbtek
+  pinterest: asd123
+  linkedin: asd123
+  bio: Your stylish, minimalist theme!
+  email_md5: 726351295ec82e145928582f595aa3aa
 
 rss_path: feed.xml
 categories_path: categories.html
@@ -39,25 +38,3 @@ BASE_PATH:
 
 plugins:
   - jekyll-paginate
-
-
-comments:
-  provider: "utterances"
-  utterances: 
-    theme: "photon-dark"
-    issue_term: "pathname"
-
-# Defaults
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: true
-      comments: true
-      share: true
-      related: true
-      sidebar_main : true
