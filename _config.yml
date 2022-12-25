@@ -44,7 +44,7 @@ plugins:
 comments:
   provider: "utterances"
   utterances: 
-    theme: "Boxy Light"
+    theme: "photon-dark"
     issue_term: "pathname"
 
 # Defaults
