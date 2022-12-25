@@ -5,7 +5,8 @@ paginate_path: "page:num"
 exclude: ["README.md"] # files to exclude
 highlighter: rouge
 markdown: kramdown
-disqus_shortname: haejunejung-github-io ### 
+repository: "haejunejung/haejunejung.github.io"
+# disqus_shortname: haejunejung-github-io ### 
 google_analytics: dbyll ### 
 title: HaeJune
 
@@ -38,3 +39,10 @@ BASE_PATH:
 
 plugins:
   - jekyll-paginate
+
+
+comments:
+  provider: "utterances"
+  utterances: 
+    theme: "Boxy Light"
+    issue_term: "pathname"
