@@ -1,0 +1,60 @@
+<p>가장 긴 바이토닉 부분 수열</p>
+
+<h3 id="백준-11054번-가장-긴-바이토닉-부분-수열-풀이">백준 11054번 가장 긴 바이토닉 부분 수열 풀이</h3>
+
+<p>처음에는 문제를 잘못 이해해서, 바이토닉 부분 수열이 끊기지 않고 연결되야 하는 것으로 생각했다. <br />
+문제의 밑에 힌트를 보고 꼭 연결되지 않아도 바이토닉 부분 수열을 만족하기만 하면 된다는 것을 알게 되었다.  <br />
+풀이 방법은,</p>
+
+<ol>
+  <li>dp를 모두 1로 초기화시킨다. (최소 길이가 1)</li>
+  <li>증가하는 부분 수열로 dp를 변경한다</li>
+  <li>변경된 dp에 감소하는 부분 수열을 추가한다</li>
+  <li>dp에 저장된 값들을 비교하여 가장 큰 값을 도출한다 ## 정답 ##</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#include &lt;iostream&gt;
+
+using namespace std;
+
+int main (void) {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); cout.tie(NULL);
+
+    int i, j, N, val[1000], dp[1000];
+    cin &gt;&gt; N;
+
+    fill_n(dp, 1000, 1); /* 모든 부분의 최소 개수는 1개이므로 1로 초기화 */
+
+    for(i=0; i&lt;N; ++i) {
+        cin &gt;&gt; val[i]; /* 수를 받아준다 */
+    }
+
+    /* 증가하는 부분 수열 */
+    for(i=1; i&lt;N; ++i) {
+        for(j=i-1; j&gt;=0; --j) {
+            if (val[i] &gt; val[j]) dp[i] = max(dp[i], dp[j]+1);
+        }
+    }
+
+    /* 감소하는 부분 수열 */
+    for(i=1; i&lt;N; ++i) {
+        for(j=i-1; j&gt;=0; --j) {
+            if(val[i] &lt; val[j]) dp[i] = max(dp[i], dp[j]+1);
+        }
+    }
+
+    /* 최장 길이 구하기 */
+    int maximum = dp[0];
+    for(i=1; i&lt;N; ++i) {
+        maximum = max(maximum, dp[i]);
+    }
+
+    cout &lt;&lt; maximum;
+    return 0;
+}
+</code></pre></div></div>
+
+<p>Dynamic Programming 문제는 언제 풀어봐도 새롭다는 느낌을 받는 것 같다.    <br />
+DP와 Greedy에 관한 알고리즘을 배운 후로는 완전 탐색하기보다는 어떤 알고리즘이 더 효율적인지 생각하게 되는 것 같다.    <br />
+아직 많이 부족하지만 꾸준히 문제를 푸는 습관을 들일 것이다 :)</p>

@@ -1,426 +1,293 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Karla:ital@1&display=swap" rel="stylesheet"> -->
+
+<style>
+	* {
+		line-height: 180%;
+	}
+</style>
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  
-  <!-- Favicon code from realfavicongenerator.net -->
-<link rel="apple-touch-icon" sizes="180x180" href="/Grape-Academic-Theme/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/Grape-Academic-Theme/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/Grape-Academic-Theme/favicon-16x16.png">
-<link rel="manifest" href="/Grape-Academic-Theme/site.webmanifest">
-<link rel="mask-icon" href="/Grape-Academic-Theme/safari-pinned-tab.svg" color="#8b51a3">
-<meta name="msapplication-TileColor" content="#563d7c">
-<meta name="theme-color" content="#ffffff">
+	<meta charset="utf-8">
+	<title>HaeJune</title>
+	
+	<meta name="author" content="Haejunejung">
 
-  <!--jQuery-->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<!-- Enable responsive viewport -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Fonts & Icons -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.4/css/all.min.css" integrity="sha256-mUZM63G8m73Mcidfrv5E+Y61y7a12O5mW4ezU3bxqW4=" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons@1.9.1/css/academicons.min.css" integrity="sha256-i1+4qU2G2860dGGIOJscdC30s9beBXjFfzjWLjBRsBg=" crossorigin="anonymous">
-  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+	<!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="/Grape-Academic-Theme/assets/css/main.css">
+	<!-- Le styles -->
+	<link href="/assets/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/assets/resources/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="/assets/resources/syntax/syntax.css" rel="stylesheet">
+	<link href="/assets/css/style.css" rel="stylesheet">
 
-  <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Portfolio | Grape Academic Theme</title>
-<meta name="generator" content="Jekyll v4.3.1" />
-<meta property="og:title" content="Portfolio" />
-<meta name="author" content="Christoph Jabs (chrjabs)" />
-<meta property="og:locale" content="en_GB" />
-<meta name="description" content="Personal portfolio" />
-<meta property="og:description" content="Personal portfolio" />
-<link rel="canonical" href="http://localhost:4000/Grape-Academic-Theme/" />
-<meta property="og:url" content="http://localhost:4000/Grape-Academic-Theme/" />
-<meta property="og:site_name" content="Grape Academic Theme" />
-<meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Portfolio" />
-<meta name="twitter:site" content="@chrjabs" />
-<meta name="twitter:creator" content="@Christoph Jabs (chrjabs)" />
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Christoph Jabs (chrjabs)"},"description":"Personal portfolio","headline":"Portfolio","name":"Christoph Jabs","publisher":{"@type":"Organization","logo":{"@type":"ImageObject","url":"http://localhost:4000/Grape-Academic-Theme/assets/img/smile.png"},"name":"Christoph Jabs (chrjabs)"},"sameAs":["https://twitter.com/chrjabs","https://github.com/chrjabs"],"url":"http://localhost:4000/Grape-Academic-Theme/"}</script>
-<!-- End Jekyll SEO tag -->
+	<!-- Le fav and touch icons -->
+	<!-- Update these with your own images
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png">
+	-->
 
+	<link rel="alternate" type="application/rss+xml" title="" href="/feed.xml">
 </head>
-<!--jQuery-->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 <body>
-  <div class="container">
-    
+	<nav class="navbar navbar-default visible-xs" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+			<a type="button" class="navbar-toggle nav-link" href="http://github.com/haejunejung">
+				<i class="fa fa-github"></i>
+			</a>
+			
+			
+			
+			<a type="button" class="navbar-toggle nav-link" href="mailto:jhj9422@unist.ac.kr">
+				<i class="fa fa-envelope"></i>
+			</a>
+			
+			<a class="navbar-brand" href="/">
+				<img src="//www.gravatar.com/avatar/?s=35" class="img-circle" />
+				HaeJune
+			</a>
+		</div>
 
-<section id="header-nav">
-  <header>
-    <nav>
-      <ul>
-        
-        <li class="current">Home</li>
-        
-          <a href="/Grape-Academic-Theme/publications">
-            <li class="btn-nav">Publications</li>
-          </a>
-        
-        
-          <a href="/Grape-Academic-Theme/presentations">
-            <li class="btn-nav">Presentations</li>
-          </a>
-        
-        
-          <a href="/Grape-Academic-Theme/blog">
-            <li class="btn-nav">Blog</li>
-          </a>
-          <a href="/Grape-Academic-Theme/tags">
-            <li class="btn-nav">Tags</li>
-          </a>
-        
-        <!-- publications -->
-        
-      </ul>
-    </nav>
-  </header>
-</section>
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/categories.html">Categories</a></li>
+				<li><a href="/tags.html">Tags</a></li>
+			</ul>
+		</div><!-- /.navbar-collapse -->
+	</nav>
+
+	<!-- nav-menu-dropdown -->
+	<div class="btn-group hidden-xs" id="nav-menu">
+		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			<i class="fa fa-bars"></i>
+		</button>
+		<ul class="dropdown-menu" role="menu">
+			<li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+			<li><a href="/categories.html"><i class="fa fa-folder"></i>Categories</a></li>
+			<li><a href="/tags.html"><i class="fa fa-tags"></i>Tags</a></li>
+			<li class="divider"></li>
+			<li><a href="#"><i class="fa fa-arrow-up"></i>Top of Page</a></li>
+		</ul>
+	</div>
+
+	<div class="col-sm-3 sidebar hidden-xs" style="">
+		<!-- sidebar.html -->
+<!-- <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+
+<style>
+	* {
+		font-family: 'Noto Sans KR', sans-serif;
+		line-height: 180%;
+	}
+</style> -->
+
+<header class="sidebar-header" role="banner">
+	<a href="/">
+		<img src="//www.gravatar.com/avatar/?s=150" class="img-circle" />
+	</a>
+	<h3 class="title">
+        <a href="/">HaeJune</a>
+    </h3>
+</header>
 
 
-
-
-</div><!-- This Tag means End .container -->
-<div id="portfolio">
-  <section id="about-me">
-    <div class="row">
-      <div class="img-wrap col-12 col-md-4">
-        <div class="img">
-          <img src="/Grape-Academic-Theme/assets/img/smile.png" alt="user_image">
-        </div>
-      </div>
-      <div class="text-wrap col-12 col-md-8">
-        <h2 class="username">Christoph Jabs</h2>
-        <div class="description"><p>creator of the Grape-Academic-Theme! Grape-Academic-Theme is a modification of the Grape-Theme by naye0ng, making it more suitable as an academic portfolio.</p>
+<div id="bio" class="text-center">
+	Record Everything!
 </div>
 
-        <ul id="icons">
-          
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<li>
-  <a href="https://github.com/chrjabs" target="_blank" title="Github">
-    <i class="fab fa-github"></i>
-  </a>
-</li>
-
-
-
-
-
-<li>
-  <a href="https://bitbucket.org/chrjabs" target="_blank" title="Bitbucket">
-    <i class="fab fa-bitbucket"></i>
-  </a>
-</li>
-
-
-
-
-
-<li>
-  <a rel="me" href="https://mastodon.social" target="_blank" title="Mastodon">
-    <i class="fab fa-mastodon"></i>
-  </a>
-</li>
-
-
-
-<li>
-  <a href="https://twitter.com/chrjabs" target="_blank" title="Twitter">
-    <i class="fab fa-twitter"></i>
-  </a>
-</li>
-
-
-
-
-
-
-
-        </ul>
-      </div>
-    </div>
-    <div class="bg"></div>
-  </section>
-  <!-- career section -->
-  <section id="career" class="row">
-    <article class="exper col-12 col-md-6">
-      
-  <p class="title">EXPERIENCE</p>
-  <ul class="exper-list">
-    
-    <li class="meta">
-      <p class="date">2017-05-03 &ndash; 2018-05-06</p>
-      <p class="description">company name, title</p>
-    </li>
-    
-  </ul>
-
-      
-  <p class="title">AWARDS</p>
-  <ul class="awards-list">
-    
-    <li class="award">This is an award I got</li>
-    
-  </ul>
-
-    </article>
-    <article class="skills col-12 col-md-6">
-      
-  <p class="title">RESEARCH INTERESTS</p>
-  <ul class="interests-list">
-    
-    <li class="interest">Interest 1</li>
-    
-    <li class="interest">Interest 2</li>
-    
-  </ul>
-
-      
-  <p class="title">SKILLS</p>
-  <ul class="skill-list">
-    
-    <li class="skill">
-      <p class="name">HTML5 & CSS</p>
-      <div class="progress">
-        <div class="progress-bar" style="width: 85%">
-          <div class="progress-value">85%</div>
-        </div>
-      </div>
-    </li>
-    
-  </ul>
-
-    </article>
-  </section>
-
-  <section id="project">
-  <div class="project-wrap">
-    <p class="title">PROJECTS</p>
-    <div class="card-container">
-      
-      
-      
-      <div class="card-wrapper">
-        <div class="card">
-          
-          <div class="img-wrap">
-            <img src="/Grape-Academic-Theme/assets/project/portfolio.png" alt="A screenshot of the portfolio page">
-          </div>
-          
-          <div class="text-wrap ">
-            <div class="title-wrap">
-              <p class="date">05/2022 &ndash; Developing</p>
-              <div class="title">Grape-Theme</div>
-            </div>
-            <div class="meta">
-              
-            </div>
-            <div class="description">A modification of the Grape-Theme for jekyll to be useable as an academic portfolio.</div>
-          </div>
-          <div class="icons">
-            
-            
-            <a href="https://github.com/chrjabs/Grape-Academic-Theme"><i class="far fa-eye"></i></a>
-            
-            
-            <a title="1" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>
-            
-          </div>
-        </div>
-      </div>
-      <!-- Modal Box -->
-      
-      <div id="1" class="modal">
-  <div class="modal-background" onClick="close_modal()"></div>
-  <div class="modal-content">
-    <div class="close-modal" onClick="close_modal()">
-      <p>&times;</p>
-    </div>
-    <div class="header">
-      <p class="date">05/2022 &ndash; Developing</p>
-      <p class="title">Grape-Theme</p>
-      <p class="summary">Academic portfolio jekyll theme.</p>
-    </div>
-    <div class="content">
-      
-        <img src="/Grape-Academic-Theme/assets/project/portfolio.png" alt="A screenshot of the portfolio page">
-      
-      <div class="description">A modification of the Grape-Theme for jekyll to be useable as an academic portfolio.</div>
-      
-      <div class="sub-content">
-        <div class="title">1. Portfolio Page</div>
-        
-          <img src="/Grape-Academic-Theme/assets/project/portfolio.png" alt="A screenshot of the portfolio page">
-        
-        <div class="description"><li>Concise portfolio page</li> <li>Recent publications</li> <li>Projects</li></div>
-      </div>
-      
-      <div class="sub-content">
-        <div class="title">2. Optional Blog Functionality</div>
-        
-          <img src="/Grape-Academic-Theme/assets/project/home.png" alt="A screenshot of the blog page">
-        
-        <div class="description"><li>Responsive Layout</li> <li>Tags</li> <li>Pagination</li></div>
-      </div>
-      
-      <div class="sub-content">
-        <div class="title">3. Tags Page</div>
-        
-          <img src="/Grape-Academic-Theme/assets/project/tags.png" alt="A screenshot of the tags page">
-        
-        <div class="description"><li>Responsive Layout</li> <li>Tags</li></div>
-      </div>
-      
-    </div>
-  </div>
+<div id="contact-list" class="text-center">
+	<ul class="list-unstyled list-inline">
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="https://github.com/haejunejung">
+				<i class="fa fa-github-alt fa-lg"></i>
+			</a>
+		</li>
+		
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="mailto:jhj9422@unist.ac.kr">
+				<i class="fa fa-envelope fa-lg"></i>
+			</a>
+		</li>
+		
+	</ul>
+	<ul id="contact-list-secondary" class="list-unstyled list-inline">
+		
+		
+		<li>
+			<a class="btn btn-default btn-sm" href="/feed.xml">
+				<i class="fa fa-rss fa-lg"></i>
+			</a>
+		</li>
+	</ul>
 </div>
-      
-      <!-- Modal Box -->
-      
-      
-      
-      <div class="card-wrapper">
-        <div class="card">
-          
-          <div class="text-wrap ">
-            <div class="title-wrap">
-              <p class="date">06/2019 &ndash; Developing</p>
-              <div class="title">Dummy project</div>
-            </div>
-            <div class="meta">
-              
-            </div>
-            <div class="description"></div>
-          </div>
-          <div class="icons">
-            
-            
-            <a title="2" onClick="open_modal(this.title)" class="modal-btn"><i class="fas fa-plus"></i></a>
-            
-          </div>
-        </div>
-      </div>
-      <!-- Modal Box -->
-      
-      <div id="2" class="modal">
-  <div class="modal-background" onClick="close_modal()"></div>
-  <div class="modal-content">
-    <div class="close-modal" onClick="close_modal()">
-      <p>&times;</p>
-    </div>
-    <div class="header">
-      <p class="date">06/2019 &ndash; Developing</p>
-      <p class="title">Dummy project</p>
-      <p class="summary">This is a Dummy</p>
-    </div>
-    <div class="content">
-      
-      <div class="description"></div>
-      
-    </div>
-  </div>
-</div>
-      
-      <!-- Modal Box -->
-      
-    </div>
-  </div>
-  <div class="bg"></div>
-</section>
+<!-- sidebar.html end -->
 
-<!-- modal -->
-<script type="text/javascript" src="/Grape-Academic-Theme/assets/js/modal.js"></script>
+	</div>
 
-  <section id="recentpubs">
-  <div class="recentpubs-wrap">
-    <p class="title">RECENT PUBLICATIONS</p>
-    [<a class="btn" href="/Grape-Academic-Theme/publications" title="Publications">All Publications</a>]
-    <ol class="bibliography"><li><!-- Entry bib key -->
-<div id="test">
-  
-  <!-- Title -->
-  <div class="title">An Article</div>
-  <!-- Author -->
-  <div class="author">
-            <em>Me, Myself</em>,&nbsp;and <a href="https://www.google.com/search?q=them+others" target="_blank" rel="noopener noreferrer">Others, Them</a>
-            
-  </div>
+	<div class="col-sm-9 col-sm-offset-3">
+		<!-- <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
 
-  <!-- Journal/Book title and date -->
-  
-  <div class="third-line">
-    Some important journal, 2010
-  </div>
-</div></li>
-<li><!-- Entry bib key -->
-<div id="ruby">
-  
-  <!-- Title -->
-  <div class="title">The Ruby Programming Language</div>
-  <!-- Author -->
-  <div class="author">Flanagan, David,&nbsp;and Matsumoto, Yukihiro
-  </div>
+<style>
+	* {
+		font-family: 'Noto Sans KR', sans-serif;
+	}
+</style> -->
 
-  <!-- Journal/Book title and date -->
-  
-  <div class="third-line">
-    2008
-  </div>
-</div></li>
-<li><!-- Entry bib key -->
-<div id="DBLP:conf/sat/FuM06">
-  
-  <!-- Title -->
-  <div class="title">On Solving the Partial MAX-SAT Problem</div>
-  <!-- Author -->
-  <div class="author">Fu, Zhaohui,&nbsp;and Malik, Sharad
-  </div>
-
-  <!-- Journal/Book title and date -->
-  
-  <div class="third-line">
-    In Theory and Applications of Satisfiability Testing — SAT 2006, 9th
-                 International Conference, Seattle, WA, USA, August 12–15, 2006, Proceedings, vol. 4121, pp. 252–265, 2006
-  </div>
-</div></li></ol>
-  </div>
-</section>
+<div class="page-header">
+  <h1>HaeJune </h1>
 </div>
 
-<!-- Footer -->
-<footer>
-  <div class="footer">
-    Copyright © 2022
-    <a href=""></a>.
-    Powered by Jekyll with
-    <a href="https://github.com/chrjabs/Grape-Academic-Theme">Grape Academic Theme</a>.
-  </div>
-</footer>
 
+
+<article class="home">
+
+  <span class="post-date">
+    
+    December
+    3rd,
+    
+    2022
+  </span>
+
+  <h2>
+    <a href="/%EC%97%90%EC%9D%B4%EC%8A%A4%EB%9E%A9/2022/12/03/%EB%A9%B4%EC%A0%91%ED%9B%84%EA%B8%B0.html">면접후기</a>
+  </h2>
+
+  <div>
+    
+    
+    COOP ACELAB 면접후기
+    
+    
   </div>
+
+</article>
+
+
+<article class="home">
+
+  <span class="post-date">
+    
+    November
+    21st,
+    
+    2022
+  </span>
+
+  <h2>
+    <a href="/%EC%97%90%EC%9D%B4%EC%8A%A4%EB%9E%A9/2022/11/21/%EB%A9%B4%EC%A0%91%EC%A4%80%EB%B9%84.html">면접준비</a>
+  </h2>
+
+  <div>
+    
+    
+    COOP ACELAB 면접준비
+    
+    
+  </div>
+
+</article>
+
+
+<article class="home">
+
+  <span class="post-date">
+    
+    November
+    7th,
+    
+    2022
+  </span>
+
+  <h2>
+    <a href="/%EB%B0%B1%EC%A4%80/2022/11/07/%EC%A0%84%EA%B9%83%EC%A4%84.html">전깃줄</a>
+  </h2>
+
+  <div>
+    
+    
+    <p>전깃줄</p>
+
+    
+    
+  </div>
+
+</article>
+
+<hr/>
+
+<ul class="pager"> 
+
+  
+  <li class="previous disabled">
+    <a>&larr; Newer</a>
+  </li>
+  
+  
+  <li>
+    <span class="page_number">Page: 1 of 3</span>
+  </li>
+
+  
+  <li class="next">
+    <a href="/page2">Older &rarr;</a>
+  </li>
+  
+
+</ul>
+
+
+
+
+		<footer>
+			<hr/>
+			<p>
+				&copy; 2022 Haejunejung with <a href="http://jekyllrb.com/">Jekyll</a>. Theme: <a href="https://github.com/dbtek/dbyll">dbyll</a> by dbtek.
+			</p>
+		</footer>
+	</div>
+
+	<script type="text/javascript" src="/assets/resources/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/resources/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/assets/js/app.js"></script>
 </body>
-
 </html>
+
+
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'dbyll', 'auto');
+  ga('send', 'pageview');
+</script>
+
