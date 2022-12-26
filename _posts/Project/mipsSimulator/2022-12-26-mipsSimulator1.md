@@ -43,8 +43,8 @@ description: Project mipsSimulator Start!
 
 Reference
 
-[시뮬레이터 제작 과정] https://yongj.in/development/mips-simulator/     
-[시뮬레이터] https://mips.surge.sh/     
-[파이프라인 적용 버전 시뮬레이터] https://github.com/KanegaeGabriel/mips-pipeline-simulator/blob/master/example_output.txt
+[시뮬레이터 제작 과정](https://yongj.in/development/mips-simulator/)    
+[시뮬레이터](https://mips.surge.sh/)    
+[파이프라인 적용 버전 시뮬레이터](https://github.com/KanegaeGabriel/mips-pipeline-simulator/blob/master/example_output.txt)
 
 
