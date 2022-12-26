@@ -36,7 +36,7 @@ Github를 조금 더 개발자스럽게 만들고 싶어서 Readme File을 통�
 4. ***로고색*** : 넣고 싶은 놓고 색을 넣는다. 보통 Default, "white"로 사용한다
 
 
-- <img src="https://img.shields.io/badge/C++-00599C?style=flat-square&logo=C%2B%2B&logoColor=white"/></a> ***를 만드는 코드***
+- <img src="https://img.shields.io/badge/C++-00599C?style=flat-square&logo=C%2B%2B&logoColor=white"/>***를 만드는 코드***
 ```
 <img src="https://img.shields.io/badge/C++-00599C?style=flat-square&logo=C%2B%2B&logoColor=white"/></a> 
 ```
