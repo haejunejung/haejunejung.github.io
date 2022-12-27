@@ -10,9 +10,15 @@ description: Project mipsSimulator Start!
 
 - 지난 2학기에 컴퓨터 구조 과목을 배웠었는데, 같이 수업을 들었던 범수형이 컴퓨터 구조 스터디를 같이 하면서 복습 ∙ 시뮬레이터 만들어보는게 어떻겠냐고 해서 너무 좋은 기회라고 생각이 들어 함께 하게 되었다 :)
 
-- 스터디에서 하게 될 일은 크게 두 가지이다
+- 스터디에서 하게 될 일은 4가지이다.
   1. 컴퓨터 구조 복습 → 책을 이용해서 하게 될 것이다
-  2. 컴퓨터 구조 과제 복습 & 추가 구현 → CLI ⇢ GUI
+  2. 시뮬레이터 만들기
+       - assembly → binary file(object file)
+       - simulation (register and memory update)
+       - cache application
+       - pipeline application 
+  3. 오픈 소스 배포하기
+  4. 시뮬레이터 GUI 제작 (CLI ⇢ GUI)
 
 <br><br/>
 
