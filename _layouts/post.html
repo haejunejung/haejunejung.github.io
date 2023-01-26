@@ -1,8 +1,6 @@
 ---
-layout: default
+layout: layout
 ---
-{% include post.html %}
 
-{% if site.disqus and page.comments %}
-    {% include disqus.html %}
-{% endif %}
+{% assign __ = site.data.languages[site.language] %}
+{% include post.html %}
