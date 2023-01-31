@@ -423,12 +423,12 @@ changyan:
 
 # Support for gitalk comments system.
 gitalk:
-  enable: true
-  clientID: 7ffd86a1098cd08ec0e8
-  clientSecret: 14ee2d92e30dc647298124658d8122eda4f067be
-  repo: haejunejung.github.io
-  owner: haejunejung
-  admin: haejunejung
+  enable: false
+  clientID: #7ffd86a1098cd08ec0e8
+  clientSecret: #14ee2d92e30dc647298124658d8122eda4f067be
+  repo: #haejunejung.github.io
+  owner: #haejunejung
+  admin: #haejunejung
 
 # Baidu Share
 # Available value:
