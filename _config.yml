@@ -422,6 +422,9 @@ changyan:
 #livere_uid: your uid
 
 # Support for gitalk comments system.
+comments:
+  provider: 'gitalk'
+
 gitalk:
   enable: true
   clientID: 2b18ef4e05a067625b68
