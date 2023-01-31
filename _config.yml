@@ -422,16 +422,13 @@ changyan:
 #livere_uid: your uid
 
 # Support for gitalk comments system.
-comments:
-  provider: 'gitalk'
-
 gitalk:
-  enable: true
-  clientID: 2b18ef4e05a067625b68
-  clientSecret: 187ffa79dea1e7aa0b4ddffb1741266be165073c
-  repo: haejunejung.github.io
-  owner: haejunejung
-  admin: haejunejung
+  enable: false
+  clientID: # 2b18ef4e05a067625b68
+  clientSecret: # 187ffa79dea1e7aa0b4ddffb1741266be165073c
+  repo: # haejunejung.github.io
+  owner: # haejunejung
+  admin: # haejunejung
 
 # Baidu Share
 # Available value:
