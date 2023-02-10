@@ -2,7 +2,7 @@ name: Merge configure branch
 
 on:
   schedule:
-    - cron: "30 * * * *"
+    - cron: "00 * * * *"
 
 jobs:
   merge:
@@ -19,10 +19,13 @@ jobs:
       with:
         ref: configure
         submodules: 'recursive'
-    - name: Deploy Github Pages
+    - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install ruby-full build-essential
+        sudo gem install bundler
+    - name: Deploy Github Pages
+      run: |
         git branch -D gh-pages || true
         git checkout --orphan gh-pages
         bundle install
