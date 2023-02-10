@@ -1,0 +1,48 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '40 0 * * *'
+
+jobs:
+  deploy_pages:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: temp
+        submodules: recursive
+
+    - name: Setup Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.7
+
+    - name: Install dependencies
+      run: |
+        gem install bundler
+        bundle install
+
+    - name: Build pages
+      run: bundle exec jekyll build
+
+    - name: Deploy pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        publish_dir: ./_site
+        
+    - name: Merge temp into main
+      if: success()
+      uses: alibaba/puppeteer-actions/github-merge@master
+      with:
+        branch_name: temp
+        commit_message: "Merging successful temp build"
+        target_branch: main
+        push: true
+        repository: ${{ secrets.REPOSITORY }}
+        github_token: ${{ secrets.TOKEN }}
