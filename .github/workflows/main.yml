@@ -2,7 +2,7 @@ name: Merge successful deployment files to main branch
 
 on:
   schedule:
-    - cron: '25 * * * *'
+    - cron: '00 * * * *'
 
 jobs:
   merge:
@@ -10,12 +10,12 @@ jobs:
 
     steps:
     - name: Checkout the source branch
-      uses: actions/checkout@v2.3.3
+      uses: actions/checkout@v2.4.1
       with:
         ref: temp
 
     - name: Checkout the target branch
-      uses: actions/checkout@v2.3.3
+      uses: actions/checkout@v2.4.1
       with:
         ref: main
         checkout: 'sparse'
