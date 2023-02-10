@@ -2,7 +2,7 @@ name: Merge successful deployment files to main branch
 
 on:
   schedule:
-    - cron: '45 * * * *'
+    - cron: '55 * * * *'
 
 jobs:
   merge:
@@ -42,7 +42,7 @@ jobs:
 
     - name: Push changes
       if: steps.build-and-deploy.outputs.deploy_exit_code == 0
-      uses: ad-m/github-push-action@v2.0.0
+      uses: ad-m/github-push-action@v1
       with:
         github_token: ${{ secrets.TOKEN }}
         branch: main
