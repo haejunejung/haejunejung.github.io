@@ -1,8 +1,8 @@
-name: Merge temp branch
+name: Merge configure branch
 
 on:
   schedule:
-    - cron: "40 * * * *"
+    - cron: "55 * * * *"
 
 jobs:
   merge:
@@ -21,16 +21,15 @@ jobs:
         submodules: 'recursive'
     - name: Deploy Github Pages
       run: |
-        git branch -D gh-pages
-        git checkout -b gh-pages
+        git branch -D gh-pages || true
+        git checkout --orphan gh-pages
         bundle install
         bundle exec jekyll build
         cp -r _site/* .
         git add .
         git commit -m "Build and deploy site"
         git push origin gh-pages
-
-    - name: Merge temp branch
+    - name: Merge configure branch
       if: success()
       run: |
         git checkout main
