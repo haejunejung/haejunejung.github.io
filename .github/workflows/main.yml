@@ -2,7 +2,7 @@ name: Merge successful deployment files to main branch
 
 on:
   schedule:
-    - cron: '37 06 * * *'
+    - cron: '45 * * * *'
 
 jobs:
   merge:
