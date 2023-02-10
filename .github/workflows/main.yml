@@ -1,8 +1,8 @@
-name: Merge configure branch
+name: Merge temp branch
 
 on:
   schedule:
-    - cron: "55 * * * *"
+    - cron: "05 * * * *"
 
 jobs:
   merge:
@@ -14,13 +14,15 @@ jobs:
       with:
         ref: main
         submodules: 'recursive'
-    - name: Checkout configure branch
+    - name: Checkout temp branch
       uses: actions/checkout@v2
       with:
-        ref: configure
+        ref: temp
         submodules: 'recursive'
     - name: Deploy Github Pages
       run: |
+        sudo apt-get update
+        sudo apt-get install ruby-full build-essential
         git branch -D gh-pages || true
         git checkout --orphan gh-pages
         bundle install
@@ -29,9 +31,9 @@ jobs:
         git add .
         git commit -m "Build and deploy site"
         git push origin gh-pages
-    - name: Merge configure branch
+    - name: Merge temp branch
       if: success()
       run: |
         git checkout main
-        git merge configure
+        git merge temp
         git push origin main
