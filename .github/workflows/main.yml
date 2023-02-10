@@ -1,0 +1,48 @@
+name: Merge successful deployment files to main branch
+
+on:
+  schedule:
+    - cron: '0 15 * * *'
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout the source branch
+      uses: actions/checkout@v2
+      with:
+        ref: temp
+
+    - name: Checkout the target branch
+      uses: actions/checkout@v2
+      with:
+        ref: main
+        checkout: 'sparse'
+
+    - name: Build and deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        deploy_key: ${{ secrets.DEPLOY_KEY }}
+        publish_dir: ./_site
+
+    - name: Check the deployment status
+      if: steps.build-and-deploy.outputs.deploy_exit_code == 0
+      run: echo "The deployment was successful"
+
+    - name: Merge the source branch into the target branch
+      if: steps.build-and-deploy.outputs.deploy_exit_code == 0
+      run: |
+        git checkout main
+        git merge temp --no-commit
+        git checkout HEAD --_site
+        git reset HEAD .
+        git add _site
+        git commit -m "Merge successful deployment files from temp branch"
+
+    - name: Push changes
+      if: steps.build-and-deploy.outputs.deploy_exit_code == 0
+      uses: ad-m/github-push-action@v1
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
