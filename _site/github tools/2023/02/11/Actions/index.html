@@ -83,7 +83,7 @@
 <link href="/assets/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="mipsSimulator," />
+  <meta name="keywords" content="Github tools," />
 
 
 
@@ -111,17 +111,17 @@
 
 
 
-<meta name="description" content="TS규칙">
-<meta name="keywords" content="mipsSimulator">
+<meta name="description" content="Github Actions">
+<meta name="keywords" content="Github tools">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TS규칙 &lt;타입과 인터페이스&gt;">
-<meta property="og:url" content="http://localhost:4000/mipssimulator/2023/01/20/%ED%83%80%EC%9E%85%EA%B3%BC-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/">
+<meta property="og:title" content="Github Actions">
+<meta property="og:url" content="http://localhost:4000/github%20tools/2023/02/11/Actions/">
 <meta property="og:site_name" content="HaeJune's Blog">
-<meta property="og:description" content="TS규칙">
+<meta property="og:description" content="Github Actions">
 <meta property="og:locale" content="en">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="TS규칙 &lt;타입과 인터페이스&gt;">
-<meta name="twitter:description" content="TS규칙">
+<meta name="twitter:title" content="Github Actions">
+<meta name="twitter:description" content="Github Actions">
 
 
 <script type="text/javascript" id="hexo.configurations">
@@ -154,7 +154,7 @@
 
 
 
-  <title>TS규칙 <타입과 인터페이스> | HaeJune's Blog</title>
+  <title>Github Actions | HaeJune's Blog</title>
   
 
 
@@ -335,7 +335,7 @@
   
 
   <article class="post post-type- " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://localhost:4000/mipssimulator/2023/01/20/%ED%83%80%EC%9E%85%EA%B3%BC-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/">
+    <link itemprop="mainEntityOfPage" href="http://localhost:4000/github%20tools/2023/02/11/Actions/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="정해준">
@@ -355,7 +355,7 @@
           <h1 class="post-title" itemprop="name headline">
           
           
-            TS규칙 <타입과 인터페이스>
+            Github Actions
           
         </h1>
         
@@ -369,8 +369,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-01-20T00:00:00+09:00">
-                2023-01-20
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2023-02-11T00:00:00+09:00">
+                2023-02-11
               </time>
             
 
@@ -393,8 +393,8 @@
               
                 
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/category/#/mipsSimulator" itemprop="url" rel="index">
-                    <span itemprop="name">mipsSimulator</span>
+                  <a href="/category/#/Github%20tools" itemprop="url" rel="index">
+                    <span itemprop="name">Github tools</span>
                   </a>
                 </span>
 
@@ -411,9 +411,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/mipssimulator/2023/01/20/%ED%83%80%EC%9E%85%EA%B3%BC-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/#comments" itemprop="discussionUrl">
+                <a href="/github%20tools/2023/02/11/Actions/#comments" itemprop="discussionUrl">
                   <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="/mipssimulator/2023/01/20/%ED%83%80%EC%9E%85%EA%B3%BC-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/" itemprop="commentCount"></span>
+                        data-disqus-identifier="/github%20tools/2023/02/11/Actions/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -429,7 +429,7 @@
           
             
                 <div class="post-description">
-                    TS규칙 <타입과 인터페이스>
+                    Github Actions
                 </div>
             
           
@@ -459,196 +459,7 @@
 
 
 
-  <p>Type과 Interface는 객체의 타입의 이름을 지정하는 또 다른 방법이다.</p>
-
-<h1 id="type과-interface-사용예시"><strong>Type과 Interface 사용예시</strong></h1>
-
-<p><code class="language-plaintext highlighter-rouge">interface</code></p>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">personInterface</span> <span class="p">{</span>
-  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">age</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">person1</span><span class="p">:</span> <span class="nx">personInterface</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="dl">"</span><span class="s2">haejune</span><span class="dl">"</span><span class="p">,</span>
-  <span class="na">age</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-<span class="p">};</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<p><code class="language-plaintext highlighter-rouge">type</code></p>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">personType</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="na">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-    <span class="nl">age</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">person2</span><span class="p">:</span> <span class="nx">personType</span> <span class="p">{</span>
-    <span class="nl">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">haejune</span><span class="dl">'</span><span class="p">,</span>
-    <span class="nx">age</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>
-<span class="p">}</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<hr />
-
-<h1 id="type과-interface-차이점"><strong>Type과 Interface 차이점</strong></h1>
-
-<h2 id="1-확장하는-방법"><strong><em>(1) 확장하는 방법</em></strong></h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">interface</code></li>
-</ul>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">personInterface</span> <span class="p">{</span>
-  <span class="nl">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">age</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kr">interface</span> <span class="nx">studentInterface</span> <span class="kd">extends</span> <span class="nx">personInterface</span> <span class="p">{</span>
-  <span class="nl">scholl</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">type</code></li>
-</ul>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8</pre></td><td class="code"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">personType</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">name</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-  <span class="nl">age</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kd">type</span> <span class="nx">studentType</span> <span class="o">=</span> <span class="nx">personType</span> <span class="o">&amp;</span> <span class="p">{</span>
-  <span class="na">school</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">};</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<p><br /></p>
-
-<h2 id="2-선언적-확장"><strong><em>(2) 선언적 확장</em></strong></h2>
-
-<p><code class="language-plaintext highlighter-rouge">interface</code>에서 할 수 있는 대부분의 기능들은 <code class="language-plaintext highlighter-rouge">type</code>에서 가능하다.<br />
-하지만 <code class="language-plaintext highlighter-rouge">type</code>은 새로운 속성을 추가하기 위해 <strong><em>다시 같은 이름</em></strong>으로 선언할 수 없고, <code class="language-plaintext highlighter-rouge">interface</code>는 항상 선언적 확장이 가능하다.</p>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">interface</code></li>
-</ul>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9</pre></td><td class="code"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">book</span> <span class="p">{</span>
-  <span class="nl">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kr">interface</span> <span class="nx">book</span> <span class="p">{</span>
-  <span class="nl">contents</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
-<span class="p">}</span>
-
-<span class="c1">// 같은 interface 명으로 book을 다시 만든다면, 자동으로 확장이 된다</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">type</code></li>
-</ul>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">title</span><span class="p">:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kd">type</span> <span class="nx">book</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">contents</span><span class="p">:</span> <span class="kr">string</span><span class="p">[];</span>
-<span class="p">};</span>
-
-<span class="c1">// 같은 type 명으로 book을 다시 만들 수 없다</span>
-<span class="c1">// Error: Duplicate identifier 'book'</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<p><br /></p>
-
-<h2 id="3-computed-value의-사용여부"><strong><em>(3) computed value의 사용여부</em></strong></h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">interface</code>는 불가능하다</li>
-</ul>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3</pre></td><td class="code"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">NameInterface</span> <span class="p">{</span>
-  <span class="p">[</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">names</span><span class="p">]:</span> <span class="kr">string</span><span class="p">;</span> <span class="c1">//error</span>
-<span class="p">}</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">type</code>은 가능하다</li>
-</ul>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">names</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">firstName</span><span class="dl">"</span> <span class="o">|</span> <span class="dl">"</span><span class="s2">lastName</span><span class="dl">"</span><span class="p">;</span>
-
-<span class="kd">type</span> <span class="nx">NameTypes</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="p">[</span><span class="nx">key</span> <span class="k">in</span> <span class="nx">names</span><span class="p">]:</span> <span class="kr">string</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kd">const</span> <span class="nx">name</span><span class="p">:</span> <span class="nx">NameTypes</span> <span class="o">=</span> <span class="p">{</span> <span class="na">firstName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">jung</span><span class="dl">"</span><span class="p">,</span> <span class="na">lastName</span><span class="p">:</span> <span class="dl">"</span><span class="s2">haejune</span><span class="dl">"</span> <span class="p">};</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<p><br /></p>
-
-<h2 id="4-generic-type-저장-가능-여부"><strong><em>(4) Generic type 저장 가능 여부</em></strong></h2>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">interface</code>은 저장할 수 없다.</li>
-</ul>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10</pre></td><td class="code"><pre class="highlight"><code><span class="kr">interface</span> <span class="nx">GenericInterface</span> <span class="p">{</span>
-  <span class="p">[</span><span class="nx">x</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kr">interface</span> <span class="nx">NormalInterface</span> <span class="p">{</span>
-  <span class="nl">x</span><span class="p">:</span> <span class="kr">number</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kd">const</span> <span class="nx">normalInterface</span><span class="p">:</span> <span class="nx">NormalInterface</span> <span class="o">=</span> <span class="p">{</span> <span class="na">x</span><span class="p">:</span> <span class="mi">1</span> <span class="p">};</span>
-<span class="kd">const</span> <span class="nx">genericInterface</span><span class="p">:</span> <span class="nx">GenericInterface</span> <span class="o">=</span> <span class="nx">normalInterface</span><span class="p">;</span> <span class="c1">// error</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<ul>
-  <li><code class="language-plaintext highlighter-rouge">type</code>은 저장할 수 있다.</li>
-</ul>
-
-<div class="language-typescript highlighter-rouge"><div class="highlight"><table style="margin: 0px"><tbody><tr><td class="gutter"><pre>1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7</pre></td><td class="code"><pre class="highlight"><code><span class="kd">type</span> <span class="nx">GenericType</span> <span class="o">=</span> <span class="p">{</span> <span class="p">[</span><span class="na">x</span><span class="p">:</span> <span class="kr">string</span><span class="p">]:</span> <span class="kr">number</span> <span class="p">};</span>
-<span class="kd">type</span> <span class="nx">NormalType</span> <span class="o">=</span> <span class="p">{</span> <span class="na">x</span><span class="p">:</span> <span class="kr">number</span> <span class="p">};</span>
-
-<span class="kd">const</span> <span class="nx">normalType</span><span class="p">:</span> <span class="nx">NormalType</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="na">x</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-<span class="p">};</span>
-<span class="kd">const</span> <span class="nx">genericType</span><span class="p">:</span> <span class="nx">GenericType</span> <span class="o">=</span> <span class="nx">normalType</span><span class="p">;</span> <span class="c1">// no error</span>
-</code></pre></td></tr></tbody></table></div></div>
-
-<p><br /></p>
-
-<h2 id="5-합성"><strong><em>(5) 합성</em></strong></h2>
-
-<p><code class="language-plaintext highlighter-rouge">interface</code>의 경우 객체의 타입을 만들기 위한 것이고 단순 합성이 가능하다.<br />
-반면, <code class="language-plaintext highlighter-rouge">type</code>의 경우에는 재귀적으로 순회하면서 속성을 합성하게 되는데 이 때 일부가 <code class="language-plaintext highlighter-rouge">never</code>가 나오면서 제대로 합성이 안되는 경우가 발생할 수 있다고 한다. 또한, 합성 자체에 대한 유효성을 판단하기 전에 모든 구성요소에 대한 타입을 체크하므로 컴파일 시에 상대적으로 성능이 좋지 않다고 한다.</p>
-
-<hr />
-
-<h1 id="결론"><strong>결론</strong></h1>
-
-<p>아래의 이유들로 <code class="language-plaintext highlighter-rouge">interface</code>를 주로 사용하는 것이 더 낫지 않을까 생각한다.</p>
-
-<ol>
-  <li>객체를 저장하기 위한 용도로 사용하는 경우가 많다.</li>
-  <li>외부에 공개할 API이다. (선언 병합 必)</li>
-  <li>복잡한 타입을 다룰 일이 없을 것으로 보인다.</li>
-</ol>
-
-<p>그러나, type이 필요한 경우가 생길 수도 있다. 이럴 때는 왜 type을 사용했는지 이유를 기술하도록 하자.</p>
-
-<p><br /></p>
-
-<p><code class="language-plaintext highlighter-rouge">interface</code> 사용할 때 주의할 점들</p>
-
-<ol>
-  <li><code class="language-plaintext highlighter-rouge">선언적 합성</code>이 가능하더라도 가능한 적게 사용하는 방안으로 구현해야 한다.</li>
-  <li>interface를 사용하는 것이 의도치 않은 에러를 발생시킬 수 있으니 유의해야한다.</li>
-</ol>
+  <h1 id="github-actions"><strong>Github Actions?</strong></h1>
 
 
       
@@ -680,7 +491,7 @@
         <div class="post-tags">
           
             
-            <a href="/tag/#/mipsSimulator" rel="tag"># mipsSimulator</a>
+            <a href="/tag/#/Github%20tools" rel="tag"># Github tools</a>
           
         </div>
       
@@ -696,8 +507,8 @@
         <div class="post-nav" id="post-nav-id">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/mipssimulator/2023/01/21/TS%EA%B7%9C%EC%B9%99-%EB%B3%80%EC%88%98/" rel="next" title="TS규칙 <변수>">
-                <i class="fa fa-chevron-left"></i> TS규칙 <변수>
+              <a href="/ps/%EB%B0%B1%EC%A4%80/2023/02/11/%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4/" rel="next" title="백준 2606 바이러스">
+                <i class="fa fa-chevron-left"></i> 백준 2606 바이러스
               </a>
             
           </div>
@@ -706,8 +517,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/ps/%EB%B0%B1%EC%A4%80/2023/01/09/%ED%99%95%EC%9D%B8/" rel="prev" title="확인용">
-                확인용 <i class="fa fa-chevron-right"></i>
+              <a href="/ps/%EB%B0%B1%EC%A4%80/2023/02/10/%EB%8B%A8%EC%A7%80%EB%B2%88%ED%98%B8%EB%B6%99%EC%9D%B4%EA%B8%B0/" rel="prev" title="백준 2667 단지번호붙이기">
+                백준 2667 단지번호붙이기 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -885,7 +696,7 @@
             
               <div class="post-toc-content">
     <ol class=nav>
-      <li class="nav-item nav-level-1"> <a class="nav-link" href="#type과-interface-사용예시"> <span class="nav-text">Type과 Interface 사용예시</strong</span> </a> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#type과-interface-차이점"> <span class="nav-text">Type과 Interface 차이점</strong</span> </a> <ol class="nav-child"> <li class="nav-item nav-level-2"> <a class="nav-link" href="#1-확장하는-방법"> <span class="nav-text">(1) 확장하는 방법</strong</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#2-선언적-확장"> <span class="nav-text">(2) 선언적 확장</strong</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#3-computed-value의-사용여부"> <span class="nav-text">(3) computed value의 사용여부</strong</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#4-generic-type-저장-가능-여부"> <span class="nav-text">(4) Generic type 저장 가능 여부</strong</span> </a> </li> <li class="nav-item nav-level-2"> <a class="nav-link" href="#5-합성"> <span class="nav-text">(5) 합성</strong</span> </a> </li> </ol> </li> <li class="nav-item nav-level-1"> <a class="nav-link" href="#결론"> <span class="nav-text">결론</strong</span> </a> </li>
+      <li class="nav-item nav-level-1"> <a class="nav-link" href="#github-actions"> <span class="nav-text">Github Actions?</strong</span> </a> </li>
     </ol>
   </div>
             
@@ -1054,9 +865,9 @@
       
       <script type="text/javascript">
           var disqus_config = function () {
-              this.page.url = 'http://localhost:4000/mipssimulator/2023/01/20/%ED%83%80%EC%9E%85%EA%B3%BC-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/';
-              this.page.identifier = '/mipssimulator/2023/01/20/%ED%83%80%EC%9E%85%EA%B3%BC-%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/';
-              this.page.title = 'TS규칙 <타입과 인터페이스>';
+              this.page.url = 'http://localhost:4000/github%20tools/2023/02/11/Actions/';
+              this.page.identifier = '/github%20tools/2023/02/11/Actions/';
+              this.page.title = 'Github Actions';
           };
           var d = document, s = d.createElement('script');
           s.src = 'https://haejunejung-github-io.disqus.com/embed.js';
