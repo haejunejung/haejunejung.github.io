@@ -2,7 +2,7 @@ name: Merge configure branch
 
 on:
   schedule:
-    - cron: "55 * * * *"
+    - cron: "20 * * * *"
 
 jobs:
   merge:
