@@ -2,7 +2,7 @@ name: Merge configure branch
 
 on:
   schedule:
-    - cron: "50 * * * *"
+    - cron: "05 * * * *"
 
 jobs:
   merge:
@@ -35,10 +35,10 @@ jobs:
         cp -r _site/* .
         git add .
         git commit -m "Build and deploy site"
-        git push origin gh-pages
+        git push gh-pages
     - name: Merge configure branch
       if: success()
       run: |
         git checkout main
         git merge configure
-        git push origin main
+        git push main
