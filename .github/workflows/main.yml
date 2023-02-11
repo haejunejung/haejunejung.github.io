@@ -2,7 +2,7 @@ name: Merge configure branch
 
 on:
   schedule:
-    - cron: "00 * * * *"
+    - cron: "50 * * * *"
 
 jobs:
   merge:
@@ -26,8 +26,10 @@ jobs:
         gem install bundler --user-install
     - name: Deploy Github Pages
       run: |
-        git branch -D gh-pages || true
-        git checkout --orphan gh-pages
+        git fetch --all
+        git branch --delete gh-pages
+        git branch gh-pages
+        git checkout gh-pages
         bundle install
         bundle exec jekyll build
         cp -r _site/* .
