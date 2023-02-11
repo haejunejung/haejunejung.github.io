@@ -2,7 +2,7 @@ name: Merge configure branch
 
 on:
   schedule:
-    - cron: "00 * * * *"
+    - cron: "55 * * * *"
 
 jobs:
   merge:
@@ -23,7 +23,7 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install ruby-full build-essential
-        sudo gem install bundler
+        gem install bundler --user-install
     - name: Deploy Github Pages
       run: |
         git branch -D gh-pages || true
