@@ -12,3 +12,5 @@ search.xml
 sitemap.xml
 .jekyll-cache
 coding
+CMakeLists.txt
+build
