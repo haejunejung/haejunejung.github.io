@@ -11,11 +11,7 @@ robots.txt
 search.xml
 sitemap.xml
 .jekyll-cache
-coding/main.cpp
-coding/main.css
-coding/main.html
-coding/main.py
-coding/Makefile
-coding/main.js
+coding
 CMakeLists.txt
 build
+.gitignore
