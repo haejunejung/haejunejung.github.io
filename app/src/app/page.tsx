@@ -1,4 +1,4 @@
-import RippleBackground from "@/widgets/RippleBackground/ui/RippleBackground";
+import { RippleBackground } from "@/widgets/RippleBackground";
 
 export default function Home() {
   return <RippleBackground />;

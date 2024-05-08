@@ -4,7 +4,7 @@ import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import Points from "./Points";
 
-const RippleBackground: React.FC = () => {
+export function RippleBackground() {
   return (
     <Canvas legacy={false} camera={{ position: [200, 5, 200], fov: 20 }}>
       <Suspense fallback={null}>
@@ -12,6 +12,4 @@ const RippleBackground: React.FC = () => {
       </Suspense>
     </Canvas>
   );
-};
-
-export default RippleBackground;
+}
