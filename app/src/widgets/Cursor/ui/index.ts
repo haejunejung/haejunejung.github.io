@@ -1,1 +1,1 @@
-export * from "./AnimatedCursor";
+export * from "./Cursor";

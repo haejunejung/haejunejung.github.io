@@ -1,4 +1,4 @@
-import { Cursor } from "@/widgets/Cursor/ui/Cursor";
+import { Cursor } from "@/widgets/Cursor";
 import { PortfolioInformation } from "@/widgets/PortfolioInformation";
 import { RippleBackground } from "@/widgets/RippleBackground";
 import { Fragment } from "react";
