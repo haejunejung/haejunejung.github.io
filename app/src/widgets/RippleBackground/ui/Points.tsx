@@ -77,8 +77,8 @@ const Points: React.FC = () => {
       <pointsMaterial
         attach="material"
         map={imgTex}
-        color={0x00aaff}
-        size={0.5}
+        color={0xffffff}
+        size={1}
         sizeAttenuation
         transparent={false}
         alphaTest={0.5}

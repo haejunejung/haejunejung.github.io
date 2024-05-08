@@ -11,6 +11,8 @@
     "deploy": "touch out/.nojekyll && gh-pages -d out --dotfiles"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@headlessui/react": "^2.0.3",
     "@react-three/fiber": "^8.16.3",
     "@types/three": "^0.164.0",
