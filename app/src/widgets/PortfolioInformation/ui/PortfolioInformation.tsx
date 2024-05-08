@@ -80,6 +80,7 @@ const Tag = emotionStyled.div({
   gap: 8,
 
   display: "flex",
+  alignItems: "center",
 
   "@media (max-width: 480px)": {
     fontSize: 12,
