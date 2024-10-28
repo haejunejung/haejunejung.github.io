@@ -155,7 +155,7 @@ export function PortfolioInformation() {
             <span
               onClick={() => {
                 router.push(
-                  "https://www.notion.so/93bac40910264b53bd50675865bb151f"
+                  "https://www.notion.so/12d462c013ae80a980fde625b579948a?pvs=4"
                 );
               }}
             >
