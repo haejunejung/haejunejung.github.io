@@ -1069,7 +1069,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "supports-color",\
-      "npm:7.2.0"\
+      "npm:9.4.0"\
     ],\
     [\
       "tar",\
@@ -2749,11 +2749,10 @@ const RAW_RUNTIME_STATE =
           ["debug", "virtual:6230e12b1d7dee1735a865cef131ea49c043e7f202fd08b14ceb90686e406b76a07840fc9510f1069465ad9695242b42830fc7fea7b01648a261463b7848122f#npm:4.3.7"],\
           ["@types/supports-color", null],\
           ["ms", "npm:2.1.3"],\
-          ["supports-color", null]\
+          ["supports-color", "npm:9.4.0"]\
         ],\
         "packagePeers": [\
-          "@types/supports-color",\
-          "supports-color"\
+          "@types/supports-color"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -4291,6 +4290,13 @@ const RAW_RUNTIME_STATE =
           ["has-flag", "npm:4.0.0"]\
         ],\
         "linkType": "HARD"\
+      }],\
+      ["npm:9.4.0", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/supports-color-npm-9.4.0-a415f39758-10c0.zip/node_modules/supports-color/",\
+        "packageDependencies": [\
+          ["supports-color", "npm:9.4.0"]\
+        ],\
+        "linkType": "HARD"\
       }]\
     ]],\
     ["tar", [\
@@ -4490,6 +4496,7 @@ const RAW_RUNTIME_STATE =
           ["sass-embedded", null],\
           ["stylus", null],\
           ["sugarss", null],\
+          ["supports-color", "npm:9.4.0"],\
           ["terser", null]\
         ],\
         "packagePeers": [\
