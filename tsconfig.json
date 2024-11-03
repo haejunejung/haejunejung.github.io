@@ -23,8 +23,11 @@
 
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+
+    // https://velog.io/@heumheum2/Nextjs-%EC%97%90%EC%84%9C-scss-%EC%84%A4%EC%A0%95
+    "plugins": [{ "name": "typescript-plugin-css-modules" }]
   },
-  "include": ["."],
+  "include": [".", "global.d.ts"],
   "exclude": ["vite.config.ts"]
 }
