@@ -23,5 +23,8 @@
       "types": "./lib/types/universal.d.ts",
       "default": "./lib/universal.js"
     }
+  },
+  "dependencies": {
+    "eslint": "file:"
   }
 }

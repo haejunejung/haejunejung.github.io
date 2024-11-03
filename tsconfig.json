@@ -22,7 +22,7 @@
     "exactOptionalPropertyTypes": true,
 
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["."],
