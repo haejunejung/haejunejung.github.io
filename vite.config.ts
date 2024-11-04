@@ -1,11 +1,20 @@
-import { defineConfig } from "vite";
+import { defineConfig, PluginOption } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
+import mdx from "@mdx-js/rollup";
 
 // https://vite.dev/config/
 export default defineConfig({
   base: "/blog",
-  plugins: [react()],
+  plugins: [
+    {
+      enforce: "pre",
+      ...mdx({
+        providerImportSource: "@mdx-js/react",
+      }),
+    } as PluginOption,
+    react({ include: /\.(jsx|js|mdx|md|tsx|ts)$/ }),
+  ],
   cacheDir: "./.vite",
   esbuild: {
     // https://ko.vitejs.dev/config/shared-options#esbuild

@@ -1,5 +1,11 @@
+import ServiceWorkerMDX from "@/mdx/webapi/service-worker.mdx";
+
 const MainPage = () => {
-  return <div>Main Page</div>;
+  return (
+    <div>
+      <ServiceWorkerMDX />
+    </div>
+  );
 };
 
 export default MainPage;
