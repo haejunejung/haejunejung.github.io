@@ -3,8 +3,8 @@
   "short_name": "정해준이 정해준",
   "start_url": "/blog",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#485EEE",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "icons": [
     {
       "src": "icons/icon-48x48.png",
