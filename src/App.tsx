@@ -4,11 +4,13 @@ import TechBlogPage from "./pages/TechBlogPage";
 import ProblemSolverPage from "./pages/ProblemSolverPage";
 import NotFound from "./pages/NotFound";
 import Container from "./components/Container";
+import Header from "./components/Header";
 
 const App = () => {
   return (
     <Router>
       <Container>
+        <Header />
         <Switch>
           <Route path="/blog" component={TechBlogPage} />
           <Route path="/tech-blog" component={MainPage} />
