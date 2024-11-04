@@ -3,16 +3,19 @@ import MainPage from "@/pages/MainPage";
 import TechBlogPage from "./pages/TechBlogPage";
 import ProblemSolverPage from "./pages/ProblemSolverPage";
 import NotFound from "./pages/NotFound";
+import Container from "./components/Container";
 
 const App = () => {
   return (
     <Router>
-      <Switch>
-        <Route path="/blog" component={TechBlogPage} />
-        <Route path="/tech-blog" component={MainPage} />
-        <Route path="/problem-solver" component={ProblemSolverPage} />
-        <Route path="/not-found" component={NotFound} />
-      </Switch>
+      <Container>
+        <Switch>
+          <Route path="/blog" component={TechBlogPage} />
+          <Route path="/tech-blog" component={MainPage} />
+          <Route path="/problem-solver" component={ProblemSolverPage} />
+          <Route path="/not-found" component={NotFound} />
+        </Switch>
+      </Container>
     </Router>
   );
 };

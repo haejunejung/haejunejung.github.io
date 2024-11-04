@@ -13,8 +13,10 @@
   border-radius: 8px;
   transition: background-color 0.3s ease;
 }
-.list__item:hover {
-  background-color: #e0e0e0;
+@media (hover: hover) {
+  .list__item:hover {
+    background-color: #e0e0e0;
+  }
 }
 .list__item img {
   width: 50px;
@@ -29,16 +31,5 @@
   text-decoration: none;
 }
 .list__item h4:hover {
-  text-decoration: underline;
-}
-.list__item p {
-  margin: 8px 0 0;
-  color: #666;
-}
-.list__item a {
-  text-decoration: none;
-  color: inherit;
-}
-.list__item a:hover {
   text-decoration: underline;
 }

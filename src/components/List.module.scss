@@ -1,7 +1,7 @@
 // List.module.scss
 
-$list-padding: 16px; 
-$list-item-margin: 12px 0; 
+$list-padding: 16px;
+$list-item-margin: 12px 0;
 $list-item-bg-color: #f9f9f9; 
 $list-item-hover-bg: #e0e0e0; 
 
@@ -12,16 +12,18 @@ $list-item-hover-bg: #e0e0e0;
 }
 
 .list__item {
-  display: flex; 
-  align-items: center; 
-  padding: $list-padding; 
-  margin: $list-item-margin; 
+  display: flex;
+  align-items: center;
+  padding: $list-padding;
+  margin: $list-item-margin;
   background-color: $list-item-bg-color; 
   border-radius: 8px;
   transition: background-color 0.3s ease; 
 
-  &:hover {
-    background-color: $list-item-hover-bg; 
+  @media (hover: hover) {
+    &:hover {
+      background-color: $list-item-hover-bg;
+    }
   }
 
   img {
@@ -40,19 +42,5 @@ $list-item-hover-bg: #e0e0e0;
     &:hover {
       text-decoration: underline; 
     }
-  }
-
-  p {
-    margin: 8px 0 0; 
-    color: #666; 
-  }
-
-  a {
-    text-decoration: none; 
-    color: inherit;       
-  }
-
-  a:hover {
-    text-decoration: underline; 
   }
 }

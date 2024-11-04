@@ -1,5 +1,4 @@
-import ExternalLink from "./ExternalLink";
-import InternalLink from "./InternalLink";
+import LinkComponent from "./LinkComponent";
 import styles from "./List.module.scss";
 
 interface ListProps {
@@ -35,13 +34,10 @@ const ListItem: React.FC<Readonly<ListItemProps>> = ({
   linkType = "internal",
   content,
 }) => {
-  const isInternal = linkType === "internal";
-  const LinkComponent = isInternal ? InternalLink : ExternalLink;
-
   return (
     <li className={styles.list__item}>
       {imgSrc && <img src={imgSrc} alt={title} loading="lazy" />}
-      <LinkComponent link={link}>
+      <LinkComponent link={link} linkType={linkType}>
         <h4>{title}</h4>
       </LinkComponent>
       {content && <p>{content}</p>}
