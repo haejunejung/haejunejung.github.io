@@ -21,6 +21,7 @@ export default defineConfig({
       devOptions: { enabled: true },
       workbox: {
         globPatterns: ["icons/*", "fonts/*"],
+        globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
       },
     }),
     react({ include: /\.(jsx|js|mdx|md|tsx|ts)$/ }),

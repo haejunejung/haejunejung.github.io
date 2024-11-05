@@ -1,5 +1,12 @@
 const TECH_BLOGS = [
   {
+    link: "https://oliveyoung.tech/",
+    linkType: "external",
+    imgSrc:
+      "https://scontent-ssn1-1.xx.fbcdn.net/v/t39.30808-1/352704189_640017294819551_3341475142596639739_n.jpg?stp=dst-jpg_s200x200&_nc_cat=1&ccb=1-7&_nc_sid=f4b9fd&_nc_ohc=hQFJZyZf4OUQ7kNvgHyTXfz&_nc_zt=24&_nc_ht=scontent-ssn1-1.xx&_nc_gid=AoZjAnfuKu6CfEgLnkVf_g6&oh=00_AYBTbRkaO6JOc5D5OPrOXngGAz0kVS4clOnKdXQjzUxs0g&oe=672FA59C",
+    title: "올리브영 블로그",
+  },
+  {
     link: "https://tech.kakaopay.com/",
     linkType: "external",
     imgSrc: "https://tech.kakaopay.com/_astro/thumb.d1ed7fac_ZdSsSI.avif",
