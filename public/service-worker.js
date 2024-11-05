@@ -1,5 +1,5 @@
 // TODO: 자동화 스크립트 작성해서 자동으로 버저닝이 되게끔
-const CACHE_NAME = "cache-v1.0";
+const CACHE_NAME = "cache-v1.3";
 
 // install event
 self.addEventListener("install", (event) => {

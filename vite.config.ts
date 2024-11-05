@@ -2,6 +2,7 @@ import { defineConfig, PluginOption } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import mdx from "@mdx-js/rollup";
+import { VitePWA } from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -13,6 +14,15 @@ export default defineConfig({
         providerImportSource: "@mdx-js/react",
       }),
     } as PluginOption,
+    // https://vite-pwa-org.netlify.app/guide/#configuring-vite-plugin-pwa
+    VitePWA({
+      registerType: "autoUpdate",
+      injectRegister: "inline",
+      devOptions: { enabled: true },
+      workbox: {
+        globPatterns: ["icons/*", "fonts/*"],
+      },
+    }),
     react({ include: /\.(jsx|js|mdx|md|tsx|ts)$/ }),
   ],
   cacheDir: "./.vite",
