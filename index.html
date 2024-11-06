@@ -20,29 +20,33 @@
     <title>정해준이 정해준</title>
     
     <!-- https://vite-pwa-org.netlify.app/guide/register-service-worker.html#inline-registration -->
-    <script>
-      if ("serviceWorker" in navigator) {
-        try {
-          const registration = navigator.serviceWorker.register("/blog/service-worker.js");
-          if (registration.installing) {
-            console.log("Service worker installing");
-          } else if (registration.waiting) {
-            console.log("Service worker installed, not waiting...");
-          } else if (registration.active) {
-            console.log("Service worker active");
-          }
-
-          navigator.serviceWorker.ready.then(() => {
-            console.log("Service worker is ready to handle requests");
-          })
-        } catch (error) {
-          console.error(`Registeration failed with ${error}`);
-        }
-      }
-    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script type="module">
+      const registerServiceWorker = async () => {
+        if ("serviceWorker" in navigator) {
+          try {
+            const registration = navigator.serviceWorker.register("/blog/service-worker.js");
+            if (registration.installing) {
+              console.log("Service worker installing");
+            } else if (registration.waiting) {
+              console.log("Service worker installed, not waiting...");
+            } else if (registration.active) {
+              console.log("Service worker active");
+            }
+
+            navigator.serviceWorker.ready.then(() => {
+              console.log("Service worker is ready to handle requests");
+            })
+          } catch (error) {
+            console.error(`Registeration failed with ${error}`);
+          }
+        }
+      }
+
+      registerServiceWorker();
+    </script>
   </body>
 </html>

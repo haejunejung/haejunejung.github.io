@@ -7,6 +7,7 @@ import Container from "./components/Container";
 import Header from "./components/Header";
 
 const App = () => {
+  // //TODO: Switch ~ Route 패턴이 CSR이라서 PWA에서 동작하지 않는 문제 해결 필요!
   return (
     <Router>
       <Container>

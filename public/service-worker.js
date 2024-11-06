@@ -1,5 +1,4 @@
-// TODO: 자동화 스크립트 작성해서 자동으로 버저닝이 되게끔
-const CACHE_NAME = "cache-v1.3";
+const CACHE_NAME = "v1.0";
 
 // install event
 self.addEventListener("install", (event) => {
@@ -9,18 +8,25 @@ self.addEventListener("install", (event) => {
 
 // activate event
 self.addEventListener("activate", (event) => {
-  console.log("[Service Worker] actived", event);
+  console.log("[Service Worker] activate...");
+
+  // 이전 버전의 캐시를 삭제
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheName !== CACHE_NAME) {
+            // CACHE_NAME 외의 캐시 삭제
+            console.log("[Service Worker] 이전 캐시 삭제", cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
+
+  // 새 서비스 워커가 즉시 활성화되도록 skipWaiting() 호출 (install 단계에서 해야 합니다)
+  self.clients.claim(); // 활성화되면 바로 클라이언트에게 제어권을 넘김
 });
 
 // fetch event
