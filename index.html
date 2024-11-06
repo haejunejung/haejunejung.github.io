@@ -22,9 +22,22 @@
     <!-- https://vite-pwa-org.netlify.app/guide/register-service-worker.html#inline-registration -->
     <script>
       if ("serviceWorker" in navigator) {
-        window.addEventListener("load", () => {
-          navigator.serviceWorker.register("/blog/service-worker.js");
-        })
+        try {
+          const registration = navigator.serviceWorker.register("/blog/service-worker.js");
+          if (registration.installing) {
+            console.log("Service worker installing");
+          } else if (registration.waiting) {
+            console.log("Service worker installed, not waiting...");
+          } else if (registration.active) {
+            console.log("Service worker active");
+          }
+
+          navigator.serviceWorker.ready.then(() => {
+            console.log("Service worker is ready to handle requests");
+          })
+        } catch (error) {
+          console.error(`Registeration failed with ${error}`);
+        }
       }
     </script>
   </head>

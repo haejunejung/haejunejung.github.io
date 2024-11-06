@@ -20,7 +20,7 @@ export default defineConfig({
       injectRegister: "inline",
       devOptions: { enabled: true },
       workbox: {
-        globPatterns: ["icons/*", "fonts/*"],
+        globPatterns: ["/*"],
         globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
       },
     }),
