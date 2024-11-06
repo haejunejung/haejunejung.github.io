@@ -36,7 +36,7 @@ const ListItem: React.FC<Readonly<ListItemProps>> = ({
 }) => {
   return (
     <li className={styles.list__item}>
-      {imgSrc && <img src={imgSrc} alt={title} loading="lazy" />}
+      {imgSrc && <img src={`/blog/${imgSrc}`} alt={title} />}
       <LinkComponent link={link} linkType={linkType}>
         <h4>{title}</h4>
       </LinkComponent>
