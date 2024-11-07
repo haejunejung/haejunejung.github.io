@@ -1,4 +1,3 @@
-import { Fragment } from "react/jsx-runtime";
 import styles from "./List.module.scss";
 
 interface ListProps<T> {
@@ -13,7 +12,7 @@ const List = <T,>({ items, title, renderItem }: ListProps<T>) => {
       <h3>{title}</h3>
       <ul className={styles.list}>
         {items.map((item, index) => (
-          <Fragment key={index}>{renderItem(item)}</Fragment>
+          <li key={index}>{renderItem(item)}</li>
         ))}
       </ul>
     </section>
