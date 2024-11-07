@@ -1,47 +1,22 @@
-import LinkComponent from "./LinkComponent";
+import { Fragment } from "react/jsx-runtime";
 import styles from "./List.module.scss";
 
-interface ListProps {
-  items: ListItemProps[];
+interface ListProps<T> {
+  items: T[];
   title: string;
+  renderItem: (item: T) => React.ReactNode;
 }
 
-const List: React.FC<Readonly<ListProps>> = ({ items, title }) => {
+const List = <T,>({ items, title, renderItem }: ListProps<T>) => {
   return (
     <section>
-      <h1>{title}</h1>
+      <h3>{title}</h3>
       <ul className={styles.list}>
-        {items.map((item) => (
-          <ListItem key={item.title} {...item} />
+        {items.map((item, index) => (
+          <Fragment key={index}>{renderItem(item)}</Fragment>
         ))}
       </ul>
     </section>
-  );
-};
-
-interface ListItemProps {
-  imgSrc?: string;
-  link: string;
-  linkType?: string;
-  title: string;
-  content?: string;
-}
-
-const ListItem: React.FC<Readonly<ListItemProps>> = ({
-  imgSrc,
-  link,
-  title,
-  linkType = "internal",
-  content,
-}) => {
-  return (
-    <li className={styles.list__item}>
-      {imgSrc && <img src={`/blog/${imgSrc}`} alt={title} />}
-      <LinkComponent link={link} linkType={linkType}>
-        <h4>{title}</h4>
-      </LinkComponent>
-      {content && <p>{content}</p>}
-    </li>
   );
 };
 

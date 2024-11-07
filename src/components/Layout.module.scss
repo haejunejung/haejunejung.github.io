@@ -1,6 +1,6 @@
 @use "../styles/variables" as *;
 
-.container {
+.layout {
     min-height: 100vh;
     width: var(--viewport-content);
     max-width: var(--max-width);

@@ -1,8 +1,38 @@
 import List from "@/components/List";
-import TECH_BLOGS from "@/utils/tech-blog";
+import ListItem from "@/components/ListItem";
+import techBlogList from "@/lib/TechBlogList";
+
+interface TechBlogItemProps {
+  imgSrc: string;
+  name: string;
+  link: string;
+}
+
+const TechBlogItem: React.FC<Readonly<TechBlogItemProps>> = ({
+  imgSrc,
+  name,
+  link,
+}) => {
+  return (
+    <ListItem key={name}>
+      <ListItem.Left>
+        <ListItem.Thumnail imgSrc={imgSrc} alt={name} />
+      </ListItem.Left>
+      <ListItem.Right>
+        <ListItem.TechLink link={link} name={name} />
+      </ListItem.Right>
+    </ListItem>
+  );
+};
 
 const TechBlogPage = () => {
-  return <List items={TECH_BLOGS} title="기술 블로그" />;
+  return (
+    <List
+      title="기술 블로그 모음"
+      items={techBlogList}
+      renderItem={TechBlogItem}
+    />
+  );
 };
 
 export default TechBlogPage;

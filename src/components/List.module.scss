@@ -1,47 +1,24 @@
 // List.module.scss
-
-$list-padding: 16px;
-$list-item-margin: 12px 0;
-$list-item-bg-color: #f9f9f9; 
-$list-item-hover-bg: #e0e0e0; 
-
 .list {
-  list-style: none; 
-  padding: 0; 
-  margin: 0; 
-}
-
-.list__item {
-  display: flex;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 2fr;
   align-items: center;
-  padding: $list-padding;
-  margin: $list-item-margin;
-  background-color: $list-item-bg-color; 
-  border-radius: 8px;
-  transition: background-color 0.3s ease; 
+  justify-content: center;
+  margin: 0;
+  padding: 0;
 
-  @media (hover: hover) {
-    &:hover {
-      background-color: $list-item-hover-bg;
-    }
+  @media (min-width: 480px) {
+    grid-template-columns: 1fr;
   }
 
-  img {
-    width: 50px; 
-    height: 50px; 
-    border-radius: 4px; 
-    margin-right: 12px; 
-    object-fit: contain;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
   }
 
-  h4 {
-    font-size: 18px; 
-    margin: 0; 
-    color: #007bff; 
-    text-decoration: none; 
-
-    &:hover {
-      text-decoration: underline; 
-    }
+  @media (min-width: 1080px) {
+    grid-template-columns: 1fr 1fr 1fr;
   }
 }
+
+

@@ -1,135 +1,65 @@
-$icon-button-bg-color: #f9f9f9; 
-$icon-button-hover-bg: #e0e0e0; 
-$icon-button-border-color: #d3d3d3;
-$icon-button-border-radius: 4px;
-
-.headerContainer { 
-    display: flex;
-    flex-direction: column;
-	position: sticky;
-	top: 0;
-	z-index: 10;
-	background-color: white;
-	padding: 12px 0;
-}
-
-.headerContent {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.title {
-    font-weight: bold;
-    text-align: center;
-}
-
-.divider {
-    background-color: black;
-    height: 1px;
-    width: 100%;
-}
-
-.dropdownButton {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    width: 35px;
-    height: 35px;
-    background-color: white;
-    border: none;
-}
-
-.dropdownContent {
-	min-width: 220px;
-	background-color: white;
-	border-radius: 6px;
-	padding: 5px;
-	box-shadow:
-		0px 10px 38px -10px rgba(22, 23, 24, 0.35),
-		0px 10px 20px -15px rgba(22, 23, 24, 0.2);
-	animation-duration: 400ms;
-	animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
-	will-change: transform, opacity;
-	margin-top: 20px;
-}
-.dropdownContent[data-side="top"] {
-	animation-name: slideDownAndFade;
-}
-.dropdownContent[data-side="right"] {
-	animation-name: slideLeftAndFade;
-}
-.dropdownContent[data-side="bottom"] {
-	animation-name: slideUpAndFade;
-}
-.dropdownContent[data-side="left"] {
-	animation-name: slideRightAndFade;
-}
-
-.dropdownItem {
-	font-size: 13px;
-	line-height: 1;
-	border-radius: 3px;
+.header {
 	display: flex;
-	align-items: center;
-	height: 25px;
-	padding: 0 5px;
-	position: relative;
-	padding-left: 25px;
-	user-select: none;
-	outline: none;
-}
+	flex-grow: 1;
+	padding: 12px 0;
+	justify-content: space-between;
 
-.dropdownItem[data-disabled] {
-	pointer-events: none;
-}
-
-.categoryLabel {
-	padding-left: 25px;
-	font-size: 12px;
-    font-weight: 500;
-}
-
-@keyframes slideUpAndFade {
-	from {
-		opacity: 0;
-		transform: translateY(2px);
+	&__brand {
+		display: flex;
+		align-items: center;
 	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
+
+	&__nav { 
+		display: flex;
+		align-items: center;
 	}
 }
 
-@keyframes slideRightAndFade {
-	from {
-		opacity: 0;
-		transform: translateX(-2px);
-	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
-	}
-}
 
-@keyframes slideDownAndFade {
-	from {
-		opacity: 0;
-		transform: translateY(-2px);
-	}
-	to {
-		opacity: 1;
-		transform: translateY(0);
-	}
-}
+.dropdown {
+	&__trigger {
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		width: 35px;
+		height: 35px;
+		background-color: white;
+    	border: none;
+		outline: none;
 
-@keyframes slideLeftAndFade {
-	from {
-		opacity: 0;
-		transform: translateX(2px);
+		/* 선택 및 포커스 효과 제거 */
+		user-select: none;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		
+		&:focus {
+			outline: none;
+		}
 	}
-	to {
-		opacity: 1;
-		transform: translateX(0);
+
+	&__content {
+		display: flex;
+		flex-direction: column;
+		flex-direction: color;
+		background-color: white;
+		border-radius: 8px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		padding: 8px 0;
+		min-width: 150px;
+	}
+
+	&__item {
+		padding: 10px 16px;
+		color: #333;
+		font-size: 14px;
+		text-decoration: none;
+		white-space: nowrap;
+		cursor: pointer;
+		transition: background-color 0.2s ease;
+
+		&:hover {
+			background-color: #f5f5f5;
+		}	
 	}
 }
