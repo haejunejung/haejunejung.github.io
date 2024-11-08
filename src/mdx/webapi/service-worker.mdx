@@ -3,6 +3,7 @@ import ServiceWorkerLayerDiagram from "./assets/service-worker-layer-diagram.png
 import ServiceWorkerFetch from "./assets/service-worker-fetch.svg"
 import ServiceWorkerLifeCycleDiagram from "./assets/service-worker-lifecycle-diagram.png"
 import ServiceWorkerLifeCycle from "./assets/service-worker-lifecycle.svg"
+import MultiReference from "@/components/[mdx]/MultiReference"
 
 <img src={ServiceWorker} alt="Service Worker" style={{ width: "100%"}} />
 
@@ -246,14 +247,10 @@ caches.match(request).then(response => {
   return response || fetchPromise;
 });
 ```
-    
 
-### 참고 자료
-
-* https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API
-
-* https://so-so.dev/web/service-worker/
-
-* https://wonsss.github.io/PWA/service-worker/
-
-* https://fe-developers.kakaoent.com/2022/221208-service-worker/
+<MultiReference references={[
+  "https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API",
+  "https://so-so.dev/web/service-worker/",
+  "https://wonsss.github.io/PWA/service-worker/",
+  "https://fe-developers.kakaoent.com/2022/221208-service-worker/"
+]} />
