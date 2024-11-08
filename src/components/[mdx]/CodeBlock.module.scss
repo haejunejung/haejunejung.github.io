@@ -6,11 +6,15 @@
     border: 12px solid #f5f6f8;
     overflow-x: scroll;
 
-    @media (min-width: 480px) {
+    @media (max-width: 480px) {
         font-size: 12px;
     }
 
-    @media (min-width: 768px) {
+    @media (max-width: 768px) {
         font-size: 14px;
+    }
+
+    @media (max-width: 1080) {
+        font-size: 16px;
     }
 }

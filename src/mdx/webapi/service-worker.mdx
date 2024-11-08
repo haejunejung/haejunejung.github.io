@@ -204,51 +204,48 @@ if ("serviceWorker" in navigator) {
     console.error("Service Worker 등록 실패:", error);
   });
 }
-
 ```
 
 ### 서비스 워커 캐시 전략
 
 서비스 워커에는 다양한 캐시 전략이 있습니다. 
 
-* **cache-first**: 자주 변경되지 않은 리소스는 캐시에서 우선적으로 제공하며, 캐시가 없을 경우에만 네트워크 요청을 보냅니다. ex) 이미지, 폰트, 정적 리소스
+**cache-first**: 자주 변경되지 않은 리소스는 캐시에서 우선적으로 제공하며, 캐시가 없을 경우에만 네트워크 요청을 보냅니다. ex) 이미지, 폰트, 정적 리소스
     
-  ```javascript
-  caches.match(request).then(response => {
-    return response || fetch(request);
-  });
-  ```
+```javascript
+caches.match(request).then(response => {
+  return response || fetch(request);
+});
+```
     
-* **network-first**: 자주 업데이트되는 리소스는 네트워크에서 먼저 데이터를 가져오고, 실패 시 캐시에서 데이터를 제공합니다. ex) 뉴스, 블로그, 게시물
+**network-first**: 자주 업데이트되는 리소스는 네트워크에서 먼저 데이터를 가져오고, 실패 시 캐시에서 데이터를 제공합니다. ex) 뉴스, 블로그, 게시물
     
-    ```javascript
-    fetch(request)
-      .then(response => {
-        return caches.open('dynamic-cache').then(cache => {
-          cache.put(request, response.clone());
-          return response;
-        });
-      })
-      .catch(() => {
-        return caches.match(request);
-      });
-    
-    ```
-    
-* **stale-while-revalidate**: 캐시된 데이터를 우선 제공하고, 동시에 백그라운드에서 최신 데이터를 가져와 캐시를 갱신합니다. ex) 동적인 데이터를 처리할 때
-    
-    ```javascript
-    caches.match(request).then(response => {
-      const fetchPromise = fetch(request).then(networkResponse => {
-        caches.open('dynamic-cache').then(cache => {
-          cache.put(request, networkResponse.clone());
-        });
-        return networkResponse;
-      });
-      return response || fetchPromise;
+```javascript
+fetch(request)
+  .then(response => {
+    return caches.open('dynamic-cache').then(cache => {
+      cache.put(request, response.clone());
+      return response;
     });
+  })
+  .catch(() => {
+    return caches.match(request);
+  });
+```
     
-    ```
+**stale-while-revalidate**: 캐시된 데이터를 우선 제공하고, 동시에 백그라운드에서 최신 데이터를 가져와 캐시를 갱신합니다. ex) 동적인 데이터를 처리할 때
+    
+```javascript
+caches.match(request).then(response => {
+  const fetchPromise = fetch(request).then(networkResponse => {
+    caches.open('dynamic-cache').then(cache => {
+      cache.put(request, networkResponse.clone());
+    });
+    return networkResponse;
+  });
+  return response || fetchPromise;
+});
+```
     
 
 ### 참고 자료
