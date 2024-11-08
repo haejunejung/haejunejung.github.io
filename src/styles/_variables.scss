@@ -11,10 +11,6 @@
         --max-width: 420px;
     }
 
-    ::-webkit-scrollbar {
-        display: none; /* 스크롤바를 보이지 않게 함 */
-    }
-
     body {
         scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
     }

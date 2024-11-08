@@ -2,7 +2,6 @@
     display: flex;
     align-items: center;
     padding: 16px;
-    margin: 12px 0;
     background-color: #f9f9f9;
     border-radius: 8px;
     transition: background-color 0.3 ease;
@@ -42,5 +41,6 @@
 
     &__summary {
         color: gray;
+        line-height: 1.2;
     }
 }

@@ -3,7 +3,7 @@ import styles from "./ListItem.module.scss";
 import ExternalLink from "./ExternalLink";
 
 const ListItem = ({ children }: PropsWithChildren) => {
-  return <li className={styles.item}>{children}</li>;
+  return <div className={styles.item}>{children}</div>;
 };
 
 const Left = ({ children }: PropsWithChildren) => {

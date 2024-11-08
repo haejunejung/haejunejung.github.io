@@ -1,29 +1,44 @@
-이번 글은 **서비스 워커(Service Worker)**에 대해 공부한 기록을 담았습니다.
+import ServiceWorker from "./assets/service-worker.jpg"
+import ServiceWorkerLayerDiagram from "./assets/service-worker-layer-diagram.png"
+import ServiceWorkerFetch from "./assets/service-worker-fetch.svg"
+import ServiceWorkerLifeCycleDiagram from "./assets/service-worker-lifecycle-diagram.png"
+import ServiceWorkerLifeCycle from "./assets/service-worker-lifecycle.svg"
+
+<img src={ServiceWorker} alt="Service Worker" style={{ width: "100%"}} />
+
+# 서비스 워커
+서비스 워커(Serivce Worker)에 대해 공부한 기록입니다.
 
 ## 서비스 워커란?
+서비스 워커는 **웹 애플리케이션의 백그라운드에서 독립적으로 실행되는 JavaScript**입니다.
+이 스크립트는 웹 페이지와는 별개로 동작하며 페이지가 로드되어 있지 않거나, 사용자가 다른 탭을 열고 있을 때도 계속 실행됩니다.
+그래서 서비스 워커는 웹 애플리케이션의 오프라인 지원, 캐싱, 푸시 알림과 같은 기능을 제공할 수 있습니다.
 
-서비스 워커는 **웹 애플리케이션의 백그라운드에서 독립적으로 실행되는 JavaScript 스크립트**입니다. 이 스크립트는 웹 페이지와는 별개로 동작하며, 페이지가 로드되어 있지 않거나, 사용자가 다른 탭을 열고 있을 때도 계속 실행됩니다. 그래서 서비스 워커는 웹 애플리케이션의 오프라인 지원, 캐싱, 푸시 알림과 같은 기능을 제공할 수 있습니다.
+서비스 워커는 워커 맥락에서 실행되기 때문에 DOM에 접근할 수 없으며, 앱을 구동하는 주 JavaScript와 다른 스레드에서 동작하므로
+연산을 막지 않습니다 (논 블로킹). 또, 네트워크를 수정할 수 있다는 점에 중간자 공격에 굉장히 취약하기 때문에 HTTPS에서만 동작합니다.
 
-서비스 워커는 워커 맥락에서 실행되기 때문에 DOM에 접근할 수 없으며, 앱을 구동하는 주 JavaScript와는 다른 스레드에서 동작하므로 연산을 막지 않습니다(논 블로킹). 또, 네트워크 요청을 수정할 수 있다는 점에 중간자 공격에 굉장히 취약하기 때문에 HTTPS에서만 동작합니다.
 
-![https://fe-developers.kakaoent.com/2022/221208-service-worker/](https://prod-files-secure.s3.us-west-2.amazonaws.com/9e495333-96a3-407d-8030-7fea7335dbd9/ecd0b89c-e2d8-4663-a310-397b7a1cc0dc/image.png)
-
-https://fe-developers.kakaoent.com/2022/221208-service-worker/
+<img src={ServiceWorkerLayerDiagram} alt="Service Worker Layer Diagram"  style={{ width: "100%" }}/>
 
 ## 서비스 워커 사용해보기
 
-들어가기 전, 예제 코드에는 `self`가 사용됩니다. 이것은 서비스 워커 전역 실행 컨텍스트인 `ServiceWorkerGlobalSpace`를 뜻합니다. 스크립트가 실행되는 컨텍스트에 따라 `window`가 될 수도 있고 서비스 워커의 전역 객체가 될 수도 있습니다. 그래서 self를 사용하여 모든 환경에서 동일한 코드를 사용할 수 있도록 구현합니다.
+예제 코드에는 서비스 워커 전역 실행 컨텍스트인 **ServiceWorkerGlobalSpace**를 뜻하는 **self**가 사용됩니다. 
+스크립트가 실행되는 컨텍스트에 따라 **window**가 될 수도 있고, 서비스 워커의 전역 객체가 될 수도 있습니다.
+그래서 보통 self를 사용하여 모든 환경에서 동일한 코드를 사용할 수 있도록 구현합니다.
 
-### 1. 서비스 워커 등록하기 (register)
+서비스 워커의 생명주기는 크게 **등록 -> 설치 -> 활성화 -> 관리 -> 업데이트** 순으로 이루어집니다.
+<img src={ServiceWorkerLifeCycleDiagram} alt="Service Worker Life Cycle Diagram"  style={{ width: "100%" }}/>
 
-서비스 워커는 `ServiceWorkerContainer.register()` 메서드를 통해 등록할 수 있습니다. 성공적으로 등록한 경우 클라이언트가 서비스 워커를 다운로드하게 됩니다.
+### 1. 서비스 워커 등록하기
+서비스 워커는 **ServiceWorkerContainer.register()** 메서드를 통해 등록할 수 있습니다.
+성공적으로 등록한 경우 클라이언트가 서비스 워커를 다운로드하게 됩니다.
 
-```jsx
+```javascript
 <script type="module">
   const registerServiceWorker = async () => {
     if ("serviceWorker" in navigator) {
       try {
-        const registration = navigator.serviceWorker.register("/blog/service-worker.js");
+        const registration = navigator.serviceWorker.register("/service-worker.js");
         if (registration.installing) {
           console.log("Service worker installing");
         } else if (registration.waiting) {
@@ -45,16 +60,18 @@ https://fe-developers.kakaoent.com/2022/221208-service-worker/
 </script>
 ```
 
-### 2. 서비스 워커 설치 (install)
+### 2. 서비스 워커 설치 
 
-서비스 워커가 등록되면 `install` 이벤트가 자동으로 발생합니다. 이 때, 오프라인에서도 사용할 리소스를 미리 캐싱해 놓습니다. 여기서는 cache나 indexedDB를 활용해 리소스를 저장할 수 있습니다.
+서비스 워커가 등록되면 **install** 이벤트가 자동으로 발생합니다. 
+이 때, 오프라인에서도 사용할 리소스를 미리 캐싱해 놓습니다. 
+여기서는 cache나 indexedDB를 활용해 리소스를 저장할 수 있습니다.
 
-```jsx
+```javascript
 // service-worker.js
 
 // install event
 self.addEventListener("install", (event) => {
-  console.log("[Service Worker]: installed");
+  console.log("Service worker installed");
   
   event.waitUntil(
 	  caches.open("v1").then((cache) => {
@@ -67,21 +84,21 @@ self.addEventListener("install", (event) => {
 			})
 	);
 	
-	// 서비스 워커가 존재해도 대기 상태를 건너뛴다.
-	self.skipWaiting();
+	self.skipWaiting(); // 새로운 서비스 워커가 등록되면 바로 실행한다.
 });
 ```
 
-### 3. 서비스 워커 활성화 (activate)
+### 3. 서비스 워커 활성화 
 
-서비스 워커가 설치되면 `activate` 이벤트가 발생합니다. 이 단계에서는 서비스 워커가 캐시한 불필요한 리소스를 삭제하고, 새로운 버전으로 업데이트가 이루어집니다.
+서비스 워커가 설치되면 **activate** 이벤트가 발생합니다. 
+이 단계에서는 서비스 워커가 캐시한 불필요한 리소스를 삭제하고, 새로운 버전으로 업데이트가 이루어집니다.
 
-```jsx
+```javascript
 // service-worker.js
 
-// activate 이벤트 핸들러
+// activate event
 self.addEventListener("activate", (event) => {
-  console.log("[Service Worker] 활성화 중...");
+  console.log("Service worker activate");
 
   // 이전 버전의 캐시를 삭제
   event.waitUntil(
@@ -97,27 +114,22 @@ self.addEventListener("activate", (event) => {
     })
   );
 
-  // 새 서비스 워커가 즉시 활성화되도록 skipWaiting() 호출 (install 단계에서 해야 합니다)
   self.clients.claim(); // 활성화되면 바로 클라이언트에게 제어권을 넘김
 });
 ```
 
-### 4. 서비스 워커 활성화됨 (Activated)
+### 4. 서비스 워커 활성화됨 
 
-서비스 워커가 활성화되면, 여러 이벤트를 수행할 수 있습니다. 대표적으로 `fetch` 이벤트가 있습니다. fetch 이벤트를 이용하여 네트워크 요청을 가로채고, 캐시된 리소스를 반환합니다. 
+서비스 워커가 활성화되면, 여러 이벤트를 수행할 수 있습니다. 
+대표적으로 **fetch** 이벤트가 있습니다. 
+fetch 이벤트를 이용하여 네트워크 요청을 가로채고, 캐시된 리소스를 반환합니다. 
 
-> 백그라운드 동기화 관련 이벤트: `sync`
-브라우저 요청 관련 이벤트: `fetch` 
-푸시 알림 관련 이벤트: `push`, `pushsubscriptionchange`, `notificationclick`, `notificationclose`
-클라이언트와 통신 관련 이벤트: `message`
-> 
-
-```jsx
+```javascript
 // fetch event
 self.addEventListener("fetch", (event) => {
-  console.log("[Service Worker] fetched resource " + event.request.url);
+  console.log("Service worker fetched resource " + event.request.url);
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
+    caches.match(event.request).then((cachedResponse) => { // 캐시가 존재한다면, 캐시 우선 (전략에 따라 다르게 설정 필요)
       return (
         cachedResponse ||
         fetch(event.request).then((response) => {
@@ -132,25 +144,26 @@ self.addEventListener("fetch", (event) => {
 });
 ```
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/9e495333-96a3-407d-8030-7fea7335dbd9/6bd240b2-93a7-4421-a426-ff5c3836a6d8/image.png)
+## 서비스 워커 업데이트 처리
+서비스 워커는 기본적으로 새로운 버전이 설치될 때까지 기다리며, 
+이전 버전이 활성화 되어 있을 경우 새로운 서비스 워커는 대기 상태로 유지됩니다. 
 
-앞서 설명한 부분을 전체적으로 보면 아래와 같이 표현할 수 있습니다.
+**그렇다면 언제 업데이트가 이루어질까요?**
 
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/9e495333-96a3-407d-8030-7fea7335dbd9/28c20312-70fa-455a-9f20-f6f9873b6575/image.png)
+서비스 워커의 업데이트는 다음과 같은 경우에 발생합니다.
+1. 범위 내 페이지로의 탐색 발생
+2. 서비스 워커에서 이벤트가 발생했는데, 서비스 워커를 이전 24시간 내에 다운로드 하지 않은 경우
 
-## 조금 더 깊게 알아본 서비스 워커
+서비스 의도에 맞게 업데이트 시점을 맞추고 싶을 때가 있기 때문에, 일반적으로 두 가지 방법을 사용합니다.
+1. 자동 업데이트
+2. 수동 업데이트 (업데이트 여부 확인)
 
-### 1. 서비스 워커의 생명주기와 업데이트 처리
+### 1. 자동 업데이트
+새로운 서비스를 바로 활성화하려면 **skipWaiting()** 메서드가 필요합니다. 
+이 메서드는 서비스 워커를 대기 상태에서 기다리지 않고 즉시 활성화할 수 있도록 해줍니다.
+새롭게 활성화된 서비스 워커를 모든 열린 탭에서 즉시 제어권을 가지게 하려면 **client.claim()** 메서드를 사용해야 합니다.
 
-서비스 워커의 생명주기는 크게 등록 → 설치 → 활성화 → 관리 → 업데이트 순서로 이루어집니다.
-
-![image.png](https://prod-files-secure.s3.us-west-2.amazonaws.com/9e495333-96a3-407d-8030-7fea7335dbd9/f3f8007d-0013-4424-bd73-cc4e418998a6/image.png)
-
-**자동으로 업데이트 하기**
-
-서비스 워커는 기본적으로 새로운 버전이 설치될 때까지 기다리며, 이전 버전이 활성화 되어 있을 경우 새로운 서비스 워커는 대기 상태로 유지됩니다. 이 때, 새로운 서비스 워커를 바로 활성화하려면 `skipWaiting()`을 호출하여 기다리지 않고 즉시 활성화할 수 있습니다. 새롭게 활성화된 서비스 워커를 모든 열린 탭에서 즉시 제어권을 가지게 해주려면 `client.claim()`를 호출하면 됩니다.
-
-```jsx
+```javascript
 // service-worker.js
 
 self.addEventListener("install", (event) => {
@@ -164,11 +177,12 @@ self.addEventListener("activate", (event) => {
 });
 ```
 
-**수동으로 업데이트 하기**
+### 2. 수동 업데이트
+업데이트가 되었을 때, 갑자기 reload가 일어난다면 당황스러울 수 있습니다. 
+이런 경우를 대비하려면 수동으로 업데이트가 이루어질 수 있도록 해야 합니다. 
+예를 들어, 사용자에게 “새 버전이 있습니다. 새로고침하여 최신 버전을 사용하세요”라는 모달이 뜨는 것처럼요.
 
-업데이트가 되었을 때, 갑자기 reload가 일어난다면 당황스러울 수 있습니다. 이런 경우를 대비하려면 수동으로 업데이트가 이루어질 수 있도록 해야 합니다. 예를 들어, 사용자에게 “새 버전이 있습니다. 새로고침하여 최신 버전을 사용하세요”라는 alert 모달이 뜨게 하는 것이 있습니다. 
-
-```jsx
+```javascript
 // 서비스 워커 등록 코드
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("/service-worker.js").then(registration => {
@@ -193,21 +207,21 @@ if ("serviceWorker" in navigator) {
 
 ```
 
-### 2. 다양한 캐시 전략
+### 서비스 워커 캐시 전략
 
 서비스 워커에는 다양한 캐시 전략이 있습니다. 
 
-1. **cache-first**: 자주 변경되지 않은 리소스는 캐시에서 우선적으로 제공하며, 캐시가 없을 경우에만 네트워크 요청을 보냅니다. ex) 이미지, 폰트, 정적 리소스
+* **cache-first**: 자주 변경되지 않은 리소스는 캐시에서 우선적으로 제공하며, 캐시가 없을 경우에만 네트워크 요청을 보냅니다. ex) 이미지, 폰트, 정적 리소스
     
-    ```jsx
-    caches.match(request).then(response => {
-      return response || fetch(request);
-    });
-    ```
+  ```javascript
+  caches.match(request).then(response => {
+    return response || fetch(request);
+  });
+  ```
     
-2. **network-first**: 자주 업데이트되는 리소스는 네트워크에서 먼저 데이터를 가져오고, 실패 시 캐시에서 데이터를 제공합니다. ex) 뉴스, 블로그, 게시물
+* **network-first**: 자주 업데이트되는 리소스는 네트워크에서 먼저 데이터를 가져오고, 실패 시 캐시에서 데이터를 제공합니다. ex) 뉴스, 블로그, 게시물
     
-    ```jsx
+    ```javascript
     fetch(request)
       .then(response => {
         return caches.open('dynamic-cache').then(cache => {
@@ -221,9 +235,9 @@ if ("serviceWorker" in navigator) {
     
     ```
     
-3. **stale-while-revalidate**: 캐시된 데이터를 우선 제공하고, 동시에 백그라운드에서 최신 데이터를 가져와 캐시를 갱신합니다. ex) 동적인 데이터를 처리할 때
+* **stale-while-revalidate**: 캐시된 데이터를 우선 제공하고, 동시에 백그라운드에서 최신 데이터를 가져와 캐시를 갱신합니다. ex) 동적인 데이터를 처리할 때
     
-    ```jsx
+    ```javascript
     caches.match(request).then(response => {
       const fetchPromise = fetch(request).then(networkResponse => {
         caches.open('dynamic-cache').then(cache => {
@@ -239,10 +253,10 @@ if ("serviceWorker" in navigator) {
 
 ### 참고 자료
 
-https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API
+* https://developer.mozilla.org/ko/docs/Web/API/Service_Worker_API
 
-https://so-so.dev/web/service-worker/
+* https://so-so.dev/web/service-worker/
 
-https://wonsss.github.io/PWA/service-worker/
+* https://wonsss.github.io/PWA/service-worker/
 
-https://fe-developers.kakaoent.com/2022/221208-service-worker/
+* https://fe-developers.kakaoent.com/2022/221208-service-worker/
