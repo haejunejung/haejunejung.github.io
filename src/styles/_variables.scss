@@ -7,7 +7,7 @@
 
 @media (min-width: 480px) {
     :root {
-        --viewport-content: 87.5%;
+        --viewport-content: calc(100% - 24px);
         --max-width: 420px;
     }
 
