@@ -1,6 +1,6 @@
 export const categoryList = [
   {
-    link: "/blog",
+    link: "/",
     label: "공부 기록",
   },
   {

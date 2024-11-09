@@ -1,8 +1,8 @@
 {
   "name": "정해준이 정해준",
   "short_name": "정해준이 정해준",
-  "id": "/blog",
-  "start_url": "/blog",
+  "id": "/",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#FFFFFF",

@@ -15,9 +15,7 @@ const Right = ({ children }: PropsWithChildren) => {
 };
 
 const Thumnail = ({ imgSrc, alt }: { imgSrc: string; alt: string }) => {
-  return (
-    <img src={`/blog/${imgSrc}`} alt={alt} className={styles.item__thumnail} />
-  );
+  return <img src={imgSrc} alt={alt} className={styles.item__thumnail} />;
 };
 
 const TechLink = ({ link, name }: { link: string; name: string }) => {

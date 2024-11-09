@@ -6,7 +6,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/blog",
+  base: "/",
   plugins: [
     {
       enforce: "pre",
@@ -19,10 +19,10 @@ export default defineConfig({
       registerType: "autoUpdate",
       injectRegister: "inline",
       devOptions: { enabled: true },
-      // workbox: {
-      //   globPatterns: ["/*"],
-      //   globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
-      // },
+      workbox: {
+        // globPatterns: ["/*"],
+        globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
+      },
     }),
     react({ include: /\.(jsx|js|mdx|md|tsx|ts)$/ }),
   ],
