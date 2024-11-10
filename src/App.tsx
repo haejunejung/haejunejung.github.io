@@ -17,6 +17,7 @@ const App = () => {
           <Route path="/tech-blog" component={TechBlogPage} />
           <Route path="/webapi/:id" component={MDXDetailPage} />
           <Route path="/performance/:id" component={MDXDetailPage} />
+          <Route path="/react/:id" component={MDXDetailPage} />
           <Route path="/not-found" component={NotFound} />
         </Switch>
       </Layout>

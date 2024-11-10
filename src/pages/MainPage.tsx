@@ -9,11 +9,7 @@ interface MDXListItemProps {
   path: string;
 }
 
-const MDXListItem: React.FC<Readonly<MDXListItemProps>> = ({
-  title,
-  summary,
-  path,
-}) => {
+const MDXListItem = ({ title, summary, path }: Readonly<MDXListItemProps>) => {
   return (
     <Link to={path}>
       <ListItem>

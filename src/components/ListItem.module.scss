@@ -37,10 +37,12 @@
 
     &__title {
         color: black;
+        margin: 0;
     }
 
     &__summary {
         color: gray;
         line-height: 1.2;
+        margin: 0;
     }
 }

@@ -4,10 +4,7 @@ interface LinkProps {
   link: string;
 }
 
-const ExternalLink: React.FC<PropsWithChildren<LinkProps>> = ({
-  children,
-  link,
-}) => {
+const ExternalLink = ({ children, link }: PropsWithChildren<LinkProps>) => {
   // 외부 하이퍼링크 보안 noopener, noreferrer
   // https://yozm.wishket.com/magazine/detail/1586/
   return (

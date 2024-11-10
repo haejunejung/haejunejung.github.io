@@ -9,7 +9,7 @@ interface CategoryItemProps {
   label: string;
 }
 
-const CategoryItem: React.FC<CategoryItemProps> = ({ link, label }) => (
+const CategoryItem = ({ link, label }: CategoryItemProps) => (
   <DropdownMenu.Item asChild>
     <Link href={link}>
       <div className={styles.dropdown__item}>{label}</div>
@@ -17,7 +17,11 @@ const CategoryItem: React.FC<CategoryItemProps> = ({ link, label }) => (
   </DropdownMenu.Item>
 );
 
-const CategoryMenu = () => {
+const CategoryMenu = ({
+  categoryList,
+}: {
+  categoryList: CategoryItemProps[];
+}) => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger asChild>
@@ -51,7 +55,7 @@ const Header = () => {
         <h4>정해준이 정해준</h4>
       </div>
       <div className={styles.header__nav}>
-        <CategoryMenu />
+        <CategoryMenu categoryList={categoryList} />
       </div>
     </header>
   );

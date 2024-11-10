@@ -9,7 +9,7 @@ interface ListProps<T> {
 const List = <T,>({ items, title, renderItem }: ListProps<T>) => {
   return (
     <section>
-      <h3>{title}</h3>
+      <h2>{title}</h2>
       <ul className={styles.list}>
         {items.map((item, index) => (
           <li key={index}>{renderItem(item)}</li>

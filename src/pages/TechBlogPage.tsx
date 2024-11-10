@@ -8,11 +8,7 @@ interface TechBlogItemProps {
   link: string;
 }
 
-const TechBlogItem: React.FC<Readonly<TechBlogItemProps>> = ({
-  imgSrc,
-  name,
-  link,
-}) => {
+const TechBlogItem = ({ imgSrc, name, link }: Readonly<TechBlogItemProps>) => {
   return (
     <ListItem key={name}>
       <ListItem.Left>

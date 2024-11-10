@@ -11,8 +11,10 @@ interface MultiReferencesProps {
   references: string[] | TReference[];
 }
 
-export const Reference: React.FC<{ reference: string | TReference }> = ({
+export const Reference = ({
   reference,
+}: {
+  reference: string | TReference;
 }) => {
   if (typeof reference === "string") {
     // string[]인 경우 content와 path를 동일하게 설정
@@ -31,10 +33,10 @@ export const Reference: React.FC<{ reference: string | TReference }> = ({
   );
 };
 
-const MultiReference: React.FC<MultiReferencesProps> = ({
+const MultiReference = ({
   title = "참고 자료",
   references,
-}) => {
+}: MultiReferencesProps) => {
   return (
     <section>
       <h3>{title}</h3>
