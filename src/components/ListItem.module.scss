@@ -21,6 +21,7 @@
     &__right {
         display: flex;
         flex-direction: column;
+        gap: 4px;
     }
 
     &__thumnail {
@@ -44,5 +45,7 @@
         color: gray;
         line-height: 1.2;
         margin: 0;
+
+        font-size: 12px;
     }
 }
