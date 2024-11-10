@@ -37,3 +37,6 @@ package-lock.json
 
 # dev
 dev-dist
+
+# Lighthouse
+.lighthouseci

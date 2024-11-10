@@ -1,0 +1,305 @@
+import LightHouse from "./assets/light-house.png"
+import LightHousePerformance from "./assets/light-house-performance.png"
+import LightHouseAccessibility from "./assets/light-house-accessibility.png"
+import LightHouseBestPractice from "./assets/light-house-best-practice.png"
+import LightHouseSEO from "./assets/light-house-seo.png"
+import LightHouseInformation from "./assets/light-house-information.png"
+import LightHouseCIProgress from "./assets/light-house-ci-progress.png"
+import LightHouseResult from "./assets/light-house-result.png"
+import MultiReference from "@/components/[mdx]/MultiReference"
+
+<img src={LightHouse} alt="Light House" style={{ width: "100%"}} />
+
+# Lighthouse
+웹 성능 지표 측정 도구 Lighthouse에 대해 공부한 기록입니다.
+
+## 웹 성능이 중요한 이유
+성능을 측정하기 전, **웹 성능이 왜 중요할까**에 대해 알아봅시다.
+
+**웹 성능은 웹 브라우저에서 사이트가 얼마나 빨리 로딩되고, 사용자가 클릭하거나 스크롤하는 데 
+얼마나 빠르게 반응하는지**를 말합니다. 성능이 나쁜 사이트는 로딩도 느리고, 클릭에 대한 반응도 느려
+사람들이 빨리 나가버릴 가능성이 큽니다. 심할 경우, 사이트 자체가 제대로 안 보일 수도 있습니다. 
+
+**웹 성능의 목표는 사용자들이 성능 문제를 느끼지 않도록 만드는 것**입니다. 물론 성능에 대한 느낌이 
+사람마다 다를 수 있지만, 로딩 속도나 화면에 보이는 시간은 측정할 수 있습니다. 성능이 좋으면 
+보통 사람들이 특별히 신경 쓰지 않지만, 느린 사이트는 금방 티가 나기 때문에 웹 성능이 중요합니다.
+
+<MultiReference title="성능 개선 실제 사례" references={[
+    {
+        content: "성능을 위해 Pinterest 페이지들을 재구축한 결과 대기 시간의 40% 감소, SEO 트래픽 15% 증가 및 회원가입 전환율이 15% 증가했습니다.",
+        path: "https://medium.com/pinterest-engineering/driving-user-growth-with-performance-improvements-cfc50dafadd7#.wwimdmkpp"
+    },
+    {
+        content: "7.2초에서 3.4초로 향상시킨 결과 Adobe의 방문률은 35% 증가하고 이탈률은 6% 감소했으며 모바일 방문자의 평균 페이지 체류 시간이 21% 증가했습니다.",
+        path: "https://business.adobe.com/blog/perspectives/a-quick-start-guide-to-web-performance"
+    }
+]} />
+
+이처럼 웹 성능에 따라 **이탈률, 전환률, 수익, 사용자 만족 및 검색 엔진 순위에 직접적인 영향**을 미치기 때문에
+웹 성능은 매우 중요한 요소입니다. 
+
+## Lighthouse
+Lighthouse는 웹사이트 성능을 수치화하여 보여줍니다. 
+{/* > Lighthouse is an open-source, automated tool for improving the performance, quality, and correctness of your web apps. (Google) */}
+
+<img src={LightHouseInformation} alt="Light House Information" style={{ width: "100%" }} />
+
+### 성능
+성능(Performance)는 웹 사이트 로딩 속도와 관련된 지표입니다.
+
+<img src={LightHousePerformance} alt="Light House Performance" style={{ width: "100%" }} />
+
+- **First Contentful Paint(FCP)**: 사용자가 페이지를 열었을 때, 처음으로 화면에 컨텐츠가 나타나는 시점까지의 시간입니다.
+페이지가 실제로 로드되기 시작한 느낌을 주는 지표입니다.
+
+- **Largest Contentful Paint(LCP)**: 페이지에서 가장 큰 컨텐츠 요소가 화면에 나타나는 시점까지의 시간입니다. 
+이 지표는 사용자가 페이지를 완전히 로드되었다고 느끼는 순간을 평가합니다.
+
+- **First Input Delay(FID)**: 사용자가 페이지에서 첫 번째로 상호작용(버튼 클릭, 링크 클릭, ...)을 
+시작한 시점과 브라우저가 실제로 반응하기까지의 시간입니다. 이 지표는 사용자의 인터랙티브성 지연을 측정합니다.
+
+- **Cumulative Layout Shift(CLS)**: 페이지 로딩 동안 컨텐츠가 얼마나 예상치 않게 이동하는지를 측정하는 지표입니다.
+페이지가 로드되는 동안 예상치 못한 레이아웃 이동이 많을수록 사용자 경험이 나빠집니다.
+
+- **Time to Interactive(TTI)**: 페이지가 사용자와 상호작용할 준비가 되는 시간입니다. 
+이는 페이지가 로딩을 마치고 사용자가 페이지와 원활하게 상호작용할 수 있게 되는 시점까지의 시간입니다.
+
+### 접근성
+접근성(Accessibility)는 웹 사이트가 장애가 있는 사용자에게 얼마나 접근 가능한지 평가합니다.
+
+<img src={LightHouseAccessibility} alt="Light House Accessibility" style={{ width: "100%" }} />
+
+- **Color Contrast**: 텍스트와 배경의 색 대비가 충분히 강한지 확인하여 시각적으로 불편한 사용자를 배려합니다.
+
+- **Alt Text for Images**: 이미지에 대한 대체 텍스트가 적절히 제공되는지 확인하여 화면 리더를 사용하는 사용자에게 도움을 줍니다.
+
+- **ARIA roles**: 장애가 있는 사용자가 웹 페이지 요소를 이해할 수 잇도록 ARIA(Accessible Rich Internet Applications) 역할이 제대로 사용되었는지를 평가합니다.
+
+### 권장 사항
+웹 사이트가 최신 웹 표준에 얼마나 잘 따르고 있는지 평가합니다.
+
+<img src={LightHouseBestPractice} alt="Light House Best Practice" style={{ width: "100%" }} />
+
+- **HTTPS 사용 여부**: 웹사이트가 안전한 HTTPS 프로토콜을 사용하는지 확인합니다.
+
+- **JavaScript 오류**: JavaScript 코드에 오류가 없는지 확인합니다.
+
+- **적절한 리소스 로딩**: 웹사이트가 필요한 리소스를 효율적으로 로딩하는지 평가합니다.
+
+### SEO
+웹사이트가 검색 엔진에서 잘 인식될 수 있도록 최적화가 잘 되어 있는지 평가합니다.
+
+<img src={LightHouseSEO} alt="Light House SEO" style={{ width: "100%" }} />
+
+- **Meta Tags**: 페이지에 필요한 메타 태그(예: 제목, 설명, 키워드)가 포함되어 있는지 확인합니다.
+
+- **Link Structure**: 페이지의 링크 구조가 검색 엔진에 최적화되어 있는지 평가합니다.
+
+- **Mobile-Friendly**: 모바일 환경에서 웹사이트가 적절히 동작하는지 확인합니다.
+
+
+<MultiReference references={[
+    "https://blog.imqa.io/web-performance-index/",
+    "https://enjoydev.life/blog/nextjs/2-lighthouse",
+    "https://fe-developers.kakaoent.com/2022/220602-lighthouse-with-github-actions/"
+]} />
+
+## Lighthouse CI
+Lighthouse의 지표를 잘 활용한다면, 웹 성능을 주기적으로 확인하고 개선할 수 있겠다고 생각이 들었습니다.
+하지만, 모든 페이지에 대해서 하나씩 검사를 누르고, 확인하고, 지표를 기록하는 일은 번거롭다고 생각했습니다.
+
+이러한 반복적인 작업을 줄여줄 수 있는 도구로 **Lighthouse CI**가 있습니다.
+Lighthouse CI는 모든 커밋과 변화에 대해서 자동으로 Lighthouse를 측정하고 기록해주는 도구입니다.
+
+### Lighthouse CI와 Github Actions로 자동화하기
+Lighthouse CI에서는 그림과 같은 프로세스를 권장하고 있습니다. 
+
+<img src={LightHouseCIProgress} alt="Light House CI Progress" style={{ width: "100%" }} />
+
+Lighthouse CI는 아래와 같은 기능들을 제공하고 있습니다.
+- 모든 PR에 대한 Lighthouse 정보 제공
+- 오픈라인 제공, 접근성, 성능, 권장 사항, SEO가 기준 수치를 만족하는지 여부 확인
+- 시간에 따른 성능 지표 변화
+- 여러 번 실행 가능
+- 두 버전 사이의 변화
+
+#### Lighthouse CI 설정 파일 구성하기
+
+자동화하기 위해서는 우선 **Lighthouse CI에 대한 설정**을 진행해야 합니다. 
+저는 현재 의존성 관리는 yarn, 빌드 도구로는 vite를 사용하고 있어 아래와 같이 구성했습니다.
+
+```javascript
+// lighthouserc.cjs
+// https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md
+module.exports = {
+  ci: {
+    collect: {
+      startServerCommand: "yarn run preview", // The command to run to start the server
+      startServerReadyPattern: "Local", // String pattern to listen for the server
+      numberOfRuns: 1, // The number of times to run Lighthouse
+      url: ["http://localhost:4173"], // A URL to run Lighthouse on.
+    },
+    assert: {
+      // assertions: {
+      //   "categories:performance": ["warn", { minScore: 0.9 }],
+      //   "categories:accessibility": ["error", { minScore: 1 }],
+      //   // ...
+      // },
+    },
+    upload: {
+      target: "filesystem",
+      outputDir: "./lhci_reports",
+      reportFilenamePattern: "%%PATHNAME%%-%%DATETIME%%-report.%%EXTENSION%%",
+    },
+    server: {},
+    wizard: {},
+  },
+};
+
+```
+
+Lighthouse가 PR이 올라올 때마다 성능을 측정하고, 댓글로 남겨지게끔 하기 위해서 reports를 기록할 필요가 있었고,
+그래서 upload에서 ./lhci_reports에 저장하도록 했습니다 (이후 workflow에서 사용됩니다).
+gh-pages나 서버에 json형식으로 저장하는 방법도 있지만 지금은 불필요하다고 생각이 들어서 
+나중에 시간이 되면 데이터를 받아서 시각화하는 프로젝트도 진행해볼까 싶습니다.
+
+#### Github Actions 설정 파일 구성하기
+다음으로는 **github actions** 설정 파일을 구성해야 합니다. 
+크게 4가지 단계로 나누어져 있습니다.
+1. 의존성 설치
+2. Lighthouse CI 실행 및 기록
+3. lhci_reports에 기록된 내용을 바탕으로 점수 포맷 변경
+4. Pull Request 댓글에 지표 최신 기록 작성
+
+```yaml
+name: CI
+on: 
+    push:
+      branches: ['main']
+    pull_request:
+      branches: ['main']
+jobs:
+    lhci:
+        name: Lighthuse
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Set up Node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+
+            - name: Enable Corepack
+              run: corepack enable
+            - name: Install Dependencies
+              run: yarn install --frozen-lockfile
+            - name: Build
+              run: yarn build
+            - name: Run Lighthouse CI
+              run: |
+                npm install -g @lhci/cli
+                lhci autorun || echo "Failed to Run Lighthouse CI"
+
+            - name: Verify lhci_reports path
+              run: |
+                ls -la ./lhci_reports
+
+            - name: Format lighthouse score
+              id: format_lighthouse_score
+              uses: actions/github-script@v7
+              with:
+                github-token: ${{secrets.GITHUB_TOKEN}}
+                script: |
+                  const path = require('path');
+                  const fs = require('fs');
+                  const results = JSON.parse(fs.readFileSync(path.resolve("./lhci_reports/manifest.json")));
+                  
+                  let comments = "";
+
+                  results.forEach((result) => {
+                    const { summary, jsonPath } = result;
+                    const details = JSON.parse(fs.readFileSync(jsonPath));
+                    const { audits } = details;
+                    const formatResult = (res) => Math.round(res * 100);
+                    Object.keys(summary).forEach((key) => (summary[key] = formatResult(summary[key])));
+                    const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴");
+
+                    const comment = [
+                      `⚡️ Lighthouse report!`,
+                      `| Category | Score |`,
+                      `| --- | --- |`,
+                      `| ${score(summary.performance)} Performance | ${summary.performance} |`,
+                      `| ${score(summary.accessibility)} Accessbility | ${summary.accessibility} |`,
+                      `| ${score(summary['best-practices'])} Best Practices | ${summary['best-practices']} |`,
+                      `| ${score(summary.seo)} SEO | ${summary.seo} |`,
+                    ].join("\n");
+
+                    const detail = [
+                      `| ${score(audits["first-contentful-paint"].score * 100)} First Contentful Paint | ${audits["first-contentful-paint"].displayValue} |`,
+                      `| ${score(audits["largest-contentful-paint"].score * 100)} Largest Contentful Paint | ${audits["largest-contentful-paint"].displayValue} |`,
+                      `| ${score(audits["total-blocking-time"].score * 100)} Total Blocking Time | ${audits["total-blocking-time"].displayValue} |`,
+                      `| ${score(audits["speed-index"].score * 100)} Speed Index | ${audits["speed-index"].displayValue} |`,
+                      `| ${score(audits["cumulative-layout-shift"].score * 100)} Cumulative Layout Shift | ${audits["cumulative-layout-shift"].displayValue} |`,
+                      `| ${score(audits["interactive"].score * 100)} Time to Interactive | ${audits["interactive"].displayValue} |`,
+                    ].join("\n");
+
+                    comments += comment + "\n" + detail + "\n";
+                  });
+
+                  core.setOutput('comments', comments);
+
+            - name: Comment PR
+              id: Comment-PR
+              uses: actions/github-script@v7
+              with:
+                github-token: ${{secrets.GITHUB_TOKEN}}
+                script: |
+                  try {
+                    const { data: previouseComments } = await github.rest.issues.listComments({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: context.payload.pull_request.number
+                    });
+
+                    const previouseLhciComment = previouseComments.find((comment) => (comment.body.startsWith('⚡️ Lighthouse report!')));
+                    const newComment = `${{ steps.format_lighthouse_score.outputs.comments }}`;
+
+                    if (previouseLhciComment) {
+                      await github.rest.issues.updateComment({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        comment_id: previouseLhciComment.id,
+                        body: newComment
+                      });
+                    } else {
+                      await github.rest.issues.createComment({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: context.payload.pull_request.number,
+                        body: newComment
+                      });
+                    }
+                  } catch (error) {
+                    throw new Error(`Check this error >>> ${error.message}`); 
+                  }
+
+```
+
+직접 적용해보면 이런 결과가 나오게 됩니다.
+<img src={LightHouseResult} alt="Light House Result" style={{ width: "100%" }} />
+
+여기서는 특정 지표들만 보이게 했는데, 내부에 많은 데이터들이 있으니 자신에게 필요한 데이터를 가공하면 될 것 같습니다.
+
+## 마무리
+웹 성능과 Lighthouse를 공부하며 가장 와닿았던 말은 **"웹 성능의 목표는 사용자들이 성능 문제를 느끼지 않도록 하는 것"**
+이었습니다. 단순히 웹 성능을 올리기 위해 개발을 진행하는 것이 아니라, 사용자가 느끼는 불편함을 해소하기 위해
+웹 성능 개선이 필수적이라는 것도 느낄 수 있었습니다. 자동화를 해놓았으니 앞으로는 성능도 지속적으로 모니터링 
+하면서 개발을 진행할 수 있을 것 같습니다. 이렇게 한 번 자동화해놓은 걸 바탕으로 앞으로 프로젝트에서도 유용하게 써먹을 수 있을 것 같아서
+좋습니다.
+
+<MultiReference references={[
+    "https://fe-developers.kakaoent.com/2022/220602-lighthouse-with-github-actions/",
+    "https://velog.io/@greencloud/%EC%8C%88%EB%BD%95%ED%95%98%EA%B2%8C-Lighthouse-%EC%9E%90%EB%8F%99%ED%99%94%ED%95%98%EA%B8%B0-ijcqk0uv#-lighthouseyml",
+    "https://github.com/GoogleChrome/lighthouse-ci"
+]} />

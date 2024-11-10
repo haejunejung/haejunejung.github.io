@@ -1,0 +1,112 @@
+name: CI
+on: 
+    push:
+      branches: ['main']
+    pull_request:
+      branches: ['main']
+jobs:
+    lhci:
+        name: Lighthuse
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Set up Node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+
+            - name: Enable Corepack
+              run: corepack enable
+            - name: Install Dependencies
+              run: yarn install --frozen-lockfile
+            - name: Build
+              run: yarn build
+            - name: Run Lighthouse CI
+              run: |
+                npm install -g @lhci/cli
+                lhci autorun || echo "Failed to Run Lighthouse CI"
+
+            - name: Verify lhci_reports path
+              run: |
+                ls -la ./lhci_reports
+
+            - name: Format lighthouse score
+              id: format_lighthouse_score
+              uses: actions/github-script@v7
+              with:
+                github-token: ${{secrets.GITHUB_TOKEN}}
+                script: |
+                  const path = require('path');
+                  const fs = require('fs');
+                  const results = JSON.parse(fs.readFileSync(path.resolve("./lhci_reports/manifest.json")));
+                  
+                  let comments = "";
+
+                  results.forEach((result) => {
+                    const { summary, jsonPath } = result;
+                    const details = JSON.parse(fs.readFileSync(jsonPath));
+                    const { audits } = details;
+                    const formatResult = (res) => Math.round(res * 100);
+                    Object.keys(summary).forEach((key) => (summary[key] = formatResult(summary[key])));
+                    const score = (res) => (res >= 90 ? "🟢" : res >= 50 ? "🟠" : "🔴");
+
+                    const comment = [
+                      `⚡️ Lighthouse report!`,
+                      `| Category | Score |`,
+                      `| --- | --- |`,
+                      `| ${score(summary.performance)} Performance | ${summary.performance} |`,
+                      `| ${score(summary.accessibility)} Accessbility | ${summary.accessibility} |`,
+                      `| ${score(summary['best-practices'])} Best Practices | ${summary['best-practices']} |`,
+                      `| ${score(summary.seo)} SEO | ${summary.seo} |`,
+                    ].join("\n");
+
+                    const detail = [
+                      `| ${score(audits["first-contentful-paint"].score * 100)} First Contentful Paint | ${audits["first-contentful-paint"].displayValue} |`,
+                      `| ${score(audits["largest-contentful-paint"].score * 100)} Largest Contentful Paint | ${audits["largest-contentful-paint"].displayValue} |`,
+                      `| ${score(audits["total-blocking-time"].score * 100)} Total Blocking Time | ${audits["total-blocking-time"].displayValue} |`,
+                      `| ${score(audits["speed-index"].score * 100)} Speed Index | ${audits["speed-index"].displayValue} |`,
+                      `| ${score(audits["cumulative-layout-shift"].score * 100)} Cumulative Layout Shift | ${audits["cumulative-layout-shift"].displayValue} |`,
+                      `| ${score(audits["interactive"].score * 100)} Time to Interactive | ${audits["interactive"].displayValue} |`,
+                    ].join("\n");
+
+                    comments += comment + "\n" + detail + "\n";
+                  });
+
+                  core.setOutput('comments', comments);
+
+            - name: Comment PR
+              id: Comment-PR
+              uses: actions/github-script@v7
+              with:
+                github-token: ${{secrets.GITHUB_TOKEN}}
+                script: |
+                  try {
+                    const { data: previouseComments } = await github.rest.issues.listComments({
+                      owner: context.repo.owner,
+                      repo: context.repo.repo,
+                      issue_number: context.payload.pull_request.number
+                    });
+
+                    const previouseLhciComment = previouseComments.find((comment) => (comment.body.startsWith('⚡️ Lighthouse report!')));
+                    const newComment = `${{ steps.format_lighthouse_score.outputs.comments }}`;
+
+                    if (previouseLhciComment) {
+                      await github.rest.issues.updateComment({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        comment_id: previouseLhciComment.id,
+                        body: newComment
+                      });
+                    } else {
+                      await github.rest.issues.createComment({
+                        owner: context.repo.owner,
+                        repo: context.repo.repo,
+                        issue_number: context.payload.pull_request.number,
+                        body: newComment
+                      });
+                    }
+                  } catch (error) {
+                    throw new Error(`Check this error >>> ${error.message}`); 
+                  }
+

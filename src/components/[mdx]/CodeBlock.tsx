@@ -3,11 +3,13 @@ import hljs from "highlight.js/lib/core";
 import css from "highlight.js/lib/languages/css";
 import js from "highlight.js/lib/languages/javascript";
 import xml from "highlight.js/lib/languages/xml";
+import YAML from "highlight.js/lib/languages/yaml";
 import styles from "./CodeBlock.module.scss";
 
 hljs.registerLanguage("javascript", js);
 hljs.registerLanguage("xml", xml);
 hljs.registerLanguage("css", css);
+hljs.registerLanguage("yaml", YAML);
 
 const CodeBlock: React.FC<Readonly<PropsWithChildren>> = ({ children }) => {
   const codeRef = useRef<HTMLElement>(null);
