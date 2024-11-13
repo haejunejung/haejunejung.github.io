@@ -1,0 +1,5 @@
+.reference {
+  color: var(--color-href);
+  text-decoration: underline;
+  word-break: break-all;
+}

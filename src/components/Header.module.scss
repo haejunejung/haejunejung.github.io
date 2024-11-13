@@ -15,7 +15,6 @@
 	}
 }
 
-
 .dropdown {
 	&__trigger {
 		display: inline-flex;
@@ -23,9 +22,9 @@
 		align-items: center;
 		width: 35px;
 		height: 35px;
-		background-color: white;
     	border: none;
 		outline: none;
+		background-color: transparent;
 
 		/* 선택 및 포커스 효과 제거 */
 		user-select: none;

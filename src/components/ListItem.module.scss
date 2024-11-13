@@ -1,14 +1,15 @@
+@use "../styles/mixin.scss" as *;
+
 .item {
-    display: flex;
-    align-items: center;
-    padding: 16px;
-    background-color: #f9f9f9;
-    border-radius: 8px;
+    @include flex-row-left;
+    padding: var(--padding-md);
+    background-color: var(--color-light-gray);
+    border-radius: var(--border-radius-md);
     transition: background-color 0.3 ease;
 
     @media (hover: hover) {
         &:hover {
-            background-color: #e0e0e0;
+            background-color: var(--color-light-gray-hover);
         }
     }
 
@@ -19,9 +20,7 @@
     }
 
     &__right {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
+        gap: var(--gap-md);
     }
 
     &__thumnail {
@@ -33,19 +32,17 @@
     }
 
     &__name {
-        color: #007bff;
+        color: var(--color-href);
     }
 
     &__title {
-        color: black;
+        color: var(--color-text);
         margin: 0;
     }
 
     &__summary {
-        color: gray;
+        color: var(--color-sub-text);
         line-height: 1.2;
         margin: 0;
-
-        font-size: 12px;
     }
 }

@@ -8,4 +8,10 @@ export const webapiList: MDXItemProps[] = [
     path: "/webapi/service-worker",
     importMdx: () => import("./service-worker.mdx"),
   },
+  {
+    title: "Web Storage",
+    summary: "브라우저에 데이터를 저장하는 웹 스토리지에 대해 공부했습니다.",
+    path: "/webapi/web-storage",
+    importMdx: () => import("./web-storage.mdx"),
+  },
 ];

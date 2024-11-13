@@ -32,9 +32,11 @@ const CodeBlock = ({ children }: PropsWithChildren) => {
   }, [children, highlighted]);
 
   return (
-    <code ref={codeRef} className={styles.code}>
-      {children}
-    </code>
+    <pre className={styles.pre}>
+      <code ref={codeRef} className={styles.code}>
+        {children}
+      </code>
+    </pre>
   );
 };
 

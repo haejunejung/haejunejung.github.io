@@ -1,18 +1,9 @@
-// _global.scss
-
-@font-face {
-  font-family: pretendard;
-  src: url('/fonts/pretendard.woff2') format('woff2')
-}
-
-:root {
-    --viewport-content: calc(100% - 24px);
-    --max-width: 100%;
-}
-
 body {
     font-family: pretendard, sans-serif;
     line-height: 1.6;
+
+    background-color: var(--color-background);
+    color: var(--color-text);
 }
 
 a {
@@ -20,36 +11,10 @@ a {
     color: inherit;
 }
 
-@media (min-width: 480px) {
-    :root {
-        --viewport-content: calc(100% - 24px);
-        --max-width: 420px;
-    }
-
-    body {
-        scrollbar-width: none; /* Firefox에서 스크롤바 숨기기 */
-        font-size: 12px;
-    }
+p {
+    font-size: var(--font-size);
 }
 
-@media (min-width: 768px) {
-    :root {
-        --viewport-content: calc(100% - 134px);
-        --max-width: 700px;
-    }
-
-    body {
-        font-size: 14px;
-    }
-}
-
-@media (min-width: 1080px) {
-    :root {
-        --viewport-content: calc(100% - 180px);
-        --max-width: 1000px;
-    }
-
-    body {
-        font-size: 18px;
-    }
+div {
+    font-size: var(--font-size);
 }
