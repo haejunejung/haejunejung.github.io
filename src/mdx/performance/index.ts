@@ -8,4 +8,10 @@ export const performanceList: MDXItemProps[] = [
     path: "/performance/lighthouse.mdx",
     importMdx: () => import("./lighthouse.mdx"),
   },
+  {
+    title: "브라우저 작동 원리",
+    summary: "브라우저가 어떻게 동작하는지에 대해 공부했습니다.",
+    path: "/performance/browser.mdx",
+    importMdx: () => import("./browser.mdx"),
+  },
 ];
