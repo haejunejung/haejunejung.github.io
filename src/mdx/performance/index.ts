@@ -14,4 +14,10 @@ export const performanceList: MDXItemProps[] = [
     path: "/performance/browser.mdx",
     importMdx: () => import("./browser.mdx"),
   },
+  {
+    title: "이미지 최적화",
+    summary: "이미지 최적화 방법에 대해 공부했습니다.",
+    path: "/performance/image-optimization.mdx",
+    importMdx: () => import("./image-optimization.mdx"),
+  },
 ];
