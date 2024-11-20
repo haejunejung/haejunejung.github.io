@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import mdx from "@mdx-js/rollup";
 import { VitePWA } from "vite-plugin-pwa";
+import remarkGfm from "remark-gfm";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,6 +13,7 @@ export default defineConfig({
       enforce: "pre",
       ...mdx({
         providerImportSource: "@mdx-js/react",
+        remarkPlugins: [remarkGfm],
       }),
     } as PluginOption,
     // https://vite-pwa-org.netlify.app/guide/#configuring-vite-plugin-pwa
