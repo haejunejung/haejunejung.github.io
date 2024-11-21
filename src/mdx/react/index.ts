@@ -1,6 +1,6 @@
-import { MDXItemProps } from "@/types/MDXItemProps";
+import { MDXPageProps } from "@/types/MDXPageProps";
 
-export const reactList: MDXItemProps[] = [
+export const reactList: MDXPageProps[] = [
   {
     title: "React.FC",
     summary: "React.FC 사용해야 할까?",

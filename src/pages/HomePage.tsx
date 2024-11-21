@@ -1,6 +1,6 @@
 import List from "@/components/List";
 import ListItem from "@/components/ListItem";
-import { mdxContentList } from "@/lib/MDXContentList";
+import { mdxContentList } from "@/mdx";
 import { Link } from "wouter";
 
 interface MDXListItemProps {
@@ -22,7 +22,7 @@ const MDXListItem = ({ title, summary, path }: Readonly<MDXListItemProps>) => {
   );
 };
 
-const MainPage = () => {
+const HomePage = () => {
   return (
     <>
       {mdxContentList.map((mdxContent) => (
@@ -37,4 +37,4 @@ const MainPage = () => {
   );
 };
 
-export default MainPage;
+export default HomePage;

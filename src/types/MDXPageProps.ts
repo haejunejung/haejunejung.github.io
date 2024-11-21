@@ -1,4 +1,4 @@
-export type MDXItemProps = {
+export type MDXPageProps = {
   title: string;
   summary: string;
   path: string;

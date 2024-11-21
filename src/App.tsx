@@ -1,10 +1,11 @@
 import { Router, Switch, Route } from "wouter";
-import MainPage from "@/pages/MainPage";
-import NotFound from "./pages/NotFound";
+import HomePage from "@/pages/HomePage";
+import NotFoundPage from "./pages/NotFoundPage";
 import Layout from "./components/Layout";
 import Header from "./components/Header";
-import MDXDetailPage from "./pages/MDXDetailPage";
+import MDXPage from "./pages/MDXPage";
 import TechBlogPage from "./pages/TechBlogPage";
+import { totalMdxPageList } from "./mdx";
 
 const App = () => {
   // //TODO: Switch ~ Route 패턴이 CSR이라서 PWA에서 동작하지 않는 문제 해결 필요!
@@ -13,13 +14,12 @@ const App = () => {
       <Layout>
         <Header />
         <Switch>
-          <Route path="/" component={MainPage} />
+          <Route path="/" component={HomePage} />
           <Route path="/tech-blog" component={TechBlogPage} />
-          <Route path="/webapi/:id" component={MDXDetailPage} />
-          <Route path="/performance/:id" component={MDXDetailPage} />
-          <Route path="/react/:id" component={MDXDetailPage} />
-          <Route path="/js/:id" component={MDXDetailPage} />
-          <Route path="/not-found" component={NotFound} />
+          {totalMdxPageList.map((mdxPage) => (
+            <Route key={mdxPage.path} path={mdxPage.path} component={MDXPage} />
+          ))}
+          <Route component={NotFoundPage} />
         </Switch>
       </Layout>
     </Router>

@@ -1,6 +1,6 @@
-import { MDXItemProps } from "@/types/MDXItemProps";
+import { MDXPageProps } from "@/types/MDXPageProps";
 
-export const webapiList: MDXItemProps[] = [
+export const webapiList: MDXPageProps[] = [
   {
     title: "Service Worker",
     summary:

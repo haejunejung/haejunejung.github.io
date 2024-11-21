@@ -1,6 +1,6 @@
-import { MDXItemProps } from "@/types/MDXItemProps";
+import { MDXPageProps } from "@/types/MDXPageProps";
 
-export const performanceList: MDXItemProps[] = [
+export const performanceList: MDXPageProps[] = [
   {
     title: "Lighthouse",
     summary:

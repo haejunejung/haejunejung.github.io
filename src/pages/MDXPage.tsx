@@ -1,14 +1,14 @@
 // import ServiceWorkerMDX from "@/mdx/webapi/service-worker/service-worker.mdx";
 import Fallback from "@/components/Fallback";
-import { totalMdxList } from "@/mdx";
+import { totalMdxPageList } from "@/mdx";
 import { lazy, Suspense } from "react";
 import { useLocation } from "wouter";
 
-const MDXDetailPage = () => {
+const MDXPage = () => {
   const [location] = useLocation();
 
-  const MDXComponent = totalMdxList.find(
-    (mdxItem) => mdxItem.path === location
+  const MDXComponent = totalMdxPageList.find(
+    (mdxPage) => mdxPage.path === location
   )?.importMdx;
 
   if (MDXComponent) {
@@ -24,4 +24,4 @@ const MDXDetailPage = () => {
   return <Fallback />;
 };
 
-export default MDXDetailPage;
+export default MDXPage;
