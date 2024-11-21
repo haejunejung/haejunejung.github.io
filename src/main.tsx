@@ -5,7 +5,8 @@ import { MDXComponents } from "./components/[mdx]/index.ts";
 import App from "./App.tsx";
 import { ThemeProvider } from "./contexts/theme/ThemeProvider.tsx";
 import "highlight.js/styles/github.css";
-import "./global.css";
+import "@/styles/normalize.css";
+import "@/styles/global.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

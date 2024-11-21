@@ -95,3 +95,70 @@ body.android {
 body.ios {
     font-family: 'SF Pro Text', 'Apple SD Gothic Neo', sans-serif;
 }
+
+:root {
+    /* typography */
+    --typography--headline0: 28px;
+    --typography--headline1: 24px; 
+    --typograhpy--headline2: 22px;
+    --typography--headline3: 20px;
+    --typography--title: 18px;
+    --typography--subtitle1: 16px;
+    --typography--subtitle2: 15px;
+    --typography--body1: 14px;
+    --typography--body2: 13px;
+    --typography--caption1: 12px;
+    --typography--caption2: 11px;
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+
+    /* color */
+    --color-gray1: #000000;
+    --color-gray2: #111111;
+    --color-gray3: #333333;
+    --color-gray4: #666666;
+    --color-gray5: #777777;
+    --color-gray6: #949494;
+    --color-gray7: #999999;
+    --color-gray8: #BBBBBB;
+    --color-gray9: #CCCCCC;
+    --color-gray10: #DDDDDD;
+    --color-gray11: #EEEEEE;
+    --color-gray12: #F4F4F4;
+    --color-gray13: #FAFAFA;
+    --color-gray14: #FFFFFF;
+    --color-red: #FF0038;
+    --color-blue: #0B83E6;
+    --color-yellow: #FFA700;
+    --color-green: #249356;
+    --color-bluegray: #6D96C0;
+    --color-brown: #937676;
+    --color-bluegreen: #49A3C7;
+    --color-mint: #00B4A5;
+    --color-purple: #5C38F5;
+
+    /* spacing */
+    --spacing1: 2px;
+    --spacing2: 4px;
+    --spacing3: 6px;
+    --spacing4: 8px;
+    --spacing5: 10px;
+    --spacing6: 12px;
+    --spacing7: 16px;
+    --spacing8: 20px;
+    --spacing9: 24px;
+    --spacing10: 32px;
+    --spacing11: 40px;
+    --spacing12: 48px;
+
+    /* radius */
+    --radius1: 4px;
+    --radius2: 8px;
+    --radius3: 12px;
+    --radius4: 16px;
+    --radius5: 20px;
+    --radius6: 24px;
+    --radius7: 32px;
+    --radius8: 40px;
+    --radius9: 48px;
+}
