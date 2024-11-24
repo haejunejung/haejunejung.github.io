@@ -3,6 +3,7 @@ import { StrictOmit } from "@/types";
 import { MDXPageProps } from "@/types/MDXPageProps";
 import styled from "@emotion/styled";
 import { Link } from "wouter";
+import Thumbnail from "./Thumbnail";
 
 interface MdxPostListProps {
   posts: MDXPageProps[];
@@ -23,12 +24,12 @@ const PostCard = ({
   title,
   description,
   date,
-  thumnailSrc,
+  type,
 }: StrictOmit<MDXPageProps, "importMdx">) => {
   return (
     <StyledLink href={path}>
       <PostCardContainer>
-        <PostCardThumnail src={thumnailSrc} alt={title} />
+        <Thumbnail type={type} />
         <PostCardInfo>
           <PostCardTitle size="title" fontWeight="bold">
             {title}
@@ -84,12 +85,4 @@ const PostCardContent = styled(Text)`
 const PostCardDate = styled(Text)`
   color: var(--color-gray4);
   margin-top: auto;
-`;
-
-const PostCardThumnail = styled.img`
-  width: 200px;
-  height: 150px;
-  object-fit: cover;
-  border: 1px solid black;
-  border-radius: var(--radius4);
 `;

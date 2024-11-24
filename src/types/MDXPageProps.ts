@@ -1,8 +1,10 @@
+import { mdxPostTabList } from "@/mdx";
+
 export type MDXPageProps = {
-  thumnailSrc: string;
+  type: (typeof mdxPostTabList)[number];
   title: string;
   description: string;
   path: string;
-  date: `${number}년 ${number}월 ${number}일`;
+  date: string;
   importMdx: () => Promise<typeof import(".mdx")>;
 };
