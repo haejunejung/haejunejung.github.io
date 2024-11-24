@@ -10,21 +10,11 @@ export const totalMdxPageList = [
   ...reactList,
 ];
 
-export const mdxContentList = [
-  {
-    title: "JavaScript 공부 기록",
-    items: jsList,
-  },
-  {
-    title: "React 공부 기록",
-    items: reactList,
-  },
-  {
-    title: "Web API 공부 기록",
-    items: webapiList,
-  },
-  {
-    title: "Performance 공부 기록",
-    items: performanceList,
-  },
-];
+export const mdxPostList = {
+  JS: jsList,
+  React: reactList,
+  WebAPI: webapiList,
+  Performance: performanceList,
+} as const;
+
+export const mdxPostTabList = ["JS", "React", "WebAPI", "Performance"] as const;

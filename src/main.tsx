@@ -1,19 +1,16 @@
 import { StrictMode } from 'react'
 import { createRoot } from "react-dom/client";
 import { MDXProvider } from "@mdx-js/react";
-import { MDXComponents } from "./components/[mdx]/index.ts";
 import App from "./App.tsx";
-import { ThemeProvider } from "./contexts/theme/ThemeProvider.tsx";
-import "highlight.js/styles/github.css";
-import "@/styles/normalize.css";
+import MDXComponents from "@/packages/components/mdx/index.ts";
+import "@/styles/reset.css";
 import "@/styles/global.css";
+import "highlight.js/styles/github.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <MDXProvider components={MDXComponents}>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </MDXProvider>
   </StrictMode>
 );

@@ -97,21 +97,6 @@ body.ios {
 }
 
 :root {
-    /* typography */
-    --typography--headline0: 28px;
-    --typography--headline1: 24px; 
-    --typograhpy--headline2: 22px;
-    --typography--headline3: 20px;
-    --typography--title: 18px;
-    --typography--subtitle1: 16px;
-    --typography--subtitle2: 15px;
-    --typography--body1: 14px;
-    --typography--body2: 13px;
-    --typography--caption1: 12px;
-    --typography--caption2: 11px;
-    --font-weight-regular: 400;
-    --font-weight-bold: 700;
-
     /* color */
     --color-gray1: #000000;
     --color-gray2: #111111;
@@ -161,4 +146,11 @@ body.ios {
     --radius7: 32px;
     --radius8: 40px;
     --radius9: 48px;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }

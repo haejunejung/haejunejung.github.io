@@ -1,6 +1,6 @@
-// import ServiceWorkerMDX from "@/mdx/webapi/service-worker/service-worker.mdx";
 import Fallback from "@/components/Fallback";
 import { totalMdxPageList } from "@/mdx";
+import styled from "@emotion/styled";
 import { lazy, Suspense } from "react";
 import { useLocation } from "wouter";
 
@@ -16,7 +16,9 @@ const MDXPage = () => {
 
     return (
       <Suspense fallback={<Fallback />}>
-        <LazyMDXComponent />
+        <Container>
+          <LazyMDXComponent />
+        </Container>
       </Suspense>
     );
   }
@@ -25,3 +27,26 @@ const MDXPage = () => {
 };
 
 export default MDXPage;
+
+const Container = styled.main`
+  padding: var(--spacing7);
+
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  figure,
+  blockquote,
+  p,
+  figure,
+  dl,
+  dd {
+    margin: var(--spacing8) 0;
+  }
+
+  p {
+    color: var(--color-gray2);
+    line-height: 1.5;
+  }
+`;

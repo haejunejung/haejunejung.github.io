@@ -1,5 +1,9 @@
-const Fallback = () => {
-  return <div>로딩중...</div>;
-};
+import { LoadingSpinner, Overlay } from "@/packages/components";
 
-export default Fallback;
+export default function Fallback() {
+  return (
+    <Overlay>
+      <LoadingSpinner />
+    </Overlay>
+  );
+}

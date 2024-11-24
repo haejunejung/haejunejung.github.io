@@ -26,7 +26,13 @@ export default defineConfig({
         globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
       },
     }),
-    react({ include: /\.(jsx|js|mdx|md|tsx|ts)$/ }),
+    react({
+      include: /\.(jsx|js|mdx|md|tsx|ts)$/,
+      jsxImportSource: "@emotion/react",
+      babel: {
+        plugins: ["@emotion/babel-plugin"],
+      },
+    }),
   ],
   cacheDir: "./.vite",
   esbuild: {
