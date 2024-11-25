@@ -3,11 +3,14 @@ import { StrictOmit } from "@/types";
 import { MDXPageProps } from "@/types/MDXPageProps";
 import styled from "@emotion/styled";
 import { Link } from "wouter";
-import Thumbnail from "./Thumbnail";
+import { JSIcon, PerformanceIcon, ReactIcon } from "./Icons";
+import { mdxPostTabList } from "@/mdx";
 
 interface MdxPostListProps {
   posts: MDXPageProps[];
 }
+
+type PostType = (typeof mdxPostTabList)[number];
 
 export default function MdxPostListView({ posts }: MdxPostListProps) {
   return (
@@ -19,6 +22,32 @@ export default function MdxPostListView({ posts }: MdxPostListProps) {
   );
 }
 
+const getThumbnailBgColor = (type: PostType) => {
+  switch (type) {
+    case "JS":
+      return "#F2E857";
+    case "React":
+      return "#49A3C7";
+    case "Performance":
+      return "#249356";
+    default:
+      return "#000000";
+  }
+};
+
+const getThumbnailIcon = (type: PostType) => {
+  switch (type) {
+    case "JS":
+      return <JSIcon />;
+    case "React":
+      return <ReactIcon />;
+    case "Performance":
+      return <PerformanceIcon />;
+    default:
+      return null;
+  }
+};
+
 const PostCard = ({
   path,
   title,
@@ -29,7 +58,11 @@ const PostCard = ({
   return (
     <StyledLink href={path}>
       <PostCardContainer>
-        <Thumbnail type={type} />
+        <PostCardThumbnail bgColor={getThumbnailBgColor(type)} content={type}>
+          <PostCardThumbnailContent>
+            {getThumbnailIcon(type)}
+          </PostCardThumbnailContent>
+        </PostCardThumbnail>
         <PostCardInfo>
           <PostCardTitle size="title" fontWeight="bold">
             {title}
@@ -61,9 +94,53 @@ const PostCardContainer = styled.article`
   align-items: center;
   gap: var(--spacing7);
 
-  @media (max-width: 768px) {
+  @media (max-width: 480px) {
     flex-direction: column;
     align-items: flex-start;
+  }
+`;
+
+const PostCardThumbnail = styled.div<{ bgColor: string; content: string }>(
+  (props) => ({
+    width: "200px",
+    height: "150px",
+    border: "1px solid black",
+    borderRadius: "var(--radius4)",
+
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    position: "relative",
+    backgroundColor: props.bgColor,
+
+    "::after": {
+      content: `"${props.content}"`,
+      position: "absolute",
+      bottom: "0px",
+      right: "5px",
+      fontSize: "24px",
+      color: "rgba(0,0,0,0.1)",
+      fontWeight: "bold",
+      pointerEvents: "none",
+      zIndex: 0,
+    },
+
+    "@media (max-width: 480px)": {
+      width: "100%",
+    },
+  })
+);
+
+const PostCardThumbnailContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+
+  ${PostCardThumbnail}:hover & {
+    transform: scale(1.1);
   }
 `;
 
