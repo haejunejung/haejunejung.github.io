@@ -4,6 +4,7 @@ import Anchor from "./anchor/Anchor";
 import Image from "./image/Image";
 import MultiReference from "./anchor/MultiReferences";
 import { Reference } from "./anchor/MultiReferences";
+import { Callout } from "./callout/Callout";
 
 const MDXComponents: MDXComponentsProps = {
   code: Code,
@@ -11,6 +12,7 @@ const MDXComponents: MDXComponentsProps = {
   img: Image,
   MultiReference,
   Reference,
+  Callout,
 };
 
 export default MDXComponents;
