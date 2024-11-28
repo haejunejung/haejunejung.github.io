@@ -9,6 +9,7 @@ import {
   LuCheck,
 } from "react-icons/lu";
 import { IconType } from "react-icons";
+import { PropsWithChildren } from "react";
 
 interface CalloutProps {
   type: "note" | "quote" | "summary" | "question" | "success" | "failure";
@@ -33,22 +34,32 @@ const calloutConfig: Record<
   failure: { color: "#da8a97", bgColor: "#fdeaec", icon: LuXSquare },
 };
 
-export const Callout = ({ type, title, content }: CalloutProps) => {
+export const Callout = ({
+  type,
+  title,
+  children,
+}: PropsWithChildren<CalloutProps>) => {
   const { color, bgColor, icon: CalloutTagIcon } = calloutConfig[type];
 
   return (
     <CallcoutContainer bgColor={bgColor}>
       <CalloutTagBox>
         <CalloutTagIcon color={color} strokeWidth={2} fontWeight={18} />
-        <CalloutTagType size="title" fontWeight="bold" color={color}>
+        <CalloutTagType size="body1" fontWeight="bold" style={{ color: color }}>
           {capitalize(type)}
         </CalloutTagType>
       </CalloutTagBox>
       <CalloutContent>
-        <Text size="title" fontWeight="bold">
+        <Text size="body1" fontWeight="bold" style={{ padding: 0, margin: 0 }}>
           {title}
         </Text>
-        <Text size="body1">{content}</Text>
+        <Text
+          size="caption1"
+          fontWeight="bold"
+          style={{ padding: 0, margin: 0 }}
+        >
+          {children}
+        </Text>
       </CalloutContent>
     </CallcoutContainer>
   );
@@ -57,11 +68,10 @@ export const Callout = ({ type, title, content }: CalloutProps) => {
 const CallcoutContainer = styled.div<{ bgColor: string }>`
   display: flex;
   flex-direction: column;
-  padding: var(--spacing7);
+  padding: 0 var(--spacing7);
   margin-top: var(--spacing7);
   margin-bottom: var(--spacing7);
   border-radius: var(--radius2);
-  gap: var(--spacing8);
   background-color: ${(props) => props.bgColor};
 `;
 
@@ -69,14 +79,11 @@ const CalloutTagBox = styled.div`
   display: inline-flex;
   flex-direction: row;
   width: fit-content;
-  padding: var(--spacing2) var(--spacing4);
   align-items: center;
   gap: var(--spacing4);
 `;
 
-const CalloutTagType = styled(Text)<{ color: string }>`
-  color: ${(props) => props.color};
-`;
+const CalloutTagType = styled(Text)``;
 
 const CalloutContent = styled.div`
   display: flex;
