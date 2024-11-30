@@ -21,23 +21,24 @@ const sessionStorageStore = {
     return window.sessionStorage.getItem(key);
   },
 
+  // ?? JSON.stringify(null)은 "null"을 반환하므로 null을 명시적으로 처리가 필요하지 않나?
   getServerSnapshot: <T>(initialValue: T | null): string | null => {
-    return JSON.stringify(initialValue);
+    return initialValue === null ? null : JSON.stringify(initialValue);
   },
 } as const;
 
-interface UseSessionWithInitialValueProps<T> {
+interface UseSessionStorageWithInitialValueProps<T> {
   key: string;
   initialValue: T | (() => T);
 }
 
-interface UseSessionWithoutInitialValueProps {
+interface UseSessionStorageWithoutInitialValueProps {
   key: string;
 }
 
 type UseSessionStorageProps<T> =
-  | UseSessionWithInitialValueProps<T>
-  | UseSessionWithoutInitialValueProps;
+  | UseSessionStorageWithInitialValueProps<T>
+  | UseSessionStorageWithoutInitialValueProps;
 
 type UseSessionStorageWithNullReturn<T> = [
   T | null,
@@ -60,11 +61,11 @@ type UseSessionStorageReturn<T> =
  * TODO: React-Testing-Library로 Hook 테스트
  */
 export function useSessionStorage<T>(
-  props: UseSessionWithInitialValueProps<T>
+  props: UseSessionStorageWithInitialValueProps<T>
 ): UseSessionStorageWithoutNullReturn<T>;
 
 export function useSessionStorage<T>(
-  props: UseSessionWithoutInitialValueProps
+  props: UseSessionStorageWithoutInitialValueProps
 ): UseSessionStorageWithNullReturn<T>;
 
 export function useSessionStorage<T>(
@@ -72,7 +73,7 @@ export function useSessionStorage<T>(
 ): UseSessionStorageReturn<T> {
   const { key } = props;
 
-  const initialValue = "initialValue" in props ? props.initialValue : undefined;
+  const initialValue = "initialValue" in props ? props.initialValue : null;
 
   const initialValueToUse = isFunction(initialValue)
     ? initialValue()
@@ -104,9 +105,11 @@ export function useSessionStorage<T>(
         const prevState: T | null = externalStoreState
           ? JSON.parse(externalStoreState)
           : initialValueToUse;
-        const valueToUse = isFunction(value) ? value(prevState) : value;
 
-        window.sessionStorage.setItem(key, JSON.stringify(valueToUse));
+        const valueToUse = isFunction(value) ? value(prevState) : value;
+        const valueToStore = JSON.stringify(valueToUse);
+
+        window.sessionStorage.setItem(key, valueToStore);
         window.dispatchEvent(new StorageEvent(SESSION_STORAGE_EVENT_ID));
       } catch (err) {
         throw new Error(`Failed to set item in session storage, ${err}`);

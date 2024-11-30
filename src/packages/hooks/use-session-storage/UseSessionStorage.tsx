@@ -45,6 +45,34 @@ const WithInitialValue = () => {
   );
 };
 
+const WithInitialNullValue = () => {
+  const [state, setState] = useSessionStorage<string | null>({
+    key: "with-null",
+    initialValue: null,
+  });
+
+  const handleSetClick = () => {
+    setState("value");
+  };
+
+  const handleChangeClick = () => {
+    setState("changed");
+  };
+
+  const handleNullClick = () => {
+    setState(null);
+  };
+
+  return (
+    <div>
+      <p>{state}</p>
+      <button onClick={handleSetClick}>value로 변경</button>
+      <button onClick={handleChangeClick}>changed로 변경</button>
+      <button onClick={handleNullClick}>null로 변경</button>
+    </div>
+  );
+};
+
 const WithoutInitialValue = () => {
   const [state, setState, removeState] = useSessionStorage<string>({
     key: "without-initialValue",
@@ -67,6 +95,7 @@ const UseSessionStorage = Object.assign(
   {},
   {
     WithInitialValue: WithInitialValue,
+    WithInitialNullValue: WithInitialNullValue,
     WithPrimitiveInitialValue: WithPrimitiveInitialValue,
     WithoutValue: WithoutInitialValue,
   }
