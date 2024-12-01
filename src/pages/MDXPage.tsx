@@ -29,6 +29,7 @@ const MDXPage = () => {
 export default MDXPage;
 
 const Container = styled.main`
+  font-family: "SF Pro Text", "Apple SD Gothic Neo", sans-serif;
   padding: var(--spacing7);
 
   body,
@@ -45,21 +46,14 @@ const Container = styled.main`
     margin: var(--spacing8) 0;
   }
 
-  p {
+  p,
+  li {
     color: var(--color-gray3);
     line-height: 1.5;
 
-    font-size: 13px;
-
-    @media (min-width: 481px) and (max-width: 768px) {
-      font-size: 14px;
-    }
+    font-size: 14px;
 
     @media (min-width: 769px) {
-      font-size: 16px;
-    }
-
-    @media (min-width: 1080px) {
       font-size: 16px;
     }
   }

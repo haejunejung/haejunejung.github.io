@@ -12,7 +12,7 @@ import { IconType } from "react-icons";
 import { PropsWithChildren } from "react";
 
 interface CalloutProps {
-  type: "note" | "quote" | "summary" | "question" | "success" | "failure";
+  type: "note" | "quote" | "summary" | "question" | "success" | "warn";
   title: string;
   content: string;
 }
@@ -31,7 +31,7 @@ const calloutConfig: Record<
   summary: { color: "#3cb1ab", bgColor: "#e5f7f7", icon: LuSubtitles },
   question: { color: "#dcad87", bgColor: "#fdf1e5", icon: LuFileQuestion },
   success: { color: "#98c5ab", bgColor: "#e6f7ed", icon: LuCheck },
-  failure: { color: "#da8a97", bgColor: "#fdeaec", icon: LuXSquare },
+  warn: { color: "#da8a97", bgColor: "#fdeaec", icon: LuXSquare },
 };
 
 export const Callout = ({
@@ -53,11 +53,7 @@ export const Callout = ({
         <Text size="body1" fontWeight="bold" style={{ padding: 0, margin: 0 }}>
           {title}
         </Text>
-        <Text
-          size="caption1"
-          fontWeight="bold"
-          style={{ padding: 0, margin: 0 }}
-        >
+        <Text size="caption1" style={{ padding: 0, margin: 0 }}>
           {children}
         </Text>
       </CalloutContent>
