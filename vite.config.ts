@@ -4,9 +4,13 @@ import { resolve } from "path";
 import mdx from "@mdx-js/rollup";
 import { VitePWA } from "vite-plugin-pwa";
 import remarkGfm from "remark-gfm";
+import vercel from "vite-plugin-vercel";
 
 // https://vite.dev/config/
 export default defineConfig({
+  server: {
+    port: process.env.PORT as unknown as number,
+  },
   base: "/",
   plugins: [
     {
@@ -33,6 +37,7 @@ export default defineConfig({
         plugins: ["@emotion/babel-plugin"],
       },
     }),
+    vercel(),
   ],
   cacheDir: "./.vite",
   esbuild: {
