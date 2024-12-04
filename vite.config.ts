@@ -17,15 +17,15 @@ export default defineConfig({
       }),
     } as PluginOption,
     // https://vite-pwa-org.netlify.app/guide/#configuring-vite-plugin-pwa
-    VitePWA({
-      registerType: "autoUpdate",
-      injectRegister: "inline",
-      devOptions: { enabled: true },
-      workbox: {
-        globPatterns: ["/*"],
-        globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
-      },
-    }),
+    // VitePWA({
+    //   registerType: "autoUpdate",
+    //   injectRegister: "inline",
+    //   devOptions: { enabled: true },
+    //   workbox: {
+    //     // globPatterns: ["/*"],
+    //     globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
+    //   },
+    // }),
     react({
       include: /\.(jsx|js|mdx|md|tsx|ts)$/,
       jsxImportSource: "@emotion/react",

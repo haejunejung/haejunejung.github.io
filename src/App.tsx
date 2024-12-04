@@ -1,39 +1,64 @@
-import { Router, Switch, Route } from "wouter";
-import HomePage from "@/pages/HomePage";
-import MDXPage from "./pages/MDXPage";
-import { totalMdxPageList } from "./mdx";
-import { useEffect } from "react";
-import { Layout } from "@/packages/components";
-import NotFound from "./components/NotFound";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  Navigate,
+} from "react-router-dom";
+import { MDXProvider } from "@mdx-js/react";
+import {
+  ArticlePage,
+  CategoryPage,
+  PortfolioPage,
+  ResumePage,
+  UsefulArticlesPage,
+} from "@/pages";
+import { Layout, MDXComponents } from "@/components";
 
-const App = () => {
-  // //TODO: Switch ~ Route 패턴이 CSR이라서 PWA에서 동작하지 않는 문제 해결 필요!
+import "@/styles/global.css";
+import "@/styles/normalize.css";
+import "highlight.js/styles/github.css";
+import { NotFoundPage } from "./pages/NotFoundPage";
+import { OfflinePage } from "./pages/OfflinePage";
+import { useNetworkStatus } from "./hooks";
 
-  useEffect(() => {
-    const userAgent = navigator.userAgent;
+function App() {
+  const isOnline = useNetworkStatus();
 
-    if (/Android/i.test(userAgent)) {
-      document.body.classList.add("android");
-    } else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-      document.body.classList.add("ios");
-    } else {
-      document.body.classList.add("web");
-    }
-  }, []);
+  // TODO: offline일 때 서비스 워커를 사용하면 캐시된 내용을 보여줄 수 있다.
+  if (!isOnline) return <OfflinePage />;
 
   return (
-    <Router>
-      <Layout>
-        <Switch>
-          <Route path="/" component={HomePage} />
-          {totalMdxPageList.map((mdxPage) => (
-            <Route key={mdxPage.path} path={mdxPage.path} component={MDXPage} />
-          ))}
-          <Route component={NotFound} />
-        </Switch>
-      </Layout>
-    </Router>
+    <MDXProvider components={MDXComponents}>
+      <RouterProvider router={router} />
+    </MDXProvider>
   );
-};
+}
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      {/* 블로그 포스트 */}
+      <Route path="/" element={<Layout />}>
+        <Route index element={<CategoryPage />} />
+        <Route path=":category" element={<CategoryPage />} />
+        <Route path=":category/:articleId" element={<ArticlePage />} />
+
+        {/* 이력서 */}
+        <Route path="/resume" element={<ResumePage />} />
+
+        {/* 포트폴리오 */}
+        <Route path="/portfolio" element={<PortfolioPage />} />
+
+        {/* 유용한 블로그 포스트 */}
+        <Route path="/useful-articles" element={<UsefulArticlesPage />} />
+      </Route>
+
+      {/* Not Found: 404 */}
+      <Route path="/not-found" element={<NotFoundPage />} />
+      <Route path="*" element={<Navigate to="/not-found" />} />
+    </>
+  )
+);
 
 export default App;
