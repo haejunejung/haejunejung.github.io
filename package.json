@@ -6,11 +6,11 @@
   "type": "module",
   "scripts": {
     "dev": "node server",
-    "build:client": "vite build --outDir dist/client",
+    "build:client": "vite build --outDir dist/client --ssrManifest",
     "build:server": "vite build --outDir dist/server --ssr src/entry-server.jsx",
     "build": "yarn run build:client && yarn run build:server",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "cross-env NODE_ENV=production node server"
   },
   "dependencies": {
     "@emotion/cache": "^11.13.5",
@@ -20,7 +20,6 @@
     "@emotion/styled": "^11.13.5",
     "@mdx-js/react": "^3.1.0",
     "@types/mdx": "^2.0.13",
-    "blog": "file:",
     "compression": "^1.7.5",
     "csstype": "^3.1.3",
     "es-toolkit": "^1.27.0",
@@ -44,10 +43,12 @@
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.3",
+    "cross-env": "^7.0.3",
     "eslint": "^9.13.0",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.14",
     "globals": "^15.11.0",
+    "rollup": "^4.28.0",
     "typescript": "~5.6.2",
     "typescript-eslint": "^8.11.0",
     "typescript-plugin-css-modules": "^5.1.0",

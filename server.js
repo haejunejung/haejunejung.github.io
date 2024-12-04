@@ -17,7 +17,8 @@ const setupProduction = async (app) => {
   app.use(compression());
   app.use(BASE, sirv("./dist/client"));
 
-  const module = await import("./dist/server/entry-server.jsx");
+  // 빌드된 후에는 `entry-server.js`, `jsx`가 아님
+  const module = await import("./dist/server/entry-server.js");
 
   app.get("*", (req, res) => {
     try {
