@@ -1,0 +1,922 @@
+import ReactClassComponentLifeCycle from "./assets/react-class-component-lifecycle.png"
+import ReactFunctionComponentLifeCycle from "./assets/react-function-component-lifecycle.png"
+
+# React 1편 - React Lagacy 공식 문서
+이 글은 React의 Legacy 공식 문서를 정독한 내용을 담고 있습니다. 
+모든 내용을 다루지는 않지만, 필수적인 내용들만 담으려고 했습니다.
+또한 공식 문서를 순서대로 정리한 것이 아닌 해당 내용에서 필요한 내용은 묶어서 정리했습니다.
+
+글을 쓰는 현재는 React v19까지 발표되었습니다. 최신의 문법과 기능들을 사용하다보면 '왜?' 이 기능들이
+생겨났는지 궁금해질 때가 많습니다. 이러한 궁금증을 해소하고자 과거의 React부터 최신의 React까지 
+공부해보는 시간을 가져보기로 했습니다. React 시리즈는 다음과 같이 공부해보려 합니다.
+
+**(1) React Lagacy 공식문서 👈**
+
+(2) React 현재 공식문서
+
+(3) React Release Note (v16 ~ v19)
+
+## React는 왜 만들어졌을까?
+React는 전통적인 탬플릿 기반의 접근 방식에서 **관심사의 분리**를 실현하기 위해 만들어졌습니다.
+기존의 탬플릿 시스템은 HTML과 JavaScript를 결합하여 UI를 정의하지만, 기술적으로는 분리가 이루어졌을지 몰라도
+실제로 관심사는 잘 분리되지 않은 경우가 많았습니다. 게다가 기능이 제한적이어서, JavaScript가
+제공하는 기능을 다시 구현해야 하는 경우가 많았습니다.
+
+**React는 컴포넌트를 통해 관심사의 분리를 실현합니다.** 각 컴포넌트는 UI의 작은 부분을 맡아
+독립적으로 동작하고, 다른 컴포넌트와의 의존성을 최소화합니다. 즉, 컴포넌트 중심의 개발 방식을 통해
+**결합도는 낮추고 응집도는 높이는** 효과를 얻을 수 있습니다. 이를 통해 코드는 더 깔끔하고 관리하기 편해집니다.
+
+React의 렌더링 철학도 중요한 특징입니다. **React는 데이터가 변경될 때마다 UI를 전체적으로 다시 렌더링하는 
+방식**을 채택하고 있습니다. 이렇게 하면 UI의 모든 부분이 항상 최신 데이터에 맞게 업데이트되므로
+화면에 표시되는 내용이 항상 정확하고 일관되게 유지할 수 있습니다. 매번 전체 UI를 다시 그리는 방식이
+비효율적일 수 있지만, React는 이를 해결하기 위해 **Virtual DOM**을 도입하여 성능을 최적화하고 있습니다.
+
+[Reference: "React: Rethinking best practices"](https://www.youtube.com/watch?v=x7cQ3mrcKaY)
+
+## JSX
+JSX는 JavaScript Syntax eXtension의 약자로 JavaScript를 확장한 문법입니다.
+
+React는 별도의 파일에 마크업과 로직을 넣어 기술을 인위적으로 분리하는 대신 "컴포넌트"라고 
+불리는 느슨하게 연결된 유닛으로 관심사의 분리를 합니다. 이는 React에서 본질적으로 렌더링 로직이
+UI 로직(이벤트가 처리되는 방식, 시간에 따라 state가 변하는 방식, 화면에 표시하기 위해 데이터가 준비되는 방식)과
+연결된다는 사실을 받아들이고 이를 개선하기 위한 결과입니다. 
+
+**JSX 사용한 예시:**
+```javascript
+const element = (
+    <div className="App">
+        <h1 className="title">안녕하세요. <span className="name">정해준입니다.</span></h1>
+    </div>
+)
+```
+
+React를 사용할 때, JSX는 필수가 아닙니다. 개발 생산성을 향상시킬 수 있는 하나의 도구입니다.
+각 JSX Element는 React.createElement(component, props, ...children)를 호출하기 위해 사용됩니다.
+그래서 JSX로 할 수 있는 모든 것은 순수 JavaScript로도 할 수 있습니다.
+
+**React.createElement (Lagacy API)를 사용한 예시:**
+```javascript
+
+const element = React.createElement(
+    'div', { className: "App" }, React.createElement(
+        'h1', { className: "title" }, '안녕하세요', React.createElement(
+            'span', { className: "name" }, '정해준입니다.'
+        )
+    )
+)
+```
+
+<Callout type="note" title="JSX 문법의 특징">
+1. 요소가 하나 이상이라면, 반드시 부모 요소로 감싸는 형태여야 합니다. 이는 Virtual DOM에서 컴포넌트 변화를 감지할 때
+효율적으로 비교할 수 있도록 컴포넌트 내부에는 하나의 DOM 트리 구조로 이루어져야 한다는 규칙이 있기 때문입니다.
+
+2. 브라우저에서 실행하기 전에 코드가 번들링되는 과정에서 바벨과 같은 트랜스파일러에 의해 
+일반 자바스크립트 형태의 코드로 변환됩니다. (브라우저는 JSX를 바로 이해할 수 없어요!)
+</Callout>
+
+## Element와 Component
+React에서 **Element는 UI를 구성하는 가장 작은 단위**입니다. 브라우저 DOM Element와는 다르게 
+React Element는 일반 객체(Plain Object)로 표현되며, React는 이를 통해 DOM을 효율적으로 업데이트합니다.
+
+React에서 **Component**는 여러 React Element를 결합하여 UI의 특정 부분을 **재사용 가능한 단위**로 만드는 데 사용됩니다.
+
+React Element는 **불변 객체**라는 중요한 특징을 가지고 있습니다. 
+```javascript
+const element = <h1>Hello, World!</h1>
+element.props.children = "Hi!"; // ❌ 변경 불가
+```
+
+React Element는 **특정 시점의 UI**를 나타냅니다. 데이터가 변경되면 React는 새로운 Element를 생성하여 UI를 업데이트합니다.
+```javascript
+const root = ReactDOM.createElement(document.getElementById('root'));
+
+function tick() {
+    const element = (
+        <div>
+            <h1>hello, world!</h1>
+            <h2>It is {new Date().toLocaleTimeString()}</h2>
+        </div>
+    )
+
+    root.render(element);
+}
+
+setInterval(tick, 1000); // 1초마다 하나의 프레임을 실행합니다.
+```
+
+위 코드를 보면 매초 새로운 React Element를 생성하고, 이를 root.render()를 통해 DOM에 렌더링합니다.
+언뜻 보면 모든 요소를 다시 렌더링하는 것 같지만, React는 Virtual DOM을 사용해 
+변경된 부분만 실제 DOM에 반영합니다. 개발자 도구에서 이 코드의 결과를 확인해보면, h1 태그의 내용은
+변하지 않고 h2 태그의 시간 정보만 업데이트되는 것을 볼 수 있습니다.
+
+## 클래스 컴포넌트와 생명주기
+React에서 컴포넌트를 작성하는 방법은 두 가지가 있습니다. **클래스 컴포넌트와 함수형 컴포넌트**입니다.
+
+클래스 컴포넌트는 React 초기 버전에서 주로 사용되던 방식으로, 상태(state)와 생명주기 메서드(lifecycle methods)를 
+사용합니다. 복잡한 기능을 다뤄야 하는 경우(생명주기를 섬세하게 조절해야 하는 경우)에 유용하게 사용할 수 있습니다.
+React.Component를 상속받아서 사용하며 render()가 반드시 정의되어야 합니다.
+
+**클래스 컴포넌트 예시:**
+```javascript
+class Counter extends React.Component {
+    render() {
+        return <h1>Hello, {this.props.name}</h1>
+    }
+}
+```
+
+**생명주기 표: (v16.4 이상)**
+<img src={ReactClassComponentLifeCycle} alt="React LifeCycle" />
+
+### 생성(Mount)
+
+생성(Mount)에서 컴포넌트에 인스턴스가 생성되어 DOM상에 삽입될 때까지 아래와 같은 순서대로 호출됩니다.
+
+1. constructor()
+2. static getDerivedStateFromProps(props, state)
+3. render()
+4. componentDidMount()
+
+
+#### constructor()
+
+생성자는 컴포넌트가 마운드되기 전에 호출됩니다. React.Component를 상속한 컴포넌트의 생성자를 구현할 때에는
+다룬 구문 앞에서 super(props)를 호출해야만 합니다. 
+
+```javascript
+class Counter extends React.Component {
+    constructor(props) {
+        // 호출하지 않으면, this.props가 생성자 내 정의되지 않아 버그를 일으킬 수 있어요.
+        super(props);  
+    }
+}
+```
+
+생성자는 일반적으로 두 가지 목적을 위해 주로 사용합니다.
+- this.state에 객체를 할당하여 **지역 state를 초기화**
+- 인스턴스에 **이벤트 처리 메서드를 바인딩**
+
+```javascript
+class Counter extends React.Component {
+    constructor(props) {
+        super(props);
+        // 지역 state 초기화
+        this.state = { counter: 0 };
+        // 이벤트 처리 메서드 바인딩
+        this.handleClick = this.handleClick.bind(this);
+    }
+}
+```
+
+**지역 state를 초기화하는 것은 이해가 되지만, 왜 이벤트 처리 메서드를 바인딩해야 할까요?**
+
+이것은 this의 컨텍스트 때문입니다. 클래스 메서드는 기본적으로 독립적인 함수로 동작합니다.
+JavaScript에서 메서드를 직접 호출하면 그 메서드의 this는 기본적으로 undefined가 될 수 있습니다. 
+메서드의 this가 클래스 인스턴스를 가리키지 않을 수 있기 때문이죠. 이는 JavaScript가
+메서드를 함수처럼 호출할 때 발생하는 일반적인 문제이며, 바인딩을 해야 하는 이유입니다.
+
+```javascript
+class Counter extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { counter: 0 };
+    }
+
+    handleClick() {
+        // Error: Cannot read property 'setState' of undefined
+        this.setState((prevState) => ({ counter: prevState.counter + 1 }));
+    }
+
+    render() {
+        return (
+            // this가 undefined를 가리키면 정상적으로 동작하지 않아요.
+            <button onClick={this.handleClick}>클릭!</button>
+        )
+    }
+}
+```
+
+화살표 함수를 사용한다면 바인딩을 사용하지 않을 수 있습니다.
+화살표 함수는 this를 상위 컨텍스트에 자동으로 바인딩하기 때문입니다.
+
+```javascript
+class Counter extends React.Component {
+    state = { counter: 0 };
+
+    handleClick = () => {
+        this.setState({ counter: this.state.counter + 1 });
+    };
+
+    render() {
+        return (
+            <button onClick={this.handleClick}>클릭!</button>
+        )
+    }
+}
+```
+
+<Callout type="warn" title="constructor에서 조심해야 할 점">
+1. **constructor 내부에서 setState를 호출하면 안됩니다.** 컴포넌트에 지역 state가 필요한 경우에는
+생성자 내에서 this.state에 초기 state값을 할당하면 됩니다. 이런 경우가 필요하다면
+componentDidMount()를 대신 사용하세요.
+
+2. **state에 props를 복사하면 안됩니다.** props는 부모 컴포넌트에서 자식 컴포넌트로 전달되는 값입니다.
+이를 state로 복사하는 것은 불필요할 뿐더러, 부모 컴포넌트 props가 바뀌어도 state는 자동으로 갱신되지
+않기 때문에 버그를 일으킬 수 있습니다. 대신 props값이 변경되면 state를 갱신해야 할 필요가 있을 때만
+복사하는 방식으로 사용하세요.
+</Callout>
+
+
+
+#### static getDerivedStateFromProps(props, state)
+getDerivedStateFromProps는 React 컴포넌트에서 props의 변화에 따라 state를 업데이트하려는
+특별한 경우를 처리하는 메서드입니다. 이 메서드는 주로 props가 바뀔 때, 그에 맞춰 상태를 동적으로
+변경해야 하는 드문 상황에서 사용됩니다. 이 메서드는 컴포넌트가 최초 마운트될 때나 props나 state가 
+변경될 때마다 호출됩니다.
+
+이 메스드는 정적(static) 메서드이기 때문에 컴포넌트의 this에 접근할 수 없습니다. 그래서
+클래스 내부의 다른 메서드들과 달리 컴포넌트 인스턴스에 접근할 수 없고, 반드시 props와 state를 기반으로만
+새로운 값을 반환해야 합니다.
+
+```javascript
+class Timer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            // 최초 마운트에 props로 초기화
+            timeLeft: props.initialTime
+        };
+    }
+
+    // props 변화에 맞춰 state를 업데이트
+    static getDerivedStateFromProps(nextProps, nextState) {
+        if (nextProps.initialTime !== nextState.timeLeft) {
+            return {
+                timeLeft: nextProps.initialTime
+            };
+        }
+
+        // null을 반환하면 state를 업데이트하지 않아요.
+        return null;
+    }
+
+    render() {
+        return <div>남은 시간: {this.state.timeLeft}</div>
+    }
+}
+```
+
+props 변화에 의한 상태 변경이 필요할 때 사용하지만, 실제로는 메서드 사용을 권장하지 않습니다.
+그 이유는 코드가 복잡해지고 관리하기 어려워지기 때문입니다. 대부분의 경우는 componentDidUpdate와
+Memoization Helper와 같은 방법들로 더 간단하고 직관적으로 표현할 수 있습니다.
+
+#### render()
+render() 메서드는 클래스 컴포넌트에서 반드시 구현되어야 하는 유일한 메서드입니다. 이 메서드는 
+컴포넌트가 화면에 어떻게 보일지를 결정하는 곳으로 UI를 구성하는 내용을 반환하는 함수입니다.
+호출될 때마다 컴포넌트의 props와 state를 기반으로 화면에 표시할 내용을 반환합니다. 
+
+render() 메서드는 순수 함수여야 합니다. 순수 함수란 같은 입력에 대해 항상 같은 출력을 내며 
+컴포넌트의 상태나 외부 환경을 변경하지 않는 함수입니다. 즉, render()는 컴포넌트의 state를 
+변경하거나 직접적으로 브라우저와 상호작용하지 않고 단순히 화면을 그리는 역할만 수행해야 합니다.
+만약 상호작용해야 하는 작업이 필요하다면 render()가 아닌 생명주기 메서드에서 처리해야 합니다.
+
+#### componentDidMount()
+componentDidMount()는 컴포넌트가 DOM에 마운트된 직후에 호출됩니다. 즉, 컴포넌트가 화면에 표시된 후에
+실행됩니다. 이 메서드는 주로 화면에 렌더링된 뒤에 필요한 초기화 작업을 처리하는 데 사용됩니다.
+
+1. **초기화 작업**: DOM 노드가 렌더링된 이후에 실행되므로, 이 때 DOM을 조작하거나 화면에 보이는 요소를 
+설정할 수 있습니다. 예를 들어, 모달 창을 띄운 후 DOM 크기나 위치를 측정하는 작업을 할 수 있습니다.
+2. **데이터 페칭**: 외부 API에서 데이터를 가져오는 작업
+3. **데이터 구독 설정**: 웹소켓 연결이나 외부 이벤트 구독을 이곳에서 설정할 수 있습니다. 구독을 해제하려면
+componentWillUnmount()에서 해제 작업을 해야 합니다.
+
+componentDidMount()에서 즉시 setState를 호출하는 경우가 있을 수 있습니다. 이런 경우에는
+추가적인 렌더링이 발생하지만, 브라우저가 화면을 갱신하기 전에 상태가 업데이트됩니다. 즉,
+render()가 두 번 호출하게 되지만, 사용자는 그 중간 과정을 볼 수 없습니다.
+
+### 업데이트(Update)
+props 또는 state가 변경되면 업데이트가 발생하게 됩니다. 컴포넌트가 다시 렌더링될 때 
+아래 메서드가 순서대로 호출됩니다.
+
+1. static getDerivedStateFromProps(props, state)
+2. shouldComponentUpdate()
+3. render()
+4. getSnapshotBeforeUpdate()
+5. componentDidUpdate()
+
+앞서 설명했던 getDerivedStateFromProps와 render를 제외한 나머지를 순서대로 정리해볼게요.
+
+#### shouldComponentUpdate()
+shouldComponentUpdate()는 현재 state 또는 props의 변화에 따라 컴포넌트 렌더링 여부를 결정할 수 있습니다.
+오직 성능 최적화만을 위해서 사용되며, 렌더링을 방지하는 목적으로 사용할 경우 버그로 이루어질 수 있습니다.
+shouldComponentUpdate()를 직접 작성하는 대신에 PureComponent를 사용하는 것을 권장합니다.
+
+**shouldComponentUpdate() 예시:**
+
+```javascript
+class Counter extends React.Component {
+    state = { count: 0 };
+
+    increment = () => {
+        this.setState({ count: this.state.count + 1 });
+    };
+
+    shouldComponentUpdate(nextProps, nextState) {
+        // count값이 변경되었을 때만 업데이트
+        return this.state.count !== nextState.count;
+    }
+
+    render() {
+        // 렌더링이 될 때마다 출력
+        console.log("Rendered!");
+
+        return (
+            <div>
+                <p>Count: {this.state.count}</p>
+                <button onClick={this.increment}>증가</button>
+            </div>
+        )
+    }
+}
+```
+
+<Callout type="note" title="PureComponent와 React.Component">
+React.Component는 기본적으로 setState가 호출되면 state나 props의 변경이 일어나지 않아도 재렌더링이 됩니다.
+이러한 비효율성을 줄이기 위해 shouldComponentUpdate()를 사용해왔습니다. 
+이것을 사용하면 state나 props의 변경이 일어날 때만 렌더링을 수행하도록 할 수 있기 때문입니다.
+
+모든 클래스 컴포넌트에서 shouldComponentUpdate()를 사용해야 한다면 생각해야 할 부분이 많아질 것입니다.
+이를 해결하기 위해 나온 것이 PureComponent입니다. PureComponent는 React.Component의 모든 API를 
+제공하면서도 shouldComponentUpdate()를 작성하지 않아도 state나 props의 변경이 일어날 때만 렌더링을
+수행하도록 만들어졌습니다.
+
+참고로, 함수형 컴포넌트에서 사용할 경우 React.memo와 useMemo, useCallback으로 동일한 효과를 얻을 수 있습니다.
+</Callout>
+
+#### getSnapshotBeforeUpdate()
+getSnapshotBeforeUpdate()는 가장 마지막으로 렌더링된 결과가 DOM에 반영되기 전에 호출되는 메서드입니다.
+이 메서드를 사용하면 컴포넌트가 DOM으로부터 스크롤 위치와 같은 정보를 변경되기 전에 얻을 수 있습니다.
+이 메서드의 반환 값는 componentDidUpdate()의 인자로 전달됩니다.
+
+```javascript
+class ScrollingList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.listRef = React.createRef();
+    }
+
+    getSnapshotBeforeUpdate(prevProps, prevState) {
+        if (prevProps.list.length < this.props.list.length) {
+            const list = this.listRef.current;
+            return list.scrollHeight - list.scollTop;
+        }
+
+        return null;
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (snapshot !== null) {
+            const list = this.listRef.current;
+            list.scrollTop = list.scrollHeight - snapshot;
+        }
+    }
+
+    render() {
+        return (
+            <div ref={this.listRef}></div>
+        )
+    }
+}
+```
+
+#### componentDidUpdate()
+componentDidUpdate()는 업데이트가 일어난 직후에 호출됩니다. 최초 렌더링에서는 호출되지 않습니다.
+컴포넌트가 업데이트되었을 때 DOM을 조작하거나, 이전과 현재의 props를 비교하여 네트워크 요청을
+보내는 작업에서 주로 사용됩니다.
+
+```javascript
+componentDidUpdate(prevProps) {
+    if (this.props.userId !== prevProps.userId) {
+        this.fetchData(this.props.userId);
+    }
+}
+```
+
+componentDidUpdate()에서 setState를 즉시 호출할 수도 있지만, 조건문으로 감싸지 않으면
+무한 반복이 발생할 수 있기 때문에 조심해야 합니다.
+
+### 제거(Unmount)
+컴포넌트가 DOM 상에서 제거될 때 호출되는 메서드로는 componentWillUnmount()가 있습니다.
+
+#### componentWillUnmount()
+componentWillUnmount()는 컴포넌트가 마운트 해제되어 제거되기 직전에 호출됩니다.
+타이머 제거, 네트워크 요청 취소나 외부 스토어와의 연결 해제와 같은 기능을 수행하기에 적합합니다.
+이제 컴포넌트는 다시 렌더링되지 않으므로 componentWillUnmount() 내에서 setState()를 호출하면 안됩니다.
+컴포넌트 인스턴스가 마운트 해제되고 나면 절대로 다시 마운트되지 않기 때문입니다.
+
+```javascript
+class Timer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      seconds: 0,
+    };
+  }
+
+  componentDidMount() {
+    console.log("Component mounted!");
+    this.intervalId = setInterval(() => {
+      this.setState((prevState) => ({ seconds: prevState.seconds + 1 }));
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    console.log("Component will unmount!");
+    clearInterval(this.intervalId);
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Timer</h1>
+        <p>Seconds elapsed: {this.state.seconds}</p>
+      </div>
+    );
+  }
+}
+```
+
+### 오류(Error)
+오류를 위한 생명주기 메서드에는 두 가지가 있습니다.
+
+- static getDerivedStateFromError()
+- componentDidCatch()
+
+#### static getDerivedStateFromError()
+이 생명주기 메서드는 하위의 자손 컴포넌트에서 오류가 발생했을 때 호출됩니다.
+매개변수로 오류를 전달받고, 갱신된 state값을 반드시 반환해야 합니다.
+이 때, getDerivedStateFromError()는 "render" 단계에서 호출되므로 side effects를 발생시키면 안됩니다.
+side effects가 발생해야 하는 경우에는 componentDidCatch()를 대신 사용해야 합니다.
+
+```javascript
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { 
+            hasError: false
+        }
+    }
+
+    static getDerivedStateFromError(error) {
+        // state를 갱신하여 다음 렌더링에서 대체 UI를 표시합니다.
+        return { hasError: true };
+    }
+
+    render() {
+        if (this.state.hasError) {
+            // 별도로 작성한 대체 UI를 렌더링할 수 있습니다.
+            return <h1>오류가 발생했습니다.</h1>
+        }
+
+        return this.props.children;
+    }
+}
+```
+
+#### componentDidCatch(error, info)
+이 생명주기 메서드는 자손 컴포넌트에서 오류가 발생했을 때 호출되며 2개의 매개변수를 받습니다.
+
+- error: 발생한 오류
+- info: 어떤 컴포넌트가 오류를 발생시켰는지에 대한 정보를 포함한 componentStack 키를 갖고 있는 객체
+
+```javascript
+class ErrorBoundary extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { hasError: false };
+    }
+
+    static getDerivedStateFromError(error) {
+        // state를 갱신하여 다음 렌더링에서 대체 UI를 표시합니다.
+        return { hasError: true };
+    }
+
+    componentDidCatch(error, info) {
+        // Example "componentStack":
+        //   in ComponentThatThrows (created by App)
+        //   in ErrorBoundary (created by App)
+        //   in div (created by App)
+        //   in App
+        logComponentStackToMyService(info.componentStack);
+    }
+
+    render() {
+        if (this.state.hasError) {
+        // 별도로 작성한 대체 UI를 렌더링할 수도 있습니다.
+        return <h1>Something went wrong.</h1>;
+        }
+
+        return this.props.children;
+    }
+}
+```
+
+React.componentDidCatch()가 오류를 처리하는 방식은 프로덕션과 개발 빌드가 다릅니다.
+
+개발 빌드에서는 오류가 window까지 전파됩니다. 이는 window.onerror나 
+window.addEveneListener('error', callback)가 componentDidCatch()에서 잡은 오류를
+인터셉트하는 것을 의미합니다.
+
+하지만 프로덕션 빌드에서는 오류가 전파되지 않습니다. 즉, 상위 오류 핸들러는 
+componentDidCatch()에 의해 명시적으로 잡히지 않은 오류만 받습니다.
+
+## 함수형 컴포넌트와 생명주기
+React에서 컴포넌트를 작성하는 또 다른 방법은 함수형 컴포넌트입니다. 함수형 컴포넌트는 
+React v16.8에서 Hook이 도입되면서 상태과 생명주기를 다룰 수 있게 되어
+현재는 React의 주요 컴포넌트 작성 방식으로 자리 잡았습니다.
+함수형 컴포넌트는 단순한 JavaScript 함수로 작성되며, props를 입력받아 JSX를 반환합니다.
+컴포넌트의 상태 관리나 side effects를 처리하기 위해 Hook을 사용합니다.
+
+**함수형 컴포넌트 예시:**
+```javascript
+function FunctionComponent (props) {
+    return <h1>함수형 컴포넌트입니다.</h1>
+}
+```
+
+
+**함수형 컴포넌트 생명주기 표(v16.8 이상)**
+
+<img src={ReactFunctionComponentLifeCycle} alt="React Function Component LifeCycle" />
+
+### React Hook으로 상태와 생명주기 관리
+Hook은 함수형 컴포넌트에서도 클래스 컴포넌트처럼 상태와 생명주기를 관리할 수 있도록 해주는 기능입니다.
+아래는 주로 사용하는 Hooks입니다. 더 깊은 내용은 따로 포스트를 다룰 예정입니다. (Hook 하나마다 동작 원리)
+
+#### useState
+useState는 함수형 컴포넌트에서 상태를 관리하기 위해 사용됩니다. 호출 시 상태 값과 상태를 업데이트할 수 있는
+함수를 반환합니다.
+
+```javascript
+function Counter() {
+    const [count, setCount] = useState(0);
+
+    return (
+        <div>
+            <p>카운트: {count}</p>
+            <button onClick={() => setCount(prev => prev + 1)}>증가</button>
+            <button onClick={() => setCount(prev => prev - 1)}>감소</button>
+        </div>
+    )
+}
+```
+
+#### useEffect
+useEffect는 함수형 컴포넌트에서 side effects를 처리하기 위해 사용됩니다.
+API 호출, DOM 조작, 이벤트 구독 등 생명주기 메서드(ComponentDidMount, componentDidUpdate, componentWillUnmoun)에서
+처리하던 작업을 하나의 Hook으로 통합합니다.
+
+```javascript
+function Timer() {
+    const [seconds, setSeconds] = useState(0);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setSeconds(prev => prev + 1);
+        }, 1000);
+
+        // 컴포넌트가 언마운트될 때 정리(clean-up) 작업
+        return () => {
+            clearInterval(interval);
+        }
+    }, []); // 빈 배열: 컴포넌트가 처음 렌더링될 때만 실행
+
+    return (
+        <p>타이머: {seconds}초</p>
+    )
+}
+```
+
+#### useMemo와 useCallback
+useMemo와 useCallback은 함수형 컴포넌트에서 성능 최적화를 위해 사용됩니다.
+
+- useMemo: 계산 비용이 높은 값을 메모이제이션하여 불필요한 재계산을 방지
+- useCallback: 함수가 매번 새로 생성되지 않도록 메모이제이션
+
+```javascript
+function ExpensiveComponent(props) {
+    const expensiveCalculation = useMemo(() => {
+        // 계산 비용이 높은 기능 수행
+        return result;
+    }, [props.num])
+
+    return <p>결과: {expensiveCalculation}</p>
+}
+```
+
+함수형 컴포넌트는 선언적이고 간단한 구조 덕분에 많은 개발자들이 선호하고 있으며,
+공식 문서에서도 함수형 컴포넌트를 권장하고 있습니다. 
+
+## List와 Key
+React에서는 여러 개의 아이템을 렌더링해야 하는 경우가 많습니다. 예를 들어 블로그 포스트 목록을 렌더링한다고 해볼게요.
+
+```javascript
+const PostListView = ({ posts }) => {
+    return (
+        <ul>
+            {posts.map((post, index) => (
+                // JavaScript에서의 map()함수 사용과 유사해요.
+                // 다만, 반환값이 JSX (React.Element)라는 점이 달라요.
+                <PostItem key={post.id} {...post} />
+            ))}
+        </ul>
+    )
+}
+```
+
+이 코드에서 주목해야할 점은 key라는 속성입니다. key를 잘못 사용하면 React의 성능에 영향을 줄 수 있습니다.
+
+### Key
+key는 React가 어떤 항목을 변경, 추가, 삭제해야 하는지 효율적으로 판단할 수 있도록 돕는 속성입니다.
+
+간단한 예시를 들어볼게요. 책장에 10권의 책이 있다고 가정해볼게요. 네 번째 책을 꺼낸다면, 
+책들의 순서는 자연스럽게 바뀔 것입니다. 
+React에서도 비슷한 방식으로 동작합니다. 책의 순서가 바뀌면 React는 네 번째 책 이후의 모든 책이 변경되었다고
+생각하고, 이 부분을 전부 다시 렌더링하려고 합니다. 하지만 실제로는 순서만 바뀌었을 뿐 
+책 자체는 그대로일 가능성이 높아요.
+
+이 문제를 해결하기 위해 React는 각 항목을 구분할 수 있는 고유한 식별자 key를 사용합니다. 
+key를 통해 React는 "아, 이 책은 그대로고, 순서만 바뀌었구나!"라고 판단할 수 있습니다.
+
+**그렇다면, key에는 어떤 값이 들어가면 좋을까요?**
+
+고유하게 식별 가능한 값, 예를 들어 데이터베이스의 ID 값처럼 항목마다 유일한 값을 사용하는 것이 가장 좋습니다.
+만약 ID가 없다면, crypto.randomUUID()나 uuid같은 라이브러리를 사용할 수 있습니다.
+
+반면, 리스트의 인덱스를 key로 사용하는 것은 최후의 수단으로만 고려해야 합니다.
+데이터가 자주 추가되거나 삭제되는 경우, 인덱스를 key로 쓰면 React가 변경 사항을 잘못 판단할 수 있기 때문입니다.
+
+```javascript
+const PostListView = ({ posts }) => {
+    return (
+        <ul>
+            {posts.map((post, index) => (
+                // key={index}는 데이터가 자주 바뀌지 않을 때만 사용합니다.
+                <PostItem key={index} {...post} />
+            ))}
+        </ul>
+    )
+}
+```
+
+<Callout type="note" title="재조정(Reconciliation)">
+key는 React의 "재조정" 과정에서 중요한 역할을 합니다.
+
+React는 화면을 업데이트할 때, 새로운 화면 구조와 이전 화면 구조를 비교합니다. 이 비교를 통해
+"어떤 부분만 바꿀지" 계산합니다. 하지만 이런 비교는 원래 굉장히 복잡한 작업입니다.
+일반적으로 효율적인 알고리즘을 사용하더라도 복잡도가 O(n^3)에 달할 수 있습니다.
+
+React에서는 이런 부담을 줄이기 위해 두 가지 규칙을 활용해 비교를 단순화합니다:
+- 서로 다른 타입의 엘리먼트는 완전히 새로운 트리로 간주한다.
+- 자식 요소 비교에는 key를 사용한다.
+
+만약 key가 없다면, React는 리스트의 모든 항목을 새로 렌더링하려고 하며, 이로 인해 성능이 크게 저하될 수 있습니다.
+
+[https://ko.legacy.reactjs.org/docs/reconciliation.html](https://ko.legacy.reactjs.org/docs/reconciliation.html)
+</Callout>
+
+## HTML 폼 요소
+HTML 폼 요소는 내부적으로 상태를 가지고 있어 React의 일반 DOM 요소와 다르게 동작합니다.
+
+```javascript
+<form>
+    <label>
+        Name:
+        <input type="text" name="name" />
+    </label>
+    <input type="submit" value="Submit" />
+</form>
+```
+
+위 코드는 기본적으로 폼을 제출할 때 페이지를 새로고침하는 동작을 수행합니다. 
+React에서도 이 동작을 그대로 사용할 수 있지만, 
+대부분의 경우 JavaScript 함수로 폼 제출을 처리하며 사용자 입력 데이터를 다루는 방식을 선호합니다. 
+이를 제어 컴포넌트(Controlled Components) 라고 합니다.
+또한, 이를 대체하는 방법으로 비제어 컴포넌트(Uncontrolled Components)가 있습니다.
+
+### 제어 컴포넌트
+HTML의 \<input>, \<textarea>, \<select> 같은 폼 요소는 기본적으로 사용자가 입력한 값을 자체적으로 관리합니다. 
+하지만 React에서는 이 상태를 컴포넌트의 state로 관리하며, 이를 통해 React가 값과 상태를 완전히 제어하게 됩니다.
+이렇게 React의 state를 단일 데이터 소스(Single Source of Truth) 로 사용하는 입력 요소를 제어 컴포넌트라고 부릅니다.
+
+**클래스 컴포넌트 예시:**
+
+```javascript
+class NameForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { value: '' };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange (event) {
+        this.setState({ value: event.target.value });
+    }
+
+    handleSubmit (event) {
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit} >
+                <label htmlFor="name">Name:</label>
+                <input 
+                    id="name" 
+                    type="text" 
+                    name="name" 
+                    value={this.state.value} 
+                    onChange={this.handleChange}
+                >
+                <input type="submit" value="Submit" />
+            </form>
+        )
+    }
+}
+```
+
+**함수형 컴포넌트 예시:**
+```javascript
+function NameForm () {
+    const [name, setName] = useState("");
+
+    const handleChange = (event) => {
+        setName(event.target.value);
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    }
+
+    return (
+        <form onSubmit={this.handleSubmit} >
+            <label htmlFor="name">Name:</label>
+            <input 
+                id="name" 
+                type="text" 
+                name="name" 
+                value={this.state.value} 
+                onChange={this.handleChange}
+            >
+            <input type="submit" value="Submit" />
+        </form>
+    )
+}
+```
+
+여러 입력값을 관리해야 하는 경우도 많습니다. 이 경우, state를 객체로 관리하면 깔끔하게 처리할 수 있습니다.
+
+**클래스 컴포넌트 예시:**
+```javascript
+class Reservation extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            isGoing: true,
+            numberOfGuests: 2
+        }
+
+        this.handleInputChange = this.handleInputChange.bind(this);
+    }
+
+    handleInputChange (evnet) {
+        const target = event.target;
+        const value = target.value === "checkbox" ? target.checked : target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+    }
+
+    render() {
+        return (
+            <form>  
+                <input 
+                    name="isGoing" 
+                    type="checkbox" 
+                    checked={this.state.isGoing}
+                    onChange={this.handleInputChange}
+                >
+                <input
+                    name="numberOfGuests"
+                    type="number"
+                    checked={this.state.numberOfGuests}
+                    onChange={this.handleInputChange}
+                >
+            </form>
+        )
+    }
+}
+```
+
+**함수형 컴포넌트 예시:**
+
+```javascript
+function Reservation () {
+    const [state, setState] = useState({
+        isGoing: true,
+        numberOfGuests: 2
+    });
+
+    const handleInputChange = (event) => {
+        const target = event.target;
+        const value = target.type === "checkbox" ? target.checked : target.value;
+        const name = target.name;
+
+        setState({
+            ...state,
+            [name]: value
+        });
+    };
+
+    return (
+        <form>
+            <input
+                name="isGoing"
+                type="checkbox"
+                checked={state.isGoing}
+                onChange={handleInputChange}
+            />
+            <input
+                name="numberOfGuests"
+                type="number"
+                value={state.numberOfGuests}
+                onChange={handleInputChange}
+            />
+        </form>
+    );
+};
+```
+
+제어 컴포넌트는 입력값을 세밀하게 관리할 수 있지만, 입력 요소가 많아지면 관리할 코드가 늘어나 복잡해질 수 있습니다.
+예를 들어, 유효성 검사를 추가하거나 모든 입력값의 에러 메시지를 처리하는 경우 코드가 길어지고 가독성이 떨어질 수 있습니다.
+이러한 문제를 해결하기 위해 비제어 컴포넌트를 사용할 수 있습니다.
+
+### 비제어 컴포넌트
+대부분의 경우에 폼을 구현하는 데는 제어 컴포넌트를 사용할 수 있지만 상황에 따라 비제어 컴포넌트가 효율적인 경우가 있습니다.
+비제어 컴포넌트는 DOM 자체에서 폼 데이터를 다룹니다. 모든 state 업데이트에 대한 이벤트 핸들러를 작성하는 대신에
+ref를 사용하여 DOM에서 폼 값을 가져올 수 있습니다.
+
+**클래스 컴포넌트 예시:**
+```javascript
+class NameForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.input = React.createRef();
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                <label>
+                    Name: 
+                    <input type="text" ref={this.input} />
+                </label>
+                <input type="submit" value="Submit" />
+            </form>
+        )
+    }
+}
+```
+
+**함수형 컴포넌트 예시:**
+```javascript
+function NameForm () {
+    const inputRef = useRef();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    }
+
+    return (
+        <form onSubmit={this.handleSubmit}>
+            <label>
+                Name: 
+                <input type="text" ref={inputRef} />
+            </label>
+            <input type="submit" value="Submit" />
+        </form>
+    )
+}
+```
+
+비제어 컴포넌트를 바탕으로 폼을 효율적으로 관리하는 대표적인 라이브러리로는 React Hook Form이 있습니다. 
+이 라이브러리에서는 단순히 코드 라인을 줄여줄 뿐만 아니라 렌더링을 더 효율적으로 관리해주며 
+유효성 검사와 같은 부수적인 기능들을 제공합니다.

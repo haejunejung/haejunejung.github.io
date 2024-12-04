@@ -1,0 +1,267 @@
+import WebStorageIframe from "./assets/web-storage-iframe.png"
+
+# Web Storage
+이 글은 브라우저에 데이터를 저장하는 웹 스토리지(Web Storage)에 대해 공부한 글입니다.
+
+웹 개발을 하다 보면 자주 데이터를 저장해야 하는 상황이 발생합니다. 예를 들어,
+사용자 정보나 결제 내역과 같은 것들이 있습니다. 보통은 이런 정보들을
+데이터베이스에 저장하는 경우가 많습니다.
+
+그렇다면, **왜 굳이 브라우저에 데이터를 저장해야 할까요? 왜 데이터베이스에 저장하지 않을까요?**
+
+사실, 브라우저에 데이터를 저장하지 않고 모두 데이터베이스에 저장해도 기능적으로는
+문제가 없습니다. 하지만 데이터베이스에 저장해야 하는 데이터의 양이 많아지면, 서버의 부담이
+커지고 속도가 느려질 수 있습니다. 이럴 때, 브라우저에 데이터를 저장하면 서버 부하를 줄이고
+웹 사이트 속도를 빠르게 유지할 수 있습니다.
+
+## LocalStorage, SessionStorage
+Web Storage API에는 로컬 스토리지(LocalStorage)와 세션 스토리지(SessionStorage) 두 가지 방식이 존재합니다. 
+세션 스토리지와 로컬 스토리지의 차이는 **저장되는 범위와 기간**에 있습니다.
+
+세션 스토리지는 하나의 세션(탭)에 존재해서 웹 페이지를 종료하거나 브라우저 탭을 닫으면 데이터가 사라집니다.
+반면, 로컬 스토리지는 브라우저 탭을 닫아도 데이터가 남아 있습니다. 다른 탭에서 같은 사이트를 열면
+그 탭에서도 같은 데이터를 공유할 수 있습니다. 
+
+### LocalStorage, SessionStorage 사용법
+두 스토리지는 같은 API를 가지고 있으며, setItem, getItem, removeItem, key, length, clear가 있습니다.
+```javascript
+// 데이터를 저장합니다 
+localStorage.setItem("username", "haejunejung");
+
+// 데이터를 불러옵니다. 
+localStorage.getItem("username"); 
+
+// 특정 인덱스에 해당하는 localStorage에 저장된 키를 반환합니다.
+localStorage.key(0); 
+
+// LocalStorage에 저장된 항목의 개수를 반환합니다.
+localStorage.length; 
+
+// 데이터를 제거합니다.
+localStorage.removeItem("username"); 
+
+// 모든 데이터를 제거합니다.
+localStorage.clear();
+```
+
+아래와 같이도 저장할 수 있지만, 위의 API를 사용하는 것을 권장한다고 합니다.
+```javascript
+localStorage.username = "haejunejung";
+```
+
+### LocalStorage, SessionStorage 주의 사항
+두 스토리지를 사용함에 있어서 조심해야 하는 부분은 세 가지가 있습니다.
+
+1. **키/값 쌍으로 데이터를 저장할 때, 값은 문자열 형태만 저장이 가능하다는 점입니다.**
+
+그래서 객체를 저장해야 할 때는 JSON 형태로 데이터를 직렬화(serialization)하고, 데이터를 읽을 때는 
+역직렬화(deserialization)하는 방법을 주로 사용합니다.
+```javascript
+const data = {a: 1, b: 2};
+localStorage.setItem('json', JSON.stringify(data));
+JSON.parse(localStorage.getItem('json')); // {a: 1, b: 2}
+```
+
+2. **sessionStorage와 localStorage 모두 동기적으로 실행된다는 점입니다.**
+
+동기적으로 실행되기 때문에 대량의 데이터를 저장하거나 반환하는 데 사용되면 
+웹 애플리케이션의 성능을 악화시킬 수 있습니다. 비동기적인 대안으로는 IndexedDB가 있습니다.
+```javascript
+console.log("before localStorage");
+localStorage.setItem("key", "value");
+console.log("get Item:", localStorage.getItem("key"));
+console.log("After localStorage");
+
+// 다음과 같은 순서로 콘솔창에 만들어집니다.
+// before localStroage
+// get Item: value
+// After localStorage
+```
+
+
+3. **만약 유저가 third-party cookies를 거부했다면 third-party iframe에서는 사용할 수 없습니다.**
+<img src={WebStorageIframe} alt="Web Storage Iframe Content" style={{ width: "100%" }} />
+왜냐하면 localStorage와 sessionStorage 모두 같은 출처에서만 접근할 수 있기 때문입니다.
+iframe안에 외부 코드를 넣는 경우에는 iframe이 속한 출처에서 실행되기 때문에, 
+해당 코드가 데이터를 저장하면 iframe 출처의 저장소에 기록됩니다.
+이 때, third-party cookies를 거부하면 localStorage와 sessionStorage 접근도 제한하기 때문에
+iframe에서 사용이 안되는 것입니다.
+
+## IndexedDB
+IndexedDB는 JavaScript 기반의 객체지향 데이터베이스로 파일이나 Blob과 같이 많은 양의 구조화된 데이터를 클라이언트에 저장하기 위한 용도로 사용됩니다.
+앞의 localStorage나 sessionStorage는 적은 양의 데이터를 저장하는 데 유용하지만 많은 양의
+구조화된 데이터를 저장하는데에 적합하지 않은데, 이런 상황에서 IndxedDB를 사용할 수 있습니다.
+
+IndexedDB의 데이터는 인덱스 키를 사용해 저장하고 검색할 수 있으며 구조화된 복사 알고리즘(Structured clone algorithm)
+을 지원하는 객체라면 모두 저장할 수 있습니다. 
+
+### IndexedDB 사용법
+IndexedDB가 권장하는 기본 패턴은 다음과 같습니다.
+1. 데이터베이스를 연다.
+2. 객체 저장소(Object store)을 생성한다.
+3. 트랜잭션(Tranaction)을 시작하고, 데이터베이스 작업을 요청한다.
+4. DOM 이벤트 리스너를 사용하여 요청이 완료될 때까지 기다린다.
+5. 결과를 가지고 무언가를 한다.
+
+아래는 간단하게 만들어본 CRUD를 진행할 수 있는 DatabaseService입니다. 
+openDB를 통해 데이터베이스를 연후, get, put, del, add methods를 사용해 CRUD를 구현할 수 있습니다.
+
+
+```javascript
+type PickOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+type Config = {
+  store_name: string;
+  pk: string;
+  indexes: PickOptional<
+    Pick<IDBIndex, "name" | "keyPath" | "unique">,
+    "unique"
+  >[];
+};
+
+class DatabaseService {
+  private static instance: DatabaseService | undefined;
+  private db: IDBDatabase | undefined;
+  private constructor() {}
+
+  // Singleton
+  public static getInstance() {
+    if (!this.instance) {
+      this.instance = new DatabaseService();
+    }
+
+    return this.instance;
+  }
+
+  // 데이터베이스를 연다.
+  public async openDB(db_name: string, version: number, configs: Config[]) {
+    return new Promise((resolve, reject) => {
+      const request = window.indexedDB.open(db_name, version);
+
+      // 데이터베이스를 여는게 실패한 경우, reject
+      request.onerror = (e) => {
+        const target = e.target as IDBOpenDBRequest;
+        reject(target.error);
+      };
+
+      // 데이터베이스를 여는게 성공한 경우, db에 결과값 저장
+      request.onsuccess = () => {
+        this.db = request.result;
+        resolve(this.db);
+      };
+
+      // 데이터베이스를 업데이트해야 하는 경우
+      // 1. 처음으로 데이터베이스를 여는 경우
+      // 2. 버전이 달라진 경우
+      request.onupgradeneeded = (e) => {
+        const target = e.target as IDBOpenDBRequest;
+        this.db = target.result;
+
+        // db에 객체 저장소들(configs)을 넣는다.
+        configs.forEach(({ store_name, pk, indexes }) => {
+          if (!this.db!.objectStoreNames.contains(store_name)) {
+            const objStore = this.db!.createObjectStore(store_name, {
+              keyPath: pk,
+              autoIncrement: true,
+            });
+
+            indexes.forEach((index) => {
+              objStore.createIndex(index.name, index.keyPath, {
+                unique: index.unique ?? false,
+              });
+            });
+          }
+        });
+      };
+    });
+  }
+
+  // 객체 저장소를 불러오는 method
+  private getObjectStore(store_name: string, mode: IDBTransactionMode) {
+    if (!this.db) {
+      throw new Error("indexedDB not initalized");
+    }
+    const transaction = this.db.transaction(store_name, mode);
+    const objStore = transaction.objectStore(store_name);
+    return objStore;
+  }
+
+  // CRUD의 결과값을 내보내는 method
+  private handleRequest<T>(request: IDBRequest<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+
+  public async get<T>(store_name: string, key: string | number) {
+    const objStore = this.getObjectStore(store_name, "readonly");
+    const request = objStore.get(key);
+    return this.handleRequest<T>(request);
+  }
+
+  public async add<T>(store_name: string, item: T) {
+    const objStore = this.getObjectStore(store_name, "readwrite");
+    const request = objStore.add(item);
+    return this.handleRequest<IDBValidKey>(request);
+  }
+
+  public async del(store_name: string, key: string | number) {
+    const objStore = this.getObjectStore(store_name, "readwrite");
+    const request = objStore.delete(key);
+    return this.handleRequest(request);
+  }
+
+  public async put<T>(store_name: string, item: T) {
+    const objStore = this.getObjectStore(store_name, "readwrite");
+    const request = objStore.put(item);
+    return this.handleRequest<IDBValidKey>(request);
+  }
+}
+
+const dbService = Object.freeze(DatabaseService.getInstance());
+export default dbService;
+
+```
+
+```javascript
+(async () => {
+    await dbService.openDB("temp", 1, [
+    {
+        store_name: "customers",
+        pk: "id",
+        indexes: [
+        { name: "id", keyPath: "id" },
+        { name: "ssn", keyPath: "ssn" },
+        { name: "name", keyPath: "name" },
+        { name: "age", keyPath: "age" },
+        { name: "email", keyPath: "email" },
+        ],
+    },
+    ]);
+
+    await dbService.add<{
+    ssn: string;
+    name: string;
+    age: number;
+    email: string;
+    }>("customers", {
+    ssn: "444-44-4444",
+    name: "Bill",
+    age: 35,
+    email: "bill@company.com",
+    });
+
+    await dbService.get("customers", 1); 
+    // result: { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" }
+})();
+```
+
+
+<MultiReference references={[
+    "https://www.daleseo.com/js-web-storage/",
+    "https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API/Using_the_Web_Storage_API",
+    "https://developer.mozilla.org/ko/docs/Web/API/IndexedDB_API",
+    "https://developer.mozilla.org/ko/docs/Web/API/IndexedDB_API/Using_IndexedDB"
+]} />
+

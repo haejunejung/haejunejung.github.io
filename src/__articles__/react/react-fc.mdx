@@ -1,0 +1,218 @@
+# React.FC
+이 글은 React.FC에 대해서 공부한 글입니다.
+
+React.FC란 Function Component 타입의 줄임말로 React를 TypeScript와 함께 사용할 때 사용하는 타입 중 하나입니다.
+인터넷을 검색하다보면 React.FC을 지양해야 한다는 글이 자주 보이는데 왜 그런지 찾아보고 
+여러 가지 만들어보며 느낀 점을 적어봤습니다.
+
+## React.FC 지양하는 이유?
+다른 글에 의하면 React.FC를 지양해야 하는 이유(단점)들은 다음과 같았습니다.
+<Reference reference="https://github.com/facebook/create-react-app/pull/8177" />
+1. children이 암시적으로 정의되어 있다.
+```typescript
+const App: React.FC = () => { /* ... */};
+
+const ReactFCHasChildrenImplicitly = () => (
+    <App><div>Unwanted Children!</div></App>
+)
+```
+
+2. 타입스크립트 제네릭 문법을 지원하지 않는다.
+```typescript
+type GenericType <T> = {
+    itmes: T[];
+    renderItem: (props: T) => ReactNode;
+}
+
+const ReactFCGeneric: React.FC</* ??? */> = <T>(props: GenericType<T>) => { /* ... */}
+
+```
+3. namespace 패턴으로 컴포넌트를 만들 때 불편함이 있다.
+```typescript
+/**
+ * <Select>
+ *      <Select.Item />
+ * </Select>
+*/
+
+// React.FC를 사용한다면 다음과 같이 적용해야 한다.
+const Select: React.FC<SelectProps> & { Item: React.FC<ItemProps> } = (props) => { /* ... */}
+```
+
+4. defaultProps가 정확하게 동작하지 않는다.
+```typescript
+type ComponentProps = { name: string; }
+
+const Component: React.FC<ComponentProps> = ({name}) => { /* ... */}
+
+Component.defaultProps = { name: "John" };
+```
+
+## 현재의 React.FC
+React@v18 기준으로 FC의 정의에 대해 알아보면 아래와 같습니다.
+
+```typescript
+type FC<P = {}> = FunctionComponent<P>;
+
+interface FunctionComponent<P = {}> {
+        (
+            props: P,
+            /**
+             * @deprecated
+             *
+             * @see {@link https://legacy.reactjs.org/docs/legacy-context.html#referencing-context-in-lifecycle-methods React Docs}
+             */
+            deprecatedLegacyContext?: any,
+        ): ReactNode;
+        /**
+         * Used to declare the types of the props accepted by the
+         * component. These types will be checked during rendering
+         * and in development only.
+         *
+         * We recommend using TypeScript instead of checking prop
+         * types at runtime.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-proptypes React Docs}
+         */
+        propTypes?: WeakValidationMap<P> | undefined;
+        /**
+         * @deprecated
+         *
+         * Lets you specify which legacy context is consumed by
+         * this component.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/legacy-context.html Legacy React Docs}
+         */
+        contextTypes?: ValidationMap<any> | undefined;
+        /**
+         * Used to define default values for the props accepted by
+         * the component.
+         *
+         * @see {@link https://react.dev/reference/react/Component#static-defaultprops React Docs}
+         *
+         * @example
+         *
+         * ```tsx
+         * type Props = { name?: string }
+         *
+         * const MyComponent: FC<Props> = (props) => {
+         *   return <div>{props.name}</div>
+         * }
+         *
+         * MyComponent.defaultProps = {
+         *   name: 'John Doe'
+         * }
+         * ```
+         *
+         * @deprecated Use {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#default_value|default values for destructuring assignments instead}.
+         */
+        defaultProps?: Partial<P> | undefined;
+        /**
+         * Used in debugging messages. You might want to set it
+         * explicitly if you want to display a different name for
+         * debugging purposes.
+         *
+         * @see {@link https://legacy.reactjs.org/docs/react-component.html#displayname Legacy React Docs}
+         *
+         * @example
+         *
+         * ```tsx
+         *
+         * const MyComponent: FC = () => {
+         *   return <div>Hello!</div>
+         * }
+         *
+         * MyComponent.displayName = 'MyAwesomeComponent'
+         * ```
+         */
+        displayName?: string | undefined;
+    }
+```
+
+오랜 시간이 지나면서 변경된 부분도 있고, deprecated된 부분들도 많은 것을 볼 수 있습니다.
+실제로 다른 글들이 언급했던 암시적인 children props에 대한 부분은 고쳐져 없어졌고, 
+defaultProps는 deprecated되어 구조 분해 할당으로 하기를 권장하고 있는 것을 볼 수 있습니다.
+
+다만 제네릭 문법에 대해서는 현재에도 불편함을 주고 있었습니다. React.FC를 사용하면서
+제네릭 문법을 사용할 때에는 다음과 같이 컴포넌트를 만들어야 하는데, 딱 보아도 컴포넌트를
+만들 때마다 이렇게 만들어야 한다면 코드 라인도 길어질 뿐더러 유지보수가 어려워 보입니다. 
+(물론 다른 방법도 존재할 수 있어요)
+```typescript
+type GenericType <T> = {
+    items: T[];
+    renderItem: (item: T, index: number) => ReactNode;
+}
+
+type ItemProps = {
+    id: number;
+    displayName: string;
+}
+
+const GenericComponent: <T,>(): React.FC<GenericType<T>> => {
+    const Component: React.FC<GenericType<T>> = <T,>({items, renderItem}) => {
+        return (
+            <>
+                {items.map((item, index) => (
+                    <Fragment key={index}>{renderItem(item, index)}</Fragment>
+                ))}
+            </>
+        )
+    }
+
+    return Component
+}
+
+const MyComponent = () => {
+    const DisplayComponent = GenericComponent<ItemProps>();
+
+    return (
+        <DisplayComponent 
+            items={[{ id: 1, displayName: "1"}]} 
+            renderItem={(item, index) => <div key={item.id}>{item.displayName}</div>} 
+        />
+    )
+}
+```
+
+**React.FC를 사용하지 않는다면, 오히려 더 간단하게 표현할 수 있습니다.**
+```typescript
+// 타입들 선언
+
+const GenericComponent = <T,>({items, renderItem}: GenericType<T>) => {
+    return (
+        <>
+            {items.map((item, index) => (
+                <Fragment key={index}>{renderItem(item, index)}</Fragment>
+            ))}
+        </>
+    )
+}
+
+const MyComponent = () => {
+    return (
+        <GenericComponent<ItemProps> 
+            items={[{ id: 1, displayName: "1"}]} 
+            renderItem={(item, index) => <div key={item.id}>{item.displayName}</div>}
+        />
+    )
+}
+```
+
+## 마무리
+사실 React.FC를 아무 생각 없이 사용했었습니다. 그저 타입을 지정해주기 위한 수단 정도로만 이해하고
+제네릭 타입을 사용할 때만 React.FC를 사용하지 않거나, 혹은 팀의 컨벤션에 맞춰서 개발을 했었거든요.
+
+
+하지만 제네릭 타입을 사용하는 일이 많은 요즈음에는 React.FC를 사용하지 않는 방식이
+더 간결한 코드 작성과 컨벤션을 만들어주지 않을까하고 생각이 들었습니다. 
+최근 오픈 소스들에서도 React.FC를 사용하는 것을 거의 본 적이 없기도 하고요.
+
+개인적인 생각으로는 "React.FC를 쓰는 것이 꼭 나쁘다!" 하는 것은 아니지만, 
+이번 기회에 알아본 느낌으로는 React.FC를 사용하지 않고 타입을 지정해주는 방식이 더 JavaScript, TypeScript
+느낌을 주는 것 같아서 개인 프로젝트에서는 React.FC를 사용하지 않을 것 같네요.
+
+<MultiReference references={[
+    "https://github.com/facebook/create-react-app/pull/8177",
+    "https://stackoverflow.com/questions/51459971/type-of-generic-stateless-component-react-or-extending-generic-function-interfa",
+    "https://yceffort.kr/2022/03/dont-use-react-fc#reactfc%EB%9E%80-%EB%AC%B4%EC%97%87%EC%9D%B8%EA%B0%80"
+]} />
