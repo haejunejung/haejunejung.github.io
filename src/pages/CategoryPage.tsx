@@ -3,7 +3,7 @@ import {
   totalTechMdxPageList,
   totalMdxPageList,
 } from "@/__articles__";
-import { ArticleListView, Tabs, VStack } from "@/components";
+import { ArticleListView, Banner, Tabs, VStack } from "@/components";
 import { useLocation, useNavigate } from "react-router-dom";
 
 export function CategoryPage() {
@@ -18,30 +18,7 @@ export function CategoryPage() {
 
   return (
     <VStack>
-      <div
-        css={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <img
-          src={"/images/banner.png"}
-          alt="banner"
-          css={{
-            maxHeight: "360px",
-            objectFit: "contain",
-
-            "@media screen and (max-width: 768px)": {
-              maxHeight: "240px",
-            },
-
-            "@media screen and (min-width: 768px)": {
-              maxHeight: "360px",
-            },
-          }}
-        />
-      </div>
+      <Banner src={"/images/banner.png"} alt="Home Banner Image" />
       <Tabs.Root
         tab={currentTab}
         onTabChange={(newTab) => navigate(`/${newTab}`)}
