@@ -1,5 +1,6 @@
 import { totalMdxPageList } from "@/__articles__";
 import { Banner, Fallback } from "@/components";
+import { css } from "@emotion/css";
 import { lazy, Suspense } from "react";
 import { useLocation } from "react-router-dom";
 
@@ -14,22 +15,20 @@ export function ArticlePage() {
     return <Fallback />;
   }
 
-  const { src, title, slug, importMdx: Component } = mdxPage;
+  const { src, title, importMdx: Component } = mdxPage;
   const LazyMdxComponent = lazy(Component);
-
-  console.log(slug, src);
 
   return (
     <>
       {/* // TODO: SSR 전환 이후에 OpenGraph */}
       <Banner src={src} alt={title} />
       <main
-        css={{
+        className={css({
           width: "100%",
           height: "100%",
           padding: "var(--spacing7)",
           boxSizing: "border-box",
-        }}
+        })}
       >
         <Suspense fallback={<Fallback />}>
           <LazyMdxComponent />

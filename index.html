@@ -18,37 +18,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="manifest.json" />
     <title>정해준이 정해준</title>
-    
-    <!-- https://vite-pwa-org.netlify.app/guide/register-service-worker.html#inline-registration -->
+    <!--ssr-emotion-react-->
+    <!--ssr-emotion-css-->
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-    <!-- <script type="module">
-      const registerServiceWorker = async () => {
-        if (process.env.NODE_ENV === "production") {
-          if ("serviceWorker" in navigator) {
-            try {
-              const registration = navigator.serviceWorker.register("/service-worker.js");
-              if (registration.installing) {
-                console.log("Service worker installing");
-              } else if (registration.waiting) {
-                console.log("Service worker installed, not waiting...");
-              } else if (registration.active) {
-                console.log("Service worker active");
-              }
-
-              navigator.serviceWorker.ready.then(() => {
-                console.log("Service worker is ready to handle requests");
-              })
-            } catch (error) {
-              console.error(`Registeration failed with ${error}`);
-            }
-          }  
-        }
-      }
-
-      registerServiceWorker();
-    </script> -->
+    <div id="root"><!--ssr-outlet--></div>
+    <script type="module" src="/src/entry-client.jsx"></script>
   </body>
 </html>

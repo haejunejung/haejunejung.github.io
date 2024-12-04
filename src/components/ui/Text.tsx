@@ -1,5 +1,4 @@
-import { CSSProperties } from "react";
-import styled from "@emotion/styled";
+import { HTMLAttributes, PropsWithChildren } from "react";
 
 type Typography =
   | "headline0"
@@ -23,7 +22,6 @@ interface TextProps {
   fontWeight?: FontWeight;
   lineHeight?: number;
   textAlign?: TextAlign;
-  style?: CSSProperties;
 }
 
 const typographyMap: Record<Typography, number | `${number}px`> = {
@@ -45,12 +43,21 @@ const fontWeightMap: Record<FontWeight, number> = {
   bold: 700,
 };
 
-// TODO: text-decoration, text-transform, letter-spacing
-// https://www.daleseo.com/css-typography/
-export const Text = styled.p<TextProps>`
-  font-size: ${(props) => typographyMap[props.size]};
-  font-weight: ${(props) => fontWeightMap[props.fontWeight ?? "regular"]};
-  text-align: ${(props) => props.textAlign};
-  line-height: ${(props) => `${props.lineHeight}px`};
-  ${(props) => props.style && { ...props.style }};
-`;
+export const Text = (
+  props: PropsWithChildren<TextProps> & HTMLAttributes<HTMLParagraphElement>
+) => {
+  const { children, size, fontWeight, lineHeight, textAlign, ...rest } = props;
+  return (
+    <p
+      css={{
+        fontSize: typographyMap[size],
+        fontWeight: fontWeightMap[fontWeight ?? "regular"],
+        textAlign: textAlign,
+        lineHeight: `${lineHeight}px`,
+      }}
+      {...rest}
+    >
+      {children}
+    </p>
+  );
+};

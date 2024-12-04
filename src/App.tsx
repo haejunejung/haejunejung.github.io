@@ -1,26 +1,20 @@
-import {
-  RouterProvider,
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { Route, Navigate, Routes } from "react-router-dom";
 import { MDXProvider } from "@mdx-js/react";
 import {
   ArticlePage,
   CategoryPage,
+  NotFoundPage,
+  OfflinePage,
   PortfolioPage,
   ResumePage,
   UsefulArticlesPage,
 } from "@/pages";
 import { Layout, MDXComponents } from "@/components";
+import { useNetworkStatus } from "@/hooks";
 
 import "@/styles/global.css";
 import "@/styles/normalize.css";
 import "highlight.js/styles/github.css";
-import { NotFoundPage } from "./pages/NotFoundPage";
-import { OfflinePage } from "./pages/OfflinePage";
-import { useNetworkStatus } from "./hooks";
 
 function App() {
   const isOnline = useNetworkStatus();
@@ -30,35 +24,29 @@ function App() {
 
   return (
     <MDXProvider components={MDXComponents}>
-      <RouterProvider router={router} />
+      <Routes>
+        {/* 블로그 포스트 */}
+        <Route path="/" element={<Layout />}>
+          <Route index element={<CategoryPage />} />
+          <Route path=":category" element={<CategoryPage />} />
+          <Route path=":category/:articleId" element={<ArticlePage />} />
+
+          {/* 이력서 */}
+          <Route path="/resume" element={<ResumePage />} />
+
+          {/* 포트폴리오 */}
+          <Route path="/portfolio" element={<PortfolioPage />} />
+
+          {/* 유용한 블로그 포스트 */}
+          <Route path="/useful-articles" element={<UsefulArticlesPage />} />
+        </Route>
+
+        {/* Not Found: 404 */}
+        <Route path="/not-found" element={<NotFoundPage />} />
+        <Route path="*" element={<Navigate to="/not-found" />} />
+      </Routes>
     </MDXProvider>
   );
 }
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      {/* 블로그 포스트 */}
-      <Route path="/" element={<Layout />}>
-        <Route index element={<CategoryPage />} />
-        <Route path=":category" element={<CategoryPage />} />
-        <Route path=":category/:articleId" element={<ArticlePage />} />
-
-        {/* 이력서 */}
-        <Route path="/resume" element={<ResumePage />} />
-
-        {/* 포트폴리오 */}
-        <Route path="/portfolio" element={<PortfolioPage />} />
-
-        {/* 유용한 블로그 포스트 */}
-        <Route path="/useful-articles" element={<UsefulArticlesPage />} />
-      </Route>
-
-      {/* Not Found: 404 */}
-      <Route path="/not-found" element={<NotFoundPage />} />
-      <Route path="*" element={<Navigate to="/not-found" />} />
-    </>
-  )
-);
 
 export default App;

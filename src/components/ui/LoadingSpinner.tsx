@@ -1,5 +1,4 @@
 import { keyframes } from "@emotion/react";
-import styled from "@emotion/styled";
 
 const mulShdSpin = keyframes`
   0%, 100% {
@@ -28,10 +27,16 @@ const mulShdSpin = keyframes`
   }
 `;
 
-export const LoadingSpinner = styled.div`
-  font-size: 8px;
-  width: 1em;
-  height: 1em;
-  border-radius: 50%;
-  animation: ${mulShdSpin} 1.25s infinite linear;
-`;
+export const LoadingSpinner = () => {
+  return (
+    <div
+      css={{
+        fontSize: "8px",
+        width: "1em",
+        height: "1em",
+        borderRadius: "50%",
+        animation: `${mulShdSpin} 1.25s infinite linear`,
+      }}
+    />
+  );
+};

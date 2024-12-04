@@ -1,9 +1,10 @@
 import { Text } from "@/components";
+import { css } from "@emotion/css";
 
 export function OfflinePage() {
   return (
     <div
-      css={{
+      className={css({
         position: "absolute",
         display: "flex",
         flexDirection: "column",
@@ -14,7 +15,7 @@ export function OfflinePage() {
         left: "50%",
         transform: "translate(-50%, -50%)",
         margin: "0 auto",
-      }}
+      })}
     >
       <Text size="headline0" fontWeight="bold">
         네트워크 연결 상태를 확인해주세요.

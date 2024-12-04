@@ -1,7 +1,19 @@
-import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
+import { PropsWithChildren } from "react";
+import { Link, LinkProps } from "react-router-dom";
 
-export const UnstyledLink = styled(Link)({
-  textDecoration: "none",
-  color: "inherit",
-});
+export const UnstyledLink = (
+  props: PropsWithChildren<LinkProps> & React.RefAttributes<HTMLAnchorElement>
+) => {
+  const { children, ...rest } = props;
+  return (
+    <Link
+      css={{
+        textDecoration: "none",
+        color: "inherit",
+      }}
+      {...rest}
+    >
+      {children}
+    </Link>
+  );
+};
