@@ -1,1 +1,2 @@
-export type { StrictOmit } from "./strict-omit/StrictOmit";
+export type * from "./common";
+export type { ArticlePageProps } from "./ArticlePageProps";
