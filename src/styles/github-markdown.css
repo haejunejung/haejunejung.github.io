@@ -1233,6 +1233,7 @@
 
 .markdown-body p, li {
   color: var(--color-gray3);
+  line-height: 1.5
 }
 
 .markdown-body ul > li::marker {

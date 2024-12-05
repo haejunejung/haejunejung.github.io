@@ -14,6 +14,7 @@ export function HeaderRoot({ children }: PropsWithChildren) {
         justifyContent: "space-between",
         alignItems: "center",
         borderBottom: "0.5px solid var(--color-gray10)",
+        backgroundColor: "white",
       }}
     >
       {children}

@@ -7,7 +7,7 @@ export const blogList: ArticlePageProps[] = [
     description:
       "왜 블로그를 직접 개발했는지와 앞으로의 블로그 방향성에 대해서 작성했어요.",
     slug: "/blog/why-tech-blog",
-    date: "2024년 12월 02일",
+    date: "2024년 12월 05일",
     importMdx: () => import("./why-tech-blog.mdx"),
   },
 ];
