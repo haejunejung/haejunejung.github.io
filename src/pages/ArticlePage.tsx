@@ -23,15 +23,18 @@ export function ArticlePage() {
       {/* // TODO: SSR 전환 이후에 OpenGraph */}
       <Banner src={src} alt={title} />
       <main
-        className={css({
+        css={css({
           width: "100%",
           height: "100%",
           padding: "var(--spacing7)",
           boxSizing: "border-box",
         })}
+        className="markdown-body"
       >
         <Suspense fallback={<Fallback />}>
-          <LazyMdxComponent />
+          <div css={{ padding: "var(--spacing6)" }}>
+            <LazyMdxComponent />
+          </div>
         </Suspense>
       </main>
     </>
