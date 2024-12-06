@@ -18,6 +18,7 @@ export function Code({ children }: { children?: ReactNode }) {
         await import("prismjs/components/prism-javascript");
         await import("prismjs/components/prism-typescript");
         await import("prismjs/components/prism-css");
+        await import("prismjs/components/prism-markup");
 
         if (!highlight) {
           setHighlight(
@@ -62,6 +63,7 @@ const getWrapperStyles = css({
   paddingRight: "var(--spacing7)",
   display: "flex",
   alignItems: "center",
+  marginBottom: "var(--spacing7)",
 });
 
 const getPreStyles = css({
@@ -82,5 +84,10 @@ const getPreStyles = css({
   },
   "@media screen and (min-width: 768px)": {
     fontSize: "16px",
+  },
+
+  // '<' '>' operators에서 흰색이 되는 문제 해결
+  "& .token.operator": {
+    backgroundColor: "transparent",
   },
 });

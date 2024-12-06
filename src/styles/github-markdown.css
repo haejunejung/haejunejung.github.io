@@ -1055,3 +1055,7 @@
 .markdown-body strong {
   border-bottom: 1.5px solid var(--color-blue);
 }
+
+.markdown-body h1,h2,h3,h4,h5 {
+  color: var(--color-blue)
+}
