@@ -10,6 +10,7 @@ export function Banner({ src, alt }: BannerProps) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        marginTop: "var(--spacing7)",
       }}
     >
       <img
