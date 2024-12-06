@@ -39,7 +39,6 @@ export default defineConfig({
     }),
     vercel(),
   ],
-  cacheDir: "./.vite",
   esbuild: {
     // https://ko.vitejs.dev/config/shared-options#esbuild
     jsxInject: `import React from 'react'`,

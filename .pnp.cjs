@@ -990,6 +990,10 @@ const RAW_RUNTIME_STATE =
       "npm:3.0.4"\
     ],\
     [\
+      "@types/prismjs",\
+      "npm:1.26.5"\
+    ],\
+    [\
       "@types/prop-types",\
       "npm:15.7.13"\
     ],\
@@ -1862,10 +1866,6 @@ const RAW_RUNTIME_STATE =
       "npm:3.0.0"\
     ],\
     [\
-      "highlight.js",\
-      "npm:11.10.0"\
-    ],\
-    [\
       "hoist-non-react-statics",\
       "npm:3.3.2"\
     ],\
@@ -2607,7 +2607,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "p-map",\
-      "npm:7.0.2"\
+      "npm:7.0.3"\
     ],\
     [\
       "package-json-from-dist",\
@@ -2716,6 +2716,10 @@ const RAW_RUNTIME_STATE =
     [\
       "pretty-bytes",\
       "npm:6.1.1"\
+    ],\
+    [\
+      "prismjs",\
+      "npm:1.29.0"\
     ],\
     [\
       "proc-log",\
@@ -3514,6 +3518,7 @@ const RAW_RUNTIME_STATE =
           ["@types/express", "npm:4.17.21"],\
           ["@types/mdx", "npm:2.0.13"],\
           ["@types/node", "npm:22.9.0"],\
+          ["@types/prismjs", "npm:1.26.5"],\
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-dom", "npm:18.3.1"],\
           ["@vitejs/plugin-react", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:4.3.3"],\
@@ -3527,7 +3532,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-refresh", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:0.4.14"],\
           ["express", "npm:4.21.1"],\
           ["globals", "npm:15.12.0"],\
-          ["highlight.js", "npm:11.10.0"],\
+          ["prismjs", "npm:1.29.0"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:18.3.1"],\
           ["react-icons", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:5.3.0"],\
@@ -7742,6 +7747,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@types/prismjs", [\
+      ["npm:1.26.5", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@types-prismjs-npm-1.26.5-5c39951991-10c0.zip/node_modules/@types/prismjs/",\
+        "packageDependencies": [\
+          ["@types/prismjs", "npm:1.26.5"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@types/prop-types", [\
       ["npm:15.7.13", {\
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@types-prop-types-npm-15.7.13-ac81cbe352-10c0.zip/node_modules/@types/prop-types/",\
@@ -8538,6 +8552,7 @@ const RAW_RUNTIME_STATE =
           ["@types/express", "npm:4.17.21"],\
           ["@types/mdx", "npm:2.0.13"],\
           ["@types/node", "npm:22.9.0"],\
+          ["@types/prismjs", "npm:1.26.5"],\
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-dom", "npm:18.3.1"],\
           ["@vitejs/plugin-react", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:4.3.3"],\
@@ -8551,7 +8566,7 @@ const RAW_RUNTIME_STATE =
           ["eslint-plugin-react-refresh", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:0.4.14"],\
           ["express", "npm:4.21.1"],\
           ["globals", "npm:15.12.0"],\
-          ["highlight.js", "npm:11.10.0"],\
+          ["prismjs", "npm:1.29.0"],\
           ["react", "npm:18.3.1"],\
           ["react-dom", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:18.3.1"],\
           ["react-icons", "virtual:c6dcce817fa225290e033ab3df9d032741dc228bb28c9cbb4719875ef6095c1c8f4a1ecb6d1cce6f1119ad7c9bb93c31bc307a4e235fab5627d039ca42e55b65#npm:5.3.0"],\
@@ -8679,7 +8694,7 @@ const RAW_RUNTIME_STATE =
           ["minipass-collect", "npm:2.0.1"],\
           ["minipass-flush", "npm:1.0.5"],\
           ["minipass-pipeline", "npm:1.2.4"],\
-          ["p-map", "npm:7.0.2"],\
+          ["p-map", "npm:7.0.3"],\
           ["ssri", "npm:12.0.0"],\
           ["tar", "npm:7.4.3"],\
           ["unique-filename", "npm:4.0.0"]\
@@ -10755,15 +10770,6 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["hast-util-whitespace", "npm:3.0.0"],\
           ["@types/hast", "npm:3.0.4"]\
-        ],\
-        "linkType": "HARD"\
-      }]\
-    ]],\
-    ["highlight.js", [\
-      ["npm:11.10.0", {\
-        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/highlight.js-npm-11.10.0-2560016492-10c0.zip/node_modules/highlight.js/",\
-        "packageDependencies": [\
-          ["highlight.js", "npm:11.10.0"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13014,10 +13020,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["p-map", [\
-      ["npm:7.0.2", {\
-        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/p-map-npm-7.0.2-8f44aee16d-10c0.zip/node_modules/p-map/",\
+      ["npm:7.0.3", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/p-map-npm-7.0.3-93bbec0d8c-10c0.zip/node_modules/p-map/",\
         "packageDependencies": [\
-          ["p-map", "npm:7.0.2"]\
+          ["p-map", "npm:7.0.3"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -13364,6 +13370,15 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/pretty-bytes-npm-6.1.1-d10304de8f-10c0.zip/node_modules/pretty-bytes/",\
         "packageDependencies": [\
           ["pretty-bytes", "npm:6.1.1"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["prismjs", [\
+      ["npm:1.29.0", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/prismjs-npm-1.29.0-6faa5b04b8-10c0.zip/node_modules/prismjs/",\
+        "packageDependencies": [\
+          ["prismjs", "npm:1.29.0"]\
         ],\
         "linkType": "HARD"\
       }]\

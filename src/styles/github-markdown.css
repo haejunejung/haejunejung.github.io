@@ -107,9 +107,8 @@
   box-sizing: content-box;
 }
 
-.markdown-body code,
+
 .markdown-body kbd,
-.markdown-body pre,
 .markdown-body samp {
   font-family: monospace;
   font-size: 1em;
@@ -338,18 +337,9 @@
 }
 
 .markdown-body tt,
-.markdown-body code,
 .markdown-body samp {
   font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
   font-size: 12px;
-}
-
-.markdown-body pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
-  font-size: 12px;
-  word-wrap: normal;
 }
 
 .markdown-body .octicon {
@@ -458,17 +448,11 @@
 }
 
 .markdown-body h1 tt,
-.markdown-body h1 code,
 .markdown-body h2 tt,
-.markdown-body h2 code,
 .markdown-body h3 tt,
-.markdown-body h3 code,
 .markdown-body h4 tt,
-.markdown-body h4 code,
 .markdown-body h5 tt,
-.markdown-body h5 code,
-.markdown-body h6 tt,
-.markdown-body h6 code {
+.markdown-body h6 tt, {
   padding: 0 .2em;
   font-size: inherit;
 }
@@ -689,7 +673,6 @@
   text-align: right;
 }
 
-.markdown-body code,
 .markdown-body tt {
   padding: .2em .4em;
   margin: 0;
@@ -699,63 +682,19 @@
   border-radius: 6px;
 }
 
-.markdown-body code br,
+
 .markdown-body tt br {
   display: none;
 }
 
-.markdown-body del code {
-  text-decoration: inherit;
-}
+
 
 .markdown-body samp {
   font-size: 85%;
 }
 
-.markdown-body pre code {
-  font-size: 100%;
-}
-
-.markdown-body pre>code {
-  padding: 0;
-  margin: 0;
-  word-break: normal;
-  white-space: pre;
-  background: transparent;
-  border: 0;
-}
-
 .markdown-body .highlight {
   margin-bottom: 1rem;
-}
-
-.markdown-body .highlight pre {
-  margin-bottom: 0;
-  word-break: normal;
-}
-
-.markdown-body .highlight pre,
-.markdown-body pre {
-  padding: 1rem;
-  overflow: auto;
-  font-size: 85%;
-  line-height: 1.45;
-  color: #1f2328;
-  background-color: #f6f8fa;
-  border-radius: 6px;
-}
-
-.markdown-body pre code,
-.markdown-body pre tt {
-  display: inline;
-  max-width: auto;
-  padding: 0;
-  margin: 0;
-  overflow: visible;
-  line-height: inherit;
-  word-wrap: normal;
-  background-color: transparent;
-  border: 0;
 }
 
 .markdown-body .csv-data td,
@@ -1097,10 +1036,6 @@
 
 .markdown-body>*:first-child>.heading-element:first-child {
   margin-top: 0 !important;
-}
-
-.markdown-body .highlight pre:has(+.zeroclipboard-container) {
-  min-height: 52px;
 }
 
 /* custom */

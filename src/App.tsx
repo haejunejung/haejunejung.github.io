@@ -15,7 +15,6 @@ import { useNetworkStatus } from "@/hooks";
 import "@/styles/global.css";
 import "@/styles/normalize.css";
 import "@/styles/github-markdown.css";
-import "highlight.js/styles/github.css";
 
 function App() {
   const isOnline = useNetworkStatus();
