@@ -32,9 +32,9 @@ export function ArticlePage() {
         className="markdown-body"
       >
         <Suspense fallback={<Fallback />}>
-          <div css={{ padding: "var(--spacing6)" }}>
+          <article css={{ padding: "var(--spacing6)" }}>
             <LazyMdxComponent />
-          </div>
+          </article>
         </Suspense>
       </main>
     </>
