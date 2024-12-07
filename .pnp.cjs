@@ -1107,7 +1107,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "agent-base",\
-      "npm:7.1.1"\
+      "npm:7.1.2"\
     ],\
     [\
       "ajv",\
@@ -1887,7 +1887,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "https-proxy-agent",\
-      "npm:7.0.5"\
+      "npm:7.0.6"\
     ],\
     [\
       "iconv-lite",\
@@ -3015,7 +3015,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "socks-proxy-agent",\
-      "npm:8.0.4"\
+      "npm:8.0.5"\
     ],\
     [\
       "source-map",\
@@ -6612,11 +6612,11 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/@npmcli-agent-npm-3.0.0-169e79294f-10c0.zip/node_modules/@npmcli/agent/",\
         "packageDependencies": [\
           ["@npmcli/agent", "npm:3.0.0"],\
-          ["agent-base", "npm:7.1.1"],\
+          ["agent-base", "npm:7.1.2"],\
           ["http-proxy-agent", "npm:7.0.2"],\
-          ["https-proxy-agent", "npm:7.0.5"],\
+          ["https-proxy-agent", "npm:7.0.6"],\
           ["lru-cache", "npm:10.4.3"],\
-          ["socks-proxy-agent", "npm:8.0.4"]\
+          ["socks-proxy-agent", "npm:8.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -8244,10 +8244,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:7.1.1", {\
-        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/agent-base-npm-7.1.1-c9e1a4b59e-10c0.zip/node_modules/agent-base/",\
+      ["npm:7.1.2", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/agent-base-npm-7.1.2-232e386c14-10c0.zip/node_modules/agent-base/",\
         "packageDependencies": [\
-          ["agent-base", "npm:7.1.1"],\
+          ["agent-base", "npm:7.1.2"],\
           ["debug", "virtual:6230e12b1d7dee1735a865cef131ea49c043e7f202fd08b14ceb90686e406b76a07840fc9510f1069465ad9695242b42830fc7fea7b01648a261463b7848122f#npm:4.3.7"]\
         ],\
         "linkType": "HARD"\
@@ -10826,7 +10826,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/http-proxy-agent-npm-7.0.2-643ed7cc33-10c0.zip/node_modules/http-proxy-agent/",\
         "packageDependencies": [\
           ["http-proxy-agent", "npm:7.0.2"],\
-          ["agent-base", "npm:7.1.1"],\
+          ["agent-base", "npm:7.1.2"],\
           ["debug", "virtual:6230e12b1d7dee1735a865cef131ea49c043e7f202fd08b14ceb90686e406b76a07840fc9510f1069465ad9695242b42830fc7fea7b01648a261463b7848122f#npm:4.3.7"]\
         ],\
         "linkType": "HARD"\
@@ -10842,11 +10842,11 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["npm:7.0.5", {\
-        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/https-proxy-agent-npm-7.0.5-94c14d4619-10c0.zip/node_modules/https-proxy-agent/",\
+      ["npm:7.0.6", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/https-proxy-agent-npm-7.0.6-27a95c2690-10c0.zip/node_modules/https-proxy-agent/",\
         "packageDependencies": [\
-          ["https-proxy-agent", "npm:7.0.5"],\
-          ["agent-base", "npm:7.1.1"],\
+          ["https-proxy-agent", "npm:7.0.6"],\
+          ["agent-base", "npm:7.1.2"],\
           ["debug", "virtual:6230e12b1d7dee1735a865cef131ea49c043e7f202fd08b14ceb90686e406b76a07840fc9510f1069465ad9695242b42830fc7fea7b01648a261463b7848122f#npm:4.3.7"]\
         ],\
         "linkType": "HARD"\
@@ -14334,11 +14334,11 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["socks-proxy-agent", [\
-      ["npm:8.0.4", {\
-        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/socks-proxy-agent-npm-8.0.4-991722041a-10c0.zip/node_modules/socks-proxy-agent/",\
+      ["npm:8.0.5", {\
+        "packageLocation": "../../../AppData/Local/Yarn/Berry/cache/socks-proxy-agent-npm-8.0.5-24d77a90dc-10c0.zip/node_modules/socks-proxy-agent/",\
         "packageDependencies": [\
-          ["socks-proxy-agent", "npm:8.0.4"],\
-          ["agent-base", "npm:7.1.1"],\
+          ["socks-proxy-agent", "npm:8.0.5"],\
+          ["agent-base", "npm:7.1.2"],\
           ["debug", "virtual:6230e12b1d7dee1735a865cef131ea49c043e7f202fd08b14ceb90686e406b76a07840fc9510f1069465ad9695242b42830fc7fea7b01648a261463b7848122f#npm:4.3.7"],\
           ["socks", "npm:2.8.3"]\
         ],\

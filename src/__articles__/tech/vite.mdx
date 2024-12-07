@@ -1,0 +1,116 @@
+# Vite 공식 문서 톺아보기 [작성중]
+
+- Vite를 사용해야 하는 이유
+    - 시간의 흐름에 따른 모듈화 방법의 변화
+
+## Vite를 사용해야 하는 이유
+과거에는 웹 브라우저가 JavaScript 코드를 모듈처럼 다룰 수 있는 기능(ESM)을 기본적으로 지원하지 않아
+**JavaScript 모듈화를 네이티브 레벨에서 진행할 수 없었어요.** 그래서 개발자들은 JavaScript 코드를 나누고
+재사용하기 위해 브라우저 바깥에서 모듈화를 진행하거나, 별도의 도구(Webpack, Rollup, Parcel...)를 사용해야 했어요.
+
+### 시간의 흐름에 따른 모듈화 방법의 변화
+과거부터 현재까지 JavaScript 모듈화를 어떻게 구현하려고 했는지에 대해 알아볼게요.
+
+#### 1. 전역 변수를 사용해서 모듈화를 흉내내기
+
+```javascript
+// math.js
+var MathModule = {
+    add: function (a,b) {
+        return a+b;
+    },
+    multiply: function(a,b) {
+        return a*b;
+    }
+}
+
+// main.js
+console.log(MathModule.add(2, 3)); // 5
+console.log(MathModule.multiply(2, 3)); // 6
+```
+
+#### 2. IIFE를 사용한 모듈화
+
+```javascript
+// math.js
+var MathModule = (function () {
+    function add (a,b) {
+        return a+b;
+    }
+
+    function multiply (a,b) {
+        return a*b;
+    }
+
+    return {
+        add: add,
+        multiply: multiply
+    }
+})();
+
+// main.js
+console.log(MathModule.add(2, 3)); // 5
+console.log(MathModule.multiply(2, 3)); // 6
+```
+
+이 두 방식은 **모든 코드가 하나의 파일에 있어야 하거나 각각의 파일을 script 태그로 직접 연결해야 했어요.**
+즉, 브라우저가 파일 간의 의존성을 자동으로 관리해주지 않았죠. 이를 사용하기 위해서는 HTML을 다음과 같이 작성해야 했어요.
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Old Module Example</title>
+    </head>
+    <body>
+        <script src="math.js"></script>
+        <script src="main.js"></script>
+    </body>
+</html>
+```
+
+이 방식은 다음과 같은 불편함을 야기했어요.
+
+- 파일 순서 의존성 문제: main.js에서 MathModule을 사용하려면 반드시 main.js가 먼저 로드되어야 했어요.
+만약 순서를 잘못 지정하면 에러가 발생해요.
+
+- 전역 변수 문제: MathModule은 전역 객체로 정의되기 때문에 이름 충돌이 쉽게 일어날 수 있었어요.
+
+- 확장성과 유지보수의 어려움: 파일 간 의존성을 명시적으로 관리할 수 없기 때문에 프로젝트가 커질수록 각
+파일의 연결과 순서를 관리하기 어려웠어요.
+
+#### 3. 번들러의 등장
+Webpack과 같은 번들러는 Node.js 환경의 모듈 시스템(require, module.exports)을 사용해 코드를 작성할 수 있도록 
+도왔어요. 원래는 브라우저가 Node.js의 모듈 시스템을 이해하지 못했기 때문에 위에서의 방법을 사용할 수 밖에 없었다면,
+번들러의 등장과 함께 모듈화를 진행할 수 있게 됐어요. 즉, 의존성 관리가 편해진 것이죠.
+
+```javascript
+// math.js
+module.exports = {
+  add: (a, b) => a + b,
+};
+
+// main.js
+const math = require('./math');
+console.log(math.add(2, 3)); // 5
+```
+
+Webpack은 Node.js 스타일로 작성한 코드를 브라우저가 이해할 수 있는 형태로 트랜스파일링하고
+여러 파일을 하나의 파일로 묶는 작업을 진행해요. 이 과정을 통해 브라우저가 실행할 수 있는 JavaScript 파일이 생성되죠.
+
+#### 4. ES Module의 등장
+이전에는 브라우저가 require나 module.exports와 같은 코드를 이해하지 못했기 때문에 Webpack이 필요했어요.
+하지만 이제는 브라우저가 ESM을 지원하면서 별도의 변환 없이도 아래처럼 코드를 작성할 수 있게 됐어요.
+
+```javascript
+// math.js
+export function add(a, b) {
+  return a + b;
+}
+
+// main.js
+import { add } from './math.js';
+console.log(add(2, 3)); // 5
+```
