@@ -2,7 +2,6 @@ import { defineConfig, PluginOption } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import mdx from "@mdx-js/rollup";
-import { VitePWA } from "vite-plugin-pwa";
 import remarkGfm from "remark-gfm";
 import vercel from "vite-plugin-vercel";
 
@@ -20,16 +19,6 @@ export default defineConfig({
         remarkPlugins: [remarkGfm],
       }),
     } as PluginOption,
-    // https://vite-pwa-org.netlify.app/guide/#configuring-vite-plugin-pwa
-    VitePWA({
-      registerType: "autoUpdate",
-      injectRegister: "inline",
-      devOptions: { enabled: true },
-      workbox: {
-        // globPatterns: ["/*"],
-        globIgnores: ["**/node_modules/**/*", "sw.js", "workbox-*.js"],
-      },
-    }),
     react({
       include: /\.(jsx|js|mdx|md|tsx|ts)$/,
       jsxImportSource: "@emotion/react",

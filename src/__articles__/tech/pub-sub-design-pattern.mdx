@@ -1,0 +1,142 @@
+import PubSubPattern from "./assets/pub-sub.png"
+
+# 발행/구독 디자인 패턴 (zustand 소스 코드 분석을 곁들인...)
+
+이번 글은 발행/구독 디자인 패턴에 대해 학습한 글입니다. 
+발행/구독 디자인 패턴이 무엇인지 알아보고, 이 패턴을 사용하고 있는 zustand에서는 어떻게 구현했는지를 알아봤습니다.
+
+## 목차
+1. 발행/구독 디자인 패턴
+
+## 1. 발생/구독 디자인 패턴
+### 1-1 발행/구독 디자인 패턴이란?
+발행/구독(Publish-Subscribe, PubSub) 패턴은 이벤트 기반 메시징 시스템 중 하나로, **발행자와 구독자가 서로 직접 연결되지 않고 정보를 주고받을 수 있는 구조**입니다.
+발행자는 특정 이벤트를 발행하고, 구독자는 관심 있는 이벤트를 구독하여 이를 감지하고 반응합니다. 이러한 구조 덕분에 발행자와 구독자는 서로를 몰라도 되고,
+직접적인 의존성이 줄어들어 더 유연한 설계가 가능해집니다.
+
+### 1-2 캐릭터 개발 예시를 통해 이해해보자
+어떤 상황에서 발행/구독 패턴이 필요한지를 캐릭터 개발 예시를 통해 알아보겠습니다.
+
+#### [시나리오]: 게임에서 캐릭터가 레벨업 시 여러 시스템이 반응해야 합니다.
+- UI에 레벨업 알림이 표시되어야 합니다.
+- 스킬 시스템에서 새로운 스킬이 해금되어야 합니다.
+- 스탯이 증가해야 합니다.
+- 퀘스트 상황이 갱신되어야 합니다.
+
+레벨업 시스템이 발생할 때 여러 시스템이 반응해야 하는 구조를 직접 구현해보면 아래처럼 작성할 수 있을겁니다.
+```typescript
+class Character {
+    level = 1;
+    uiManager: UIManager;
+    skillSystem: SkillSystem;
+    statSystem: StatSystem;
+    questSystem: QuestSystem;
+
+    constructor () {
+        this.uiManager = new UIManager();
+        this.skillSystem = new SkillSystem();
+        this.statSystem = new StatSystem();
+        this.questSystem = new QuestSystem();
+    }
+
+    levelUp() {
+        this.level++;
+        
+        // 모든 관련 시스템을 직접 호출해야 합니다. 
+        this.uiManager.showLevelUpNotification(this.level);
+        this.skillSystem.unlockSkills(this.level);
+        this.statSystem.increaseStats(this.level);
+        this.questSystem.checkLevelUpQuests(this.level);
+    }
+}
+```
+
+#### [문제점]: 레벨업이라는 기능에 다른 시스템이 강결합됩니다.
+위 코드에서 Character 클래스가 UIManager, SkillSystem,... 다른 시스템과 직접 결합되어 있습니다.
+- 새로운 기능이 추가될 때마다 Character 내부 코드를 수정해야 합니다.
+- UIManager에서 알림을 관리하는 기능이 "레벨업" 이벤트에만 한정되지 않고 다양한 이벤트에서 사용될 수 있습니다. (예를 들어, 스킬이 해금될 때에도 UI 알림 표시가 필요할 수 있는데, 그럴 때마다 모든 클래스에서 UIManager를 참조해야 합니다.)
+
+#### [해결책]: 발행/구독 패턴 적용
+이 문제를 해결하기 위해 **발행/구독 패턴을 적용하면 각 시스템이 서로 직접 연결되지 않고도 이벤트를 주고받을 수 있습니다.**
+
+이 패턴에서는 이벤트 채널(Event Channel)을 활용하여 이벤트를 주고받습니다.
+이벤트를 발행하면, 이를 구독한 시스템이 반응하는 구조로 아래 사진과 같이 동작합니다.
+
+<img src={PubSubPattern} alt="Publish/Subscribe Design Pattern" />
+
+실제로 발행/구독 패턴을 사용하여 위 코드를 수정해보겠습니다.
+
+```typescript
+// 이벤트를 관리하는 시스템
+class EventChannel { 
+    events = {};
+
+    // 이벤트 발행 (이벤트를 구독한 시스템들에게 전달)
+    publish(event, payload) {
+        if (this.events[event]) {
+            this.events[event].forEach(callback => callback(payload));
+        }
+    }
+
+    // 이벤트 구독 (관심 있는 이벤트를 등록)
+    subscribe(event, callback) {
+        if (!this.events[event]) {
+            this.events[event] = [];
+        }
+        this.events[event].push(callback);
+    }
+}
+```
+```typescript
+class UIManager {
+  constructor() {
+    // UIManager는 어떤 객체에서 알림이 필요한지 알지 않아도 됩니다.
+    EventBus.subscribe("ShowMessage", ({ message }) => {
+      console.log(`🔔 UI 알림: ${message}`);
+    });
+  }
+}
+```
+```typescript
+class Character {
+  level: number = 1;
+
+  constructor() {
+    new SkillSystem(); 
+    new QuestSystem();
+  }
+
+  levelUp() {
+    this.level++;
+
+    // 📢 이제 UIManager를 직접 참조하지 않고, 이벤트를 발행합니다.
+    EventBus.publish("ShowMessage", { message: `🎉 레벨 ${this.level}로 상승!` });
+    EventBus.publish("LevelUp", { level: this.level });
+  }
+}
+```
+
+### 1-3 발행/구독 패턴의 이점과 단점
+#### [이점]
+발행/구독 패턴을 적용함으로써 우리는 다음과 같은 이점을 얻을 수 있습니다.
+- 모듈 간 결합도를 낮춥니다.
+    - Character, UIManager,... 서로가 직접 참조하지 않아도 됩니다.
+- 확장성이 높아집니다.
+    - 새로운 시스템이 추가되더라도 기존 코드를 수정하지 않아도 됩니다.
+    - 예를 들어, AchievementSystem이 추가되더라도 Character를 수정하지 않아도 됩니다.
+- 유지보수가 편해집니다.
+    - Character는 "레벨업" 이벤트를 발행하고, 이를 감지하는 시스템만 변경하면 되므로 유지보수가 쉬워집니다.
+
+#### [단점]
+하지만 단점도 존재하므로 이 패턴을 사용할 때는 조심해야 합니다.
+- End-to-End에서 필요할 수 있는 명세를 작성하기 어렵습니다.
+- 이벤트 플로우 추적이 어렵습니다. 이로 인해 디버깅 작업이 복잡해질 수 있습니다.
+- 구독자가 적절히 등록을 해제하지 않으면 메모리 누수가 발생할 수 있습니다.
+
+발행/구독 패턴에 대한 이해를 돕기 위해서 <Anchor href="https://rinae.dev/posts/why-every-beginner-front-end-developer-should-know-publish-subscribe-pattern-kr/" label="[번역] 초보 프론트엔드 개발자들을 위한 Pub-Sub(Publish-Subscribe) 패턴을 알아보기" />
+를 읽어보는 것을 추천드립니다.
+
+## References
+
+
+[https://ko.wikipedia.org/wiki/%EB%B0%9C%ED%96%89-%EA%B5%AC%EB%8F%85_%EB%AA%A8%EB%8D%B8](https://ko.wikipedia.org/wiki/%EB%B0%9C%ED%96%89-%EA%B5%AC%EB%8F%85_%EB%AA%A8%EB%8D%B8)
