@@ -2,7 +2,7 @@ import { ArticlePageProps } from "@/types";
 
 export const techList: ArticlePageProps[] = [
   {
-    src: "/images/pub-sub-design-pattern",
+    src: "/images/pub-sub-banner.png",
     title: "발생/구독 디자인 패턴",
     description: "발생/구독 디자인 패턴에 대해 학습했어요 (zustand 소스 코드 분석을 곁들인...)",
     slug: "/tech/pub-sub-design-pattern",
