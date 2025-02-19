@@ -1,12 +1,16 @@
 import PubSubPattern from "./assets/pub-sub.png"
+import Zustand from './assets/zustand.jpg'
+import jotai from "./assets/jotai.png"
 
-# 발행/구독 디자인 패턴 (zustand 소스 코드 분석을 곁들인...)
+# 발행/구독 디자인 패턴 (Zustand, jotai를 곁들인...)
 
 이번 글은 발행/구독 디자인 패턴에 대해 학습한 글입니다. 
-발행/구독 디자인 패턴이 무엇인지 알아보고, 이 패턴을 사용하고 있는 zustand에서는 어떻게 구현했는지를 알아봤습니다.
+발행/구독 디자인 패턴은 무엇인지 알아보고, Zustand와 jotai에서 이를 어떻게 활용하고 있는지를 확인해봅시다.
 
 ## 목차
 1. 발행/구독 디자인 패턴
+2. Zustand
+3. jotai
 
 ## 1. 발생/구독 디자인 패턴
 ### 1-1 발행/구독 디자인 패턴이란?
@@ -136,7 +140,145 @@ class Character {
 발행/구독 패턴에 대한 이해를 돕기 위해서 <Anchor href="https://rinae.dev/posts/why-every-beginner-front-end-developer-should-know-publish-subscribe-pattern-kr/" label="[번역] 초보 프론트엔드 개발자들을 위한 Pub-Sub(Publish-Subscribe) 패턴을 알아보기" />
 를 읽어보는 것을 추천드립니다.
 
+## 2. Zustand
+
+<img src={Zustand} alt="Zustand" />
+
+[Zustand](https://github.com/pmndrs/zustand)는 프론트엔드에서 간단하고 효율적인 상태 관리를 제공하는 라이브러리입니다.
+작고 빠르며, 확장성이 뛰어나다는 장점을 가지고 있습니다.
+
+처음 Zustand를 접했을 때, 별도의 Provider 없이도 상태 관리가 가능하다는 점과 렌더링 최적화가 어떻게 이루어지는지 궁금했습니다.
+발행/구독 패턴을 공부하면서 Zustand의 동작 원리도 함께 파헤쳐보기로 했습니다.
+
+### 2-1. Zustand의 핵심 개념
+
+Zustand는 스토어(Store) 개념을 활용하여 상태를 관리합니다.
+이 스토어는 중앙 집중식으로 상태를 관리하며, 특정 상태가 변경되었을 때 등록된 리스너들에게 변경 사항을 알리는 방식으로 동작합니다.
+즉, **구독(Subscribe) → 상태 변경(Publish) -> 변경 사항 알림의 원리**로 상태를 관리합니다.
+
+### 2-2. 간단한 Zustand 사용법
+
+Zustand의 사용법은 정말 간단합니다. 스토어를 생성하고, 필요한 상태를 구독하면 됩니다.
+
+```typescript
+import { create } from "Zustand"
+
+// create를 통해 스토어를 생성합니다.
+const useStore = create((set) => ({
+  bears: 0,
+  increatePopulation: () => set((state) => ({ bears: state.bears + 1 })),
+  removeAllBears: () => set({ bears: 0 }),
+  updateBears: (newBears) => set({ bears: newBears }),
+}));
+```
+
+```typescript
+function BearCounter() {
+  // bears 상태를 구독합니다.
+  const bears = useStore((state) => state.bears);
+  return <h1>{bears}</h1>
+}
+
+function Controls() {
+  // increatePopulation 액션을 가져옵니다.
+  const increatePopulation = useStore((state) => state.increatePopulation);
+  return <button onClick={increatePopulation}>one up</button>
+}
+```
+
+이 코드에서 특별한 설정 없이도 상태 관리가 가능하다는 점이 놀랍지 않나요? 
+그렇다면 어떻게 Zustand가 Provider없이 동작하는 걸까요? 
+이 부분에 대해서 코어 소스 코드를 파헤치며 알아보겠습니다.
+
+### 2-3. Zustand 코어 파헤치기
+
+[원본 소스 코드](https://github.com/pmndrs/zustand/tree/main/src)는 이곳에서 확인할 수 있습니다.
+원본 소스 코드에서는 TypeScript를 사용하고 있지만 편의를 위해서 JavaScript로 설명하겠습니다.
+
+#### [스토어 생성 과정 - vanilla]
+
+```typescript
+const createStoreImpl = (createState) => {
+  // 클로저로 상태를 관리합니다.
+  let state;
+
+  // 중복된 구독을 피하기 위해 Set을 사용합니다.
+  const listeners = new Set();
+
+  const setState = (partial, replace) => {
+    /**
+     * partial은 함수와 변수 모두 사용 가능하도록 설계되었습니다.
+     * 이는 React의 setState와 유사한 모습입니다.
+     * ex) setState(1), setState((previousState) => previousState + 1)
+     */
+    const nextState = 
+      typeof partial === "function"
+        ? partial(state)
+        : partial;
+
+    /**
+     * Object.is를 통해 현재 객체와 다음에 올 객체를 비교합니다.
+     * 만약 다르다면, 상태 변경이 이뤄져야 합니다.
+     */
+    if (!Object.is(nextState, state)) {
+      const previousState = state;
+
+      /**
+       * (1) replace 조건을 만족하거나, 
+       * (2) replace가 null 또는 undefined일 때 nextState가 객체가 아니거나 null인 경우 nextState를 사용합니다.
+       * 그렇지 않은 경우는 Object.assign을 통해 nextState의 프로퍼티를 덮어씁니다.
+       */
+      state =
+        (replace ?? (typeof nextState !== "object" || nextState === null))
+          ? nextState
+          : Object.assign({}, state, nextState);
+
+      // 최종적으로 상태가 변했다는 것을 구독자에게 알립니다.
+      listeners.forEach((listener) => listener(state, previousState));
+    }
+  }
+
+  // 현재 상태를 반환합니다.
+  const getState = () => state;
+
+  // 초기 상태를 반환합니다.
+  const getInitialState = () => initialState;
+
+  // 명시적으로 구독할 수 있도록 하는 subscribe를 제공합니다.
+  const subscribe = (listner) => {
+    listeners.add(listener);
+    return () => listeners.delete(listener);
+  }
+
+  // 최종적으로 스토어에서 사용할 수 있는 api를 제공합니다.
+  const api = { setState, getState, getInitialState, subscribe };
+  const initialState = (state = createState(setState, getState, api));
+
+  return api;
+}
+
+export const createStore = ((createState) => 
+  createState ? createStoreImpl(createState): createStoreImpl);
+```
+
+
+
+## 3. jotai
+
+<img src={jotai} alt="jotai" />
+
 ## References
 
+### 발행/구독 패턴
+- [https://ko.wikipedia.org/wiki/%EB%B0%9C%ED%96%89-%EA%B5%AC%EB%8F%85_%EB%AA%A8%EB%8D%B8](https://ko.wikipedia.org/wiki/%EB%B0%9C%ED%96%89-%EA%B5%AC%EB%8F%85_%EB%AA%A8%EB%8D%B8)
+- [https://rinae.dev/posts/why-every-beginner-front-end-developer-should-know-publish-subscribe-pattern-kr/](https://rinae.dev/posts/why-every-beginner-front-end-developer-should-know-publish-subscribe-pattern-kr/)
+- [https://modernweb.com/modern-web-best-practice-pubsub/](https://modernweb.com/modern-web-best-practice-pubsub/)
 
-[https://ko.wikipedia.org/wiki/%EB%B0%9C%ED%96%89-%EA%B5%AC%EB%8F%85_%EB%AA%A8%EB%8D%B8](https://ko.wikipedia.org/wiki/%EB%B0%9C%ED%96%89-%EA%B5%AC%EB%8F%85_%EB%AA%A8%EB%8D%B8)
+### Zustand
+- [https://zustand.docs.pmnd.rs/getting-started/introduction](https://zustand.docs.pmnd.rs/getting-started/introduction)
+- [https://ui.toast.com/posts/ko_20210812#zustand-%ED%8C%8C%ED%97%A4%EC%B3%90%EB%B3%B4%EA%B8%B0---%EC%BD%94%EC%96%B4](https://ui.toast.com/posts/ko_20210812#zustand-%ED%8C%8C%ED%97%A4%EC%B3%90%EB%B3%B4%EA%B8%B0---%EC%BD%94%EC%96%B4)
+- [https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/](https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/)
+- [https://www.heropy.dev/p/n74Tgc](https://www.heropy.dev/p/n74Tgc)
+
+### Jotai
+- [https://jotai.org/](https://jotai.org/)
