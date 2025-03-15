@@ -1,0 +1,40 @@
+# ESLint's flat config: Background
+
+이 글에서는 **ESLint 설정 시스템의 발전 과정과 최신 설정 방식인 [Flat Config의 탄생 배경](https://eslint.org/blog/2022/08/new-config-system-part-1/)에 대해 다룹니다.**
+
+## 목차
+0. 개요
+1. 초기 ESLint 설정 시스템과 "Config Cascade" (2013)
+2. extends key (2014)
+3. 개인 설정 (\~/.eslintrc) 지원 (2015)
+4. root: true 속성 추가 (2016)
+5. overrides key (2018)
+6. extends를 overrides 내부에서 지원 (2019)
+7. ESLint 설정 복잡성의 증가와 새로운 설정 시스템 제안 (2019)
+8. Flat Config 도입 (2022)
+
+## 0. 개요
+하나의 프로젝트가 마치 한 사람이 작성한 코드처럼 보인다면, 그만큼 코드 스타일이 일관되며 개발자들이 같은 원칙을 공유하고 있다는 의미가 됩니다.
+물론 한 사람이 작성하더라도 코드 스타일이 달라질 수 있지만, 전체적으로 통일된 스타일을 유지하는 것은 협업에서 중요한 요소입니다.
+
+현재 백오피스를 개발하면서, 지난 몇 년간 작성된 코드를 분석하고 수정하며 새로운 기능을 추가하는 작업을 하고 있습니다.
+방대한 코드 베이스를 보면서 코드 스타일이 파일마다 제각각인 문제를 발견했습니다. 예를 들면:
+- React Hooks 선언 순서가 뒤죽박죽인 경우
+- 어떤 파일에서는 import만 사용하고, 어떤 파일에서는 import type을 사용하는 경우
+- 한 줄 return 시 \{\} 사용 여부
+
+이처럼 일관되지 않은 코드 스타일은 유지보수를 어렵게 만들고, 새로운 개발자가 적응하는 데 걸리는 시간을 증가시킵니다. (~~어느 장단에 맞춰야 해!!!~~)
+프로젝트 초기에 [ESLint](https://eslint.org/)와 [Prettier](https://prettier.io/)와 같은 도구를 엄격하게 설정했다면 이런 문제를 줄일 수 있었겠지만, 
+현재 상황은 그렇지 않았습니다.
+
+이 문제를 고민하던 중, 한 동료 개발자가 과거 경험을 공유해주었습니다. "변수를 타입 순서로, 알파벳 순서로 정리하고 있으며 **첫 코드 리뷰 당시 코드 스타일 문제로 첫 커밋에서 7번이나 리젝 당한 경험이 있다**"는 것이었습니다.
+이 이야기를 들으면서, 기존 코드 스타일을 정리하고 일관되게 맞춰둔다면 앞으로 프로젝트에 합류하는 개발자들이 같은 문제로 혼란을 겪지 않을 것이라는 생각이 들었습니다. 
+결과적으로 코드 이해도가 높이지고, 적응 속도가 빨라지며, 코드의 의도도 더욱 명확해질 것이라고 생각이 들었습니다.
+
+이러한 문제를 해결하기 위해 ESLint를 적극적으로 활용하는 것이 좋겠다고 판단했습니다. ESLint는 프로젝트 전반의 코드 스타일을 통일할 수 있도록 도와주며, 협업을 더욱 원활하게 만들어 줍니다.
+어떤 규칙을 적용할 지 고민하는 과정에서, 프론트엔드 개발자들이 공통적으로 사용할 수 있는 설정 파일을 만들어 공유한다면, 팀 내에서뿐만 아니라 다른 프로젝트에서도 일관된 코드 스타일을 유지할 수 있을 것이라고 생각했습니다.
+
+## References
+- [ESLint's new config system, Part1: Background](https://eslint.org/blog/2022/08/new-config-system-part-1/)
+- [ESLint's new config system, Part2: Introduction to flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/)
+- [ESLint's new config system, Part3: Developer preview](https://eslint.org/blog/2022/08/new-config-system-part-3/)
