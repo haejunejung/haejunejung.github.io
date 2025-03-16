@@ -183,6 +183,33 @@ ESLint 팀은 이 문제를 해결하기 위해 기존 .eslintrc를 버리고 �
 이는 팀 내부에서도 "완전히 새롭게 설계" vs "기존 시스템을 개선"으로 의견이 갈렸고 18개월의 논의 끝에 **기존 시스템을 버리고 새로운 설정 시스템**을 만들기로 결정했습니다.
 이 설정 시스템이 **Flat Config**입니다.
 
+## 8. Flat Config 도입 (2022)
+기존 .eslintrc 설정 방식의 복잡성을 해결하기 위해 ESLint v8.21.0에서 새로운 **Flat Config 시스템**을 도입하게 되었습니다.
+이는 기존 ESLint 설정 방식과 유사하면서도 단순화된 설정 구조를 제공하였습니다.
+
+```typescript
+export default [
+  {
+    files: ["**/*.js"],
+    rules: {
+      quotes: ["error", "double"],
+      semi: ["error", "always"]
+    }
+  },
+  {
+    files: ["tests/**/*.js"],
+    rules: {
+      quotes: ["error", "single"]
+    }
+  }
+];
+```
+
+### Flat Config의 특징
+- export default로 설정을 내보내는 방식를 채택하였습니다.
+- files 배열로 파일 패턴을 지정하여 특정 규칙을 적용 가능하게 하였습니다.
+- 기존 .eslintrc의 overrides, extends, root: true와 같은 개념을 한 곳에 통합했습니다.
+
 ## References
 - [ESLint's new config system, Part1: Background](https://eslint.org/blog/2022/08/new-config-system-part-1/)
 - [ESLint's new config system, Part2: Introduction to flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/)
