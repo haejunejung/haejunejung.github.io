@@ -34,6 +34,40 @@
 이러한 문제를 해결하기 위해 ESLint를 적극적으로 활용하는 것이 좋겠다고 판단했습니다. ESLint는 프로젝트 전반의 코드 스타일을 통일할 수 있도록 도와주며, 협업을 더욱 원활하게 만들어 줍니다.
 어떤 규칙을 적용할 지 고민하는 과정에서, 프론트엔드 개발자들이 공통적으로 사용할 수 있는 설정 파일을 만들어 공유한다면, 팀 내에서뿐만 아니라 다른 프로젝트에서도 일관된 코드 스타일을 유지할 수 있을 것이라고 생각했습니다.
 
+## 1. 초기 ESLint 설정 시스템과 "Config Cascade" (2013)
+초기 ESLint 설정 시스템은 매우 단순한 형태였습니다.
+- .eslintrc 파일을 만들어 규칙을 직접 정의하면 되었습니다.
+- 현재 디렉토리에서 .eslintrc 파일을 찾고, 없으면 부모 디렉토리로 올라가면서 추가 설정을 병합하는 방식\(=**Config Cascade**\)를 사용했습니다,
+- JSHint와 같은 기존 Linter에서는 디렉토리별 설정이 불가능했지만, ESLint는 Config Cascade를 통해 이를 가능하게 했습니다.
+
+예를 들면: 아래와 같이 각각의 디렉토리에 .eslintrc를 넣어 설정이 가능했습니다.
+```typescript
+/home/user/project/
+ ├── .eslintrc (1)
+ ├── src/
+ │    ├── .eslintrc (2)
+ │    ├── index.js
+ │    ├── utils.js
+```
+
+### Config Cascade 장점
+1. 디렉토리별 설정을 다르게 할 수 있습니다.
+2. 기본적으로 모든 상위 디렉토리의 설정을 상속받기 때문에 설정 관리가 편리해졌습니다.
+
+
+### Config Cascde 단점
+하지만 이러한 Config Cascade에는 문제점이 존재했습니다.
+1. 상위 디렉토리에 숨겨진 설정이 적용될 가능성이 있었습니다.
+    - 사용자가 프로젝트 외부에 설정이 있는 걸 모르면, 예상치 못한 규칙이 적용되곤 했습니다. 
+    - 내가 설정한 적 없는 규칙이 적용된다는 혼란이 발생하곤 했습니다.
+2. 복잡한 프로젝트에서는 예측하기 어려운 설정 충돌이 발생했습니다.
+    - 특정 파일이 여러 .eslintrc 설정을 병합할 때, 어떤 설정이 최종적으로 적용될지 직관적으로 알기 어려웠습니다.
+3. 전역 설정을 방지하기 어려웠습니다.
+    - 팀 프로젝트에서 개인 설정(ex., ~/.eslintrc)이 의도치 않게 적용되곤 했습니다.
+
+
+
+
 ## References
 - [ESLint's new config system, Part1: Background](https://eslint.org/blog/2022/08/new-config-system-part-1/)
 - [ESLint's new config system, Part2: Introduction to flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/)
