@@ -104,6 +104,19 @@
     - 개인 설정을 모르는 다른 팀원이 프로젝트를 실행할 때, 전혀 다른 결과가 나오곤 했습니다.
 2. Config Cascade와 함께 적용될 경우, 어떤 설정이 적용될지 직관적으로 알기 어려워졌습니다.
 
+## 4. root: true 속성 추가 (2016)
+Config Cascade가 예기치 않게 동작하는 문제를 해결하기 위해 root: true 속성이 추가되었습니다.
+이를 통해 상위 디렉토리 설정이 적용되지 않도록 강제하고, 예상치 못한 설정 충돌을 방지할 수 있게 되었습니다.
+``` typescript
+{
+  "root": true,
+  "extends": "eslint:recommended",
+  "rules": {
+    "semi": ["error", "always"]
+  }
+}
+```
+
 ## References
 - [ESLint's new config system, Part1: Background](https://eslint.org/blog/2022/08/new-config-system-part-1/)
 - [ESLint's new config system, Part2: Introduction to flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/)
