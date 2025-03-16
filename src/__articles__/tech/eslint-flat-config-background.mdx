@@ -173,6 +173,16 @@ overrides는 특정 파일 패턴에 따라 설정을 변경할 수 있지만, �
     - extends가 추가되면서 glob 패턴을 어떻게 적용할지 결정하는 로직이 복잡해졌습니다.
     - 최종적으로 어떤 파일이 어떤 설정을 상속받는지 직관적으로 알기 어려워졌습니다.
 
+## 7. ESLint 설정 복잡성의 증가와 새로운 설정 시스템 제안 (2019)
+이 시점에서 ESLint 설정 시스템이 과도한 기능 추가로 유지보수가 어려운 상태가 되었습니다.
+- 너무 많은 설정 방식이 존재하게 되었습니다.(Config Cascade, extends, overrides, root, .eslintrc.json, ...)
+- extends와 overrides 조합으로 인해 규칙 병합이 예상하기 어려워졌습니다.
+- 팀 내에서도 설정 시스템을 수정하는 것이 부담스러워질 정도로 복잡해졌습니다.
+
+ESLint 팀은 이 문제를 해결하기 위해 기존 .eslintrc를 버리고 새로운 설정 시스템을 만들지 고민하였고,
+이는 팀 내부에서도 "완전히 새롭게 설계" vs "기존 시스템을 개선"으로 의견이 갈렸고 18개월의 논의 끝에 **기존 시스템을 버리고 새로운 설정 시스템**을 만들기로 결정했습니다.
+이 설정 시스템이 **Flat Config**입니다.
+
 ## References
 - [ESLint's new config system, Part1: Background](https://eslint.org/blog/2022/08/new-config-system-part-1/)
 - [ESLint's new config system, Part2: Introduction to flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/)
