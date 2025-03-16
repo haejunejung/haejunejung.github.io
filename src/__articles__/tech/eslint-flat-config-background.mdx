@@ -117,6 +117,25 @@ Config Cascade가 예기치 않게 동작하는 문제를 해결하기 위해 ro
 }
 ```
 
+## 5. overrides key (2018)
+파일별로 다른 규칙을 적용할 수 있도록 개선되었습니다.
+특정 패턴의 파일\(ex., 테스트 파일, 빌드 스크립트)에는 다른 규칙을 적용할 수 있도록 **overrides** key가 추가되었습니다.
+```typescript
+{
+  "rules": {
+    "quotes": ["error", "double"]
+  },
+  "overrides": [
+    {
+      "files": ["*.test.js"],
+      "rules": {
+        "quotes": ["error", "single"]
+      }
+    }
+  ]
+}
+```
+
 ## References
 - [ESLint's new config system, Part1: Background](https://eslint.org/blog/2022/08/new-config-system-part-1/)
 - [ESLint's new config system, Part2: Introduction to flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/)
