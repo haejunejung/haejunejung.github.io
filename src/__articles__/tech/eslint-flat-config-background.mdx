@@ -136,6 +136,43 @@ Config Cascade가 예기치 않게 동작하는 문제를 해결하기 위해 ro
 }
 ```
 
+
+## 6. extends를 overrides 내부에서 지원 (2019)
+overrides는 특정 파일 패턴에 따라 설정을 변경할 수 있지만, 여전히 설정을 extends할 수는 없었습니다.
+이를 해결하기 위해 overrides 내부에서도 extends를 사용할 수 있도록 기능을 확장했습니다.
+이제 특정 파일 패턴에 대해 기존 공유 설정을 그대로 가져와 적용할 수 있게 되었습니다.
+
+```typescript
+{
+  "rules": {
+    "quotes": ["error", "double"]
+  },
+
+  "overrides": [
+    {
+      "files": ["bin/*.js", "lib/*.js"],
+      "excludedFiles": "*.test.js",
+      "extends": ["eslint:recommended"],
+      "rules": {
+        "quotes": ["error", "single"]
+      }
+    }
+  ]
+}
+```
+
+### extends를 overrides 내부에서 지원하면서 생긴 장점
+1. 특정 패턴의 파일에도 기존 ESLint 설정을 확장 적용이 가능해졌습니다.
+2. 공유 설정과 개별 설정을 보다 쉽게 조합할 수 있게 되었습니다.
+
+### extends를 overrides 내부에서 지원하면서 생긴 문제점
+1. 설정 병합 로직이 복잡해졌습니다.
+    - overrides안에서 extends를 병합할 때, 글로벌 설정과 지역 설정이 어떻게 합쳐지는지 예측하기 어려워졌습니다.
+    - 예를 들어, extends된 설정 안에서도 overrides를 사용할 경우, 최종 적용되는 설정을 이해하기 어려워졌습니다.
+2. Glob 패턴 병합이 비직관적이었습니다.
+    - extends가 추가되면서 glob 패턴을 어떻게 적용할지 결정하는 로직이 복잡해졌습니다.
+    - 최종적으로 어떤 파일이 어떤 설정을 상속받는지 직관적으로 알기 어려워졌습니다.
+
 ## References
 - [ESLint's new config system, Part1: Background](https://eslint.org/blog/2022/08/new-config-system-part-1/)
 - [ESLint's new config system, Part2: Introduction to flat config](https://eslint.org/blog/2022/08/new-config-system-part-2/)
