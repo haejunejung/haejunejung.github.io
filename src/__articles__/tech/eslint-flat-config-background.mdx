@@ -91,6 +91,18 @@
 2. 설정 충돌 문제가 발생했습니다.
     - 여러 개의 extends를 사용할 경우, 충돌이 일어날 가능성이 있었습니다.
 
+## 3. 개인 설정 (\~/.eslintrc) 지원 (2015)
+사용자가 자신만의 ESLint 설정을 홈 디렉토리 (\~/.eslintrc)에 저장할 수 있도록 지원했습니다.
+
+### \~/.eslintrc 장점
+1. 개인 환경에서는 일관된 ESLint 설정을 사용할 수 있게 되었습니다.
+2. 새로운 프로젝트를 만들 때 매번 .eslintrc를 설정할 필요가 없어졌습니다.
+
+### \~/.eslintrc 단점
+1. 예상치 못한 설정이 적용되곤 했습니다.
+    - 프로젝트에 \~/.eslintrc 파일이 없으면 ESLlint가 \~/.eslintrc를 자동으로 적용했습니다.
+    - 개인 설정을 모르는 다른 팀원이 프로젝트를 실행할 때, 전혀 다른 결과가 나오곤 했습니다.
+2. Config Cascade와 함께 적용될 경우, 어떤 설정이 적용될지 직관적으로 알기 어려워졌습니다.
 
 ## References
 - [ESLint's new config system, Part1: Background](https://eslint.org/blog/2022/08/new-config-system-part-1/)
