@@ -3,6 +3,14 @@ import { ArticlePageProps } from "@/types";
 export const techList: ArticlePageProps[] = [
   {
     src: "/images/eslint.png",
+    title: "ESLint의 Flat Config로 가는 길: 소개",
+    description: "ESLint의 새로운 설정 방식 Flat Config에 대해서 소개합니다",
+    slug: "/tech/eslint-flat-config-introudction",
+    date: "2024년 3월 17일",
+    importMdx: () => import("./eslint-flat-config-introduction.mdx")
+  },
+  {
+    src: "/images/eslint.png",
     title: "ESLint의 Flat Config로 가는 길: 배경",
     description: "ESLint 설정 시스템의 발전 과정과 최신 설정 방식인 Flat Config의 탄생 배경을 다룹니다",
     slug: "/tech/eslint-flat-config-background",
