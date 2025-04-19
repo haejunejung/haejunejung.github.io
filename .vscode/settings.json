@@ -1,20 +1,13 @@
 {
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
-  "eslint.nodePath": ".yarn/sdks",
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-
-  // https://inpa.tistory.com/entry/VSCode-%F0%9F%92%BD-SCSS-%EC%BD%94%EB%94%A9%ED%95%98%EB%8A%94%EB%8D%B0-%EC%9C%A0%EC%9A%A9%ED%95%9C-%ED%99%95%EC%9E%A5%ED%8C%A9-%F0%9F%92%AF-%EC%B6%94%EC%B2%9C
-  "liveSassCompile.settings.generateMap": false,
-  "liveSassCompile.settings.formats": [
-    {
-      "format": "expanded",
-      "extensionName": ".css",
-      "savePath": "/src/styles/[css]",
-      "savePathReplacementPairs": null
-    }
-  ]
+	"editor.defaultFormatter": "biomejs.biome",
+	"editor.codeActionsOnSave": {
+		"source.fixAll.biome": "explicit",
+		"source.organizeImports.biome": "explicit"
+	},
+	"[javascript]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	},
+	"[json]": {
+		"editor.defaultFormatter": "biomejs.biome"
+	}
 }
