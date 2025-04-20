@@ -1,3 +1,3 @@
 export function ResumePage() {
-  return <div></div>;
+	return <div />;
 }

@@ -1,3 +1,31 @@
 {
-	"extends": ["@junizi0408/biome-config"]
+	"extends": ["@junizi0408/biome-config"],
+	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+	"files": {
+		"ignore": [
+			"global.d.ts",
+			"vite-env.d.ts",
+			"entry-client.jsx",
+			"entry-server.jsx"
+		],
+		"include": ["src/**/*.js", "src/**/*.ts", "src/**/*.jsx", "src/**/*.tsx"]
+	},
+	"linter": {
+		"rules": {
+			"nursery": {
+				"useExplicitType": "off",
+				"noImgElement": "off",
+				"noSecrets": "off"
+			},
+			"style": {
+				"useNamingConvention": "off",
+				"useFilenamingConvention": {
+					"level": "error",
+					"options": {
+						"filenameCases": ["PascalCase", "camelCase"]
+					}
+				}
+			}
+		}
+	}
 }

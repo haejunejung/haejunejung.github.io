@@ -16,18 +16,20 @@ import "@/styles/global.css";
 import "@/styles/normalize.css";
 import "@/styles/github-markdown.css";
 
-function App() {
+export function App() {
 	const isOnline = useNetworkStatus();
 
 	// TODO: offline일 때 서비스 워커를 사용하면 캐시된 내용을 보여줄 수 있다.
-	if (!isOnline) return <OfflinePage />;
+	if (!isOnline) {
+		return <OfflinePage />;
+	}
 
 	return (
 		<MDXProvider components={MDXComponents}>
 			<Routes>
 				{/* 블로그 포스트 */}
 				<Route path="/" element={<Layout />}>
-					<Route index element={<CategoryPage />} />
+					<Route index={true} element={<CategoryPage />} />
 					<Route path=":category" element={<CategoryPage />} />
 					<Route path=":category/:articleId" element={<ArticlePage />} />
 
@@ -48,5 +50,3 @@ function App() {
 		</MDXProvider>
 	);
 }
-
-export default App;

@@ -1,6 +1,6 @@
 import { css } from "@emotion/react";
-import { IndicatorRect, Variant } from "./types";
-import { SerializedStyles } from "@emotion/react";
+import type { IndicatorRect, Variant } from "./types";
+import type { SerializedStyles } from "@emotion/react";
 
 // TODO: outline tab -> code에서 사용할 예정
 

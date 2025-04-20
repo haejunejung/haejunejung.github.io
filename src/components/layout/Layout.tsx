@@ -20,19 +20,19 @@ export function Layout() {
 				</Header.Left>
 				<Header.Right>
 					<SocialIcon href="https://github.com/haejunejung/blog">
-						<FaGithub size={"20px"} />
+						<FaGithub size="20px" />
 					</SocialIcon>
 					<SocialIcon href="https://www.linkedin.com/in/%EC%A0%95-%ED%95%B4%EC%A4%80-747930325/">
-						<FaLinkedin size={"20px"} />
+						<FaLinkedin size="20px" />
 					</SocialIcon>
-					<FaRss size={"20px"} />
+					<FaRss size="20px" />
 				</Header.Right>
 			</Header.Root>
 			<Body>
 				<Outlet />
 			</Body>
 			{/* // TODO: Giscus */}
-			<Footer></Footer>
+			<Footer />
 		</VStack>
 	);
 }

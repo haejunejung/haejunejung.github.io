@@ -1,6 +1,6 @@
 import { createSafeContext } from "@/utils";
 import type { IndicatorRect, Tab, Variant } from "./types";
-import { RefObject } from "react";
+import type { RefObject } from "react";
 
 interface TabsContextState {
   selectedTab: Tab;

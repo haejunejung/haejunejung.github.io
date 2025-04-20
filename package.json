@@ -9,7 +9,10 @@
 		"build:client": "vite build --outDir dist/client --ssrManifest",
 		"build:server": "vite build --outDir dist/server --ssr src/entry-server.jsx",
 		"build": "pnpm run build:client && pnpm run build:server",
-		"lint": "eslint .",
+		"format": "biome format --write",
+		"lint": "biome lint --write",
+		"check": "biome check --write",
+		"reporter": "biome check --reporter=summary",
 		"preview": "cross-env NODE_ENV=production node server"
 	},
 	"dependencies": {
@@ -35,6 +38,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
 		"@emotion/babel-plugin": "^11.13.5",
+		"@junizi0408/biome-config": "^1.0.0",
 		"@mdx-js/rollup": "^3.1.0",
 		"@svgr/cli": "^8.1.0",
 		"@types/compression": "^1",

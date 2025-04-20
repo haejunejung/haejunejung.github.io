@@ -1,4 +1,4 @@
-import { ArticlePageProps } from "@/types";
+import type { ArticlePageProps } from "@/types";
 
 export const techList: ArticlePageProps[] = [
   {

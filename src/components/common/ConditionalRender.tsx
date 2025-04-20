@@ -1,6 +1,6 @@
 import { createSafeContext } from "@/utils";
 import { isFunction } from "es-toolkit";
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 const [ConditionalRenderProvider, useConditionalRender] =
   createSafeContext<boolean>("ConditionalRenderContext");

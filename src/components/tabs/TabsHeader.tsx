@@ -1,13 +1,13 @@
-import { PropsWithChildren } from "react";
-import { getHeaderStyles } from "./styles";
+import type { PropsWithChildren } from "react";
 import { useTabs } from "./TabsContext";
+import { getHeaderStyles } from "./styles";
 
 export function TabsHeader({ children }: PropsWithChildren) {
-  const { variant } = useTabs();
+	const { variant } = useTabs();
 
-  return (
-    <nav role="tablist" css={getHeaderStyles(variant)}>
-      {children}
-    </nav>
-  );
+	return (
+		<nav role="tablist" css={getHeaderStyles(variant)}>
+			{children}
+		</nav>
+	);
 }

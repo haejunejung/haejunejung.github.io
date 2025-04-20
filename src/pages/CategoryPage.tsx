@@ -18,7 +18,7 @@ export function CategoryPage() {
 
 	return (
 		<VStack>
-			<Banner src={"/images/banner.png"} alt="Home Banner Image" />
+			<Banner src="/images/banner.png" alt="Home Banner Image" />
 			<Tabs.Root
 				tab={currentTab}
 				onTabChange={(newTab) => navigate(`/${newTab}`)}
@@ -40,9 +40,14 @@ export function CategoryPage() {
 }
 
 function getCurrentArticles(pathname: string) {
-	if (pathname === "/") return totalMdxPageList;
-	else if (pathname === "/tech") return totalTechMdxPageList;
-	else if (pathname === "/blog") return totalBlogMdxPageList;
+	switch (pathname) {
+		case "/tech":
+			return totalTechMdxPageList;
+		case "/blog":
+			return totalBlogMdxPageList;
+		default:
+			return totalMdxPageList;
+	}
 }
 
 const articleConfig = [

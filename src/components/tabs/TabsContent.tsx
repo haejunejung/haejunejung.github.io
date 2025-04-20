@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 import { getContentStyles } from "./styles";
 
 export function TabsContent({ children }: PropsWithChildren) {

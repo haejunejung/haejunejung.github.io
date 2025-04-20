@@ -1,8 +1,8 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, RefAttributes } from "react";
 import { Link, type LinkProps } from "react-router";
 
 export const UnstyledLink = (
-	props: PropsWithChildren<LinkProps> & React.RefAttributes<HTMLAnchorElement>,
+	props: PropsWithChildren<LinkProps> & RefAttributes<HTMLAnchorElement>,
 ) => {
 	const { children, ...rest } = props;
 	return (

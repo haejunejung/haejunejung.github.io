@@ -1,3 +1,3 @@
 export function UsefulArticlesPage() {
-  return <div></div>;
+	return <div />;
 }

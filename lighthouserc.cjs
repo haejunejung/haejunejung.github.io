@@ -1,4 +1,5 @@
 // https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md
+"use strict";// https://github.com/GoogleChrome/lighthouse-ci/blob/main/docs/configuration.md
 module.exports = {
   ci: {
     collect: {

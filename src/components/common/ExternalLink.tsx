@@ -1,4 +1,4 @@
-import { ComponentPropsWithoutRef, PropsWithChildren } from "react";
+import type { ComponentPropsWithoutRef, PropsWithChildren } from "react";
 
 /**
  * @description 외부 하이퍼링크를 들어갈 때 사용하는 컴포넌트예요.

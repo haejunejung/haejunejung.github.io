@@ -1,4 +1,4 @@
-import { isValidElement, useState, ReactNode, useEffect } from "react";
+import { isValidElement, useState, type ReactNode, useEffect } from "react";
 import { css } from "@emotion/react";
 
 let Prism: typeof import("prismjs") | null = null;

@@ -73,6 +73,9 @@ importers:
       '@emotion/babel-plugin':
         specifier: ^11.13.5
         version: 11.13.5
+      '@junizi0408/biome-config':
+        specifier: ^1.0.0
+        version: 1.0.0(@biomejs/biome@1.9.4)
       '@mdx-js/rollup':
         specifier: ^3.1.0
         version: 3.1.0(acorn@8.14.1)(rollup@4.40.0)
@@ -1134,6 +1137,11 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@junizi0408/biome-config@1.0.0':
+    resolution: {integrity: sha512-PyujoOZcP3ROQM35lgZDbM59+UsdSzpcz18cTuqjbe2At/ZBLlSImfUNWWW7wCyxNpJydRir5G3CZOYPSNlCIA==}
+    peerDependencies:
+      '@biomejs/biome': 1.9.4
 
   '@manypkg/find-root@2.2.3':
     resolution: {integrity: sha512-jtEZKczWTueJYHjGpxU3KJQ08Gsrf4r6Q2GjmPp/RGk5leeYAA1eyDADSAF+KVCsQ6EwZd/FMcOFCoMhtqdCtQ==}
@@ -5033,6 +5041,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@junizi0408/biome-config@1.0.0(@biomejs/biome@1.9.4)':
+    dependencies:
+      '@biomejs/biome': 1.9.4
 
   '@manypkg/find-root@2.2.3':
     dependencies:

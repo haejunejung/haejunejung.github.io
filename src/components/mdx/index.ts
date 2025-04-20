@@ -1,9 +1,9 @@
-import { type MDXComponents as MDXComponentCases } from "mdx/types";
+import type { MDXComponents as mdxComponentCases } from "mdx/types";
 import { Code } from "./Code";
 import { Anchor, MultiAnchor } from "./Anchor";
 import { Callout } from "./Callout";
 
-export const MDXComponents: MDXComponentCases = {
+export const MDXComponents: mdxComponentCases = {
   pre: Code,
   Anchor,
   MultiAnchor,
