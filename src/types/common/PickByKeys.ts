@@ -1,3 +1,3 @@
 export type PickByKeys<T, K extends (keyof T)[]> = {
-  [P in K[number]]: T[P];
+	[P in K[number]]: T[P];
 };

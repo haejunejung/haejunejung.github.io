@@ -3,31 +3,31 @@ import { isFunction } from "es-toolkit";
 import type { PropsWithChildren } from "react";
 
 const [ConditionalRenderProvider, useConditionalRender] =
-  createSafeContext<boolean>("ConditionalRenderContext");
+	createSafeContext<boolean>("ConditionalRenderContext");
 
 function When({ children }: PropsWithChildren) {
-  const condition = useConditionalRender();
-  return condition ? <>{children}</> : null;
+	const condition = useConditionalRender();
+	return condition ? <>{children}</> : null;
 }
 
 function Otherwise({ children }: PropsWithChildren) {
-  const condition = useConditionalRender();
-  return condition ? null : <>{children}</>;
+	const condition = useConditionalRender();
+	return condition ? null : <>{children}</>;
 }
 
 function Root({
-  condition,
-  children,
+	condition,
+	children,
 }: PropsWithChildren<{
-  condition: boolean | (() => boolean);
+	condition: boolean | (() => boolean);
 }>) {
-  const value = isFunction(condition) ? condition() : condition;
+	const value = isFunction(condition) ? condition() : condition;
 
-  return (
-    <ConditionalRenderProvider value={value}>
-      {children}
-    </ConditionalRenderProvider>
-  );
+	return (
+		<ConditionalRenderProvider value={value}>
+			{children}
+		</ConditionalRenderProvider>
+	);
 }
 
 /**
@@ -52,7 +52,7 @@ function Root({
  * )
  */
 export const ConditionalRender = Object.assign(Root, {
-  Root: Root,
-  When: When,
-  Otherwise: Otherwise,
+	Root: Root,
+	When: When,
+	Otherwise: Otherwise,
 });

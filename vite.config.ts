@@ -4,6 +4,7 @@ import react from "@vitejs/plugin-react";
 import remarkGfm from "remark-gfm";
 import { type PluginOption, defineConfig } from "vite";
 import vercel from "vite-plugin-vercel";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -21,12 +22,9 @@ export default defineConfig({
 		} as PluginOption,
 		react({
 			include: /\.(jsx|js|mdx|md|tsx|ts)$/,
-			jsxImportSource: "@emotion/react",
-			babel: {
-				plugins: ["@emotion/babel-plugin"],
-			},
 		}),
 		vercel(),
+		tailwindcss(),
 	],
 	esbuild: {
 		// https://ko.vitejs.dev/config/shared-options#esbuild

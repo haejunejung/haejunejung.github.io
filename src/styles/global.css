@@ -1,3 +1,5 @@
+@import "tailwindcss";
+
 @font-face {
     font-family: Apple SD Gothic Neo;
     src: url('/fonts/AppleSDGothicNeo-Regular.woff2') format('woff2');

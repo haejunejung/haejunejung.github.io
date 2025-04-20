@@ -1,19 +1,19 @@
 import { createSafeContext } from "@/utils";
-import type { IndicatorRect, Tab, Variant } from "./types";
 import type { RefObject } from "react";
+import type { IndicatorRect, Tab, Variant } from "./types";
 
 interface TabsContextState {
-  selectedTab: Tab;
-  indicatorRect: IndicatorRect;
-  tabRefs: RefObject<HTMLButtonElement[]>;
-  variant: Variant;
+	selectedTab: Tab;
+	indicatorRect: IndicatorRect;
+	tabRefs: RefObject<HTMLButtonElement[]>;
+	variant: Variant;
 }
 
 interface TabsContextActions {
-  handleSelectedTab(newTab: Tab): void;
+	handleSelectedTab(newTab: Tab): void;
 }
 
 type UseTabsReturn = TabsContextState & TabsContextActions;
 
 export const [TabsProvider, useTabs] =
-  createSafeContext<UseTabsReturn>("TabsContext");
+	createSafeContext<UseTabsReturn>("TabsContext");

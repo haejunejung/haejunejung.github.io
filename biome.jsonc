@@ -15,7 +15,8 @@
 			"nursery": {
 				"useExplicitType": "off",
 				"noImgElement": "off",
-				"noSecrets": "off"
+				"noSecrets": "off",
+				"useSortedClasses": "off"
 			},
 			"style": {
 				"useNamingConvention": "off",

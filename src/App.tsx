@@ -1,14 +1,6 @@
 import { Layout, MDXComponents } from "@/components";
 import { useNetworkStatus } from "@/hooks";
-import {
-	ArticlePage,
-	CategoryPage,
-	NotFoundPage,
-	OfflinePage,
-	PortfolioPage,
-	ResumePage,
-	UsefulArticlesPage,
-} from "@/pages";
+import { ArticlePage, CategoryPage, NotFoundPage, OfflinePage } from "@/pages";
 import { MDXProvider } from "@mdx-js/react";
 import { Navigate, Route, Routes } from "react-router";
 
@@ -32,15 +24,6 @@ export function App() {
 					<Route index={true} element={<CategoryPage />} />
 					<Route path=":category" element={<CategoryPage />} />
 					<Route path=":category/:articleId" element={<ArticlePage />} />
-
-					{/* 이력서 */}
-					<Route path="/resume" element={<ResumePage />} />
-
-					{/* 포트폴리오 */}
-					<Route path="/portfolio" element={<PortfolioPage />} />
-
-					{/* 유용한 블로그 포스트 */}
-					<Route path="/useful-articles" element={<UsefulArticlesPage />} />
 				</Route>
 
 				{/* Not Found: 404 */}

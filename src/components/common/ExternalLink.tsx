@@ -9,19 +9,19 @@ import type { ComponentPropsWithoutRef, PropsWithChildren } from "react";
  * @link https://yozm.wishket.com/magazine/detail/1586/
  */
 export function ExternalLink({
-  children,
-  href,
-  rel,
-  ...props
+	children,
+	href,
+	rel,
+	...props
 }: PropsWithChildren<{ href: string }> & ComponentPropsWithoutRef<"a">) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel={`noopener noreferrer ${rel}`}
-      {...props}
-    >
-      {children}
-    </a>
-  );
+	return (
+		<a
+			href={href}
+			target="_blank"
+			rel={`noopener noreferrer ${rel}`}
+			{...props}
+		>
+			{children}
+		</a>
+	);
 }

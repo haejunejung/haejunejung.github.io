@@ -6,6 +6,6 @@ export const totalTechMdxPageList = [...techList];
 export const totalBlogMdxPageList = [...blogList];
 
 export const totalMdxPageList = [
-  ...totalTechMdxPageList,
-  ...totalBlogMdxPageList,
+	...totalTechMdxPageList,
+	...totalBlogMdxPageList,
 ];

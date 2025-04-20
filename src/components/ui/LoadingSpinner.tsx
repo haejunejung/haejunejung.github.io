@@ -28,15 +28,15 @@ const mulShdSpin = keyframes`
 `;
 
 export const LoadingSpinner = () => {
-  return (
-    <div
-      css={{
-        fontSize: "8px",
-        width: "1em",
-        height: "1em",
-        borderRadius: "50%",
-        animation: `${mulShdSpin} 1.25s infinite linear`,
-      }}
-    />
-  );
+	return (
+		<div
+			css={{
+				fontSize: "8px",
+				width: "1em",
+				height: "1em",
+				borderRadius: "50%",
+				animation: `${mulShdSpin} 1.25s infinite linear`,
+			}}
+		/>
+	);
 };
