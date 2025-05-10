@@ -12,6 +12,7 @@
 		"reporter": "biome check --reporter=summary"
 	},
 	"dependencies": {
+		"@icons-pack/react-simple-icons": "^12.7.0",
 		"@radix-ui/react-avatar": "^1.1.9",
 		"@radix-ui/react-label": "^2.1.6",
 		"@radix-ui/react-slot": "^1.2.2",
@@ -23,11 +24,12 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"lucide-react": "^0.509.0",
-		"next": "14.2.28",
+		"next": "^15.3.2",
 		"next-themes": "^0.4.6",
 		"postcss": "^8.5.3",
 		"react": "^19.1.0",
 		"react-dom": "^19.1.0",
+		"simple-icons": "^14.12.3",
 		"tailwind-merge": "^3.2.0",
 		"tailwindcss": "^4.1.6"
 	},
