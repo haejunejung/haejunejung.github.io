@@ -1,11 +1,10 @@
 "use client";
 
 import { SwitchCase } from "@/components/common";
-import { Button } from "@/components/ui";
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
-export function ThemeModeToggleButton() {
+export function ThemeModeIcon() {
 	const { resolvedTheme, setTheme } = useTheme();
 
 	const handleToggle = () => {
@@ -13,14 +12,12 @@ export function ThemeModeToggleButton() {
 	};
 
 	return (
-		<Button variant="outline" size="icon" onClick={handleToggle}>
-			<SwitchCase
-				value={resolvedTheme}
-				caseBy={{
-					dark: <Moon />,
-					light: <Sun />,
-				}}
-			/>
-		</Button>
+		<SwitchCase
+			value={resolvedTheme}
+			caseBy={{
+				dark: <Moon onClick={handleToggle} />,
+				light: <Sun onClick={handleToggle} />,
+			}}
+		/>
 	);
 }
