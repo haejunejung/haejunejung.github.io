@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import type { ReactNode } from "react";
 
 interface ExternalLinkProps {
@@ -11,7 +12,7 @@ export function ExternalLink({ href, children, className }: ExternalLinkProps) {
 			href={href}
 			target="_blank"
 			rel="noopener noreferrer"
-			className={className}
+			className={cn("text-inherit", className)}
 		>
 			{children}
 		</a>
