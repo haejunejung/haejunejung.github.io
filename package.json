@@ -23,6 +23,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@junizi0408/biome-config": "^1.0.0",
+    "lefthook": "^1.11.12",
     "postcss": "^8",
     "typescript": "^5"
   }
