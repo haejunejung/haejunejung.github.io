@@ -25,7 +25,8 @@
 			"recommended": true,
 			"nursery": {
 				"useExplicitType": "off",
-				"useComponentExportOnlyModules": "off"
+				"useComponentExportOnlyModules": "off",
+				"useSortedClasses": "off"
 			},
 			"style": {
 				"noDefaultExport": "off"
