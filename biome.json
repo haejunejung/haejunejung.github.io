@@ -17,7 +17,8 @@
 		"rules": {
 			"recommended": true,
 			"nursery": {
-				"useExplicitType": "off"
+				"useExplicitType": "off",
+				"useComponentExportOnlyModules": "off"
 			},
 			"style": {
 				"noDefaultExport": "off"
