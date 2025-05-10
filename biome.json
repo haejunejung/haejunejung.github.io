@@ -3,7 +3,7 @@
 	"extends": ["@junizi0408/biome-config"],
 	"files": {
 		"ignoreUnknown": false,
-		"ignore": []
+		"ignore": ["app/globals.css", "components/ui", "lib"]
 	},
 	"formatter": {
 		"enabled": true,
