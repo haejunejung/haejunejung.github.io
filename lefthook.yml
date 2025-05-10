@@ -1,6 +1,17 @@
 pre-commit:
   parallel: true
   commands:
-    check:
-      glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
-      run: npx @biomejs/biome check --no-errors-on-unmatched --files-ignore-unknown=true --colors=off {push_files}
+    format:
+      run: pnpm run format
+    lint: 
+      run: pnpm run lint
+
+pre-push:
+  parallel: true
+  commands:
+    test:
+      run: pnpm run test
+    lint:
+      run: pnpm run lint
+    format:
+      run: pnpm run format
