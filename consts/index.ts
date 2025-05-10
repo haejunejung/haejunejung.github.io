@@ -1,0 +1,1 @@
+export { emptyObject } from "./emptyObject";
