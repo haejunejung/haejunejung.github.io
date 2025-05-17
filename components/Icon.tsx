@@ -1,6 +1,7 @@
 "use client";
 
 import { GITHUB_URL } from "@/consts";
+import { cn } from "@/lib";
 import type { HasClassName } from "@/types";
 import { SiGithub } from "@icons-pack/react-simple-icons";
 import { Moon, Sun } from "lucide-react";
@@ -11,9 +12,11 @@ import { SwitchCase } from "./SwitchCase";
 
 const GithubIcon = ({ className }: HasClassName) => {
 	return (
-		<SafeExternalLink href={GITHUB_URL}>
-			<SiGithub className={className} />
-		</SafeExternalLink>
+		<Button asChild={true} variant="ghost">
+			<SafeExternalLink href={GITHUB_URL}>
+				<SiGithub className={className} />
+			</SafeExternalLink>
+		</Button>
 	);
 };
 
@@ -27,8 +30,8 @@ const ThemeIcon = ({ className }: HasClassName) => {
 			<SwitchCase
 				value={resolvedTheme ?? "dark"}
 				caseBy={{
-					dark: <Moon className={className} />,
-					light: <Sun className={className} />,
+					dark: <Moon className={cn("cursor-pointer", className)} />,
+					light: <Sun className={cn("cursor-pointer", className)} />,
 				}}
 			/>
 		</Button>
