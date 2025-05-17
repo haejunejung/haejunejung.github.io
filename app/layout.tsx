@@ -1,4 +1,4 @@
-import { Icon } from "@/components";
+import { Icon } from "@/components/Icon";
 import { ThemeProvider } from "@/contexts/ThemeProvider";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 
 const PageLayout = ({ children }: { children: ReactNode }) => {
 	return (
-		<div className="flex flex-col w-full min-w-[1024px] min-h-screen mx-auto p-4">
+		<div className="flex flex-col w-full max-w-[1024px] min-h-screen mx-auto p-4">
 			{children}
 		</div>
 	);
@@ -42,7 +42,7 @@ const PageHeader = () => {
 
 const PageFooter = () => {
 	return (
-		<footer className="flex flex-row items-center mx-auto p-4">
+		<footer className="flex flex-row items-center mx-auto p-4 gap-8 mt-auto">
 			<div className="flex flex-row items-center gap-4">
 				<p className="text-sm">정해준</p>
 				<p className="text-sm">© 2025</p>
@@ -62,14 +62,13 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" suppressContentEditableWarning={true}>
-			<head />
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<ThemeProvider>
 					<PageLayout>
 						<PageHeader />
-						<main>{children}</main>
+						<main className="p-4">{children}</main>
 						<PageFooter />
 					</PageLayout>
 				</ThemeProvider>
