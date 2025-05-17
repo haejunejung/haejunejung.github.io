@@ -30,6 +30,9 @@
 			},
 			"style": {
 				"noDefaultExport": "off"
+			},
+			"performance": {
+				"noReExportAll": "off"
 			}
 		}
 	},
