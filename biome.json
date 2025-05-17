@@ -29,7 +29,8 @@
 				"useSortedClasses": "off"
 			},
 			"style": {
-				"noDefaultExport": "off"
+				"noDefaultExport": "off",
+				"useNamingConvention": "off"
 			},
 			"performance": {
 				"noReExportAll": "off"
