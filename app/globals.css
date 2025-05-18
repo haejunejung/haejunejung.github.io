@@ -3,6 +3,7 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
+@plugin "@tailwindcss/typography";
 
 
 @layer utilities {

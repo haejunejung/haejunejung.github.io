@@ -5,3 +5,4 @@ export * from "./SafeExternalLink";
 export * from "./SwitchCase";
 export * from "./Icon";
 export * from "./Layout";
+export * from "./Avatar";
