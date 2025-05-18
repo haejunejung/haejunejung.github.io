@@ -4,4 +4,5 @@ export type OpenGraph = {
 	image: string;
 	url: string;
 	publishedAt: string;
+	tags: string[];
 };

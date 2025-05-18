@@ -7,7 +7,6 @@ export const getMdxFiles = (dir: string) => {
     return fs.readdirSync(dir).filter((file) => path.extname(file) === ".mdx");
 }
 
-
 export const readMdxFile = (filePath: string): { openGraph : OpenGraph, content: string } => {
     const rawContent = fs.readFileSync(filePath, "utf-8");
     const { data: openGraph, content } = grayMatter(rawContent);

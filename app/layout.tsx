@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 
 import "./globals.css";
 import "./normalize.css";
+import "./github-markdown.css";
 
 export const metadata: Metadata = {
 	title: "정해준이 정해준",

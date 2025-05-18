@@ -4,11 +4,11 @@ import { getMdxArticles } from "@/lib/mdx";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
-type Category = "home" | "series";
+type Category = "home" | "tech";
 
 const categoryMap = {
 	home: { route: "/", ko: "전체" },
-	series: { route: "/series", ko: "시리즈" },
+	tech: { route: "/tech", ko: "테크" },
 } as const;
 
 export default async function Page({
@@ -18,7 +18,12 @@ export default async function Page({
 	const route = categoryMap[category]?.route;
 
 	const mdxArticles = getMdxArticles();
-	const totalArticles = mdxArticles;
+	const currentArticles = mdxArticles.filter((article) => {
+		if (category === "home") {
+			return true;
+		}
+		return article.openGraph.tags.includes(category);
+	});
 
 	if (!route) {
 		notFound();
@@ -37,7 +42,7 @@ export default async function Page({
 					))}
 				</TabsList>
 				<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full h-full">
-					{totalArticles.map((article) => (
+					{currentArticles.map((article) => (
 						<Article key={article.slug}>
 							<Link href={`/article/${article.slug}`} prefetch={false}>
 								<Article.Image

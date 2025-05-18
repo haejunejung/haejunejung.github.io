@@ -46,10 +46,8 @@ export default async function ArticlePage({
 	}
 
 	return (
-		<section className="flex flex-col w-full h-full p-4 gap-4">
-			<article className="prose">
-				<MDXRemote source={article.content} components={{}} />
-			</article>
+		<section className="flex flex-col w-full h-full p-4 gap-4 markdown-body">
+			<MDXRemote source={article.content} />
 		</section>
 	);
 }

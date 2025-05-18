@@ -3,7 +3,6 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
-@plugin "@tailwindcss/typography";
 
 
 @layer utilities {
@@ -11,6 +10,15 @@
 		text-wrap: balance;
 	}
 }
+
+html.light {
+	color-scheme: light;
+}
+
+html.dark {
+	color-scheme: dark;
+}
+
 
 @theme inline {
 	--radius-sm: calc(var(--radius) - 4px);

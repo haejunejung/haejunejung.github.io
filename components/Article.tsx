@@ -28,14 +28,14 @@ const ArticleContent = ({ children }: HasChildren) => {
 
 const ArticleTitle = ({ title }: { title: string }) => {
 	return (
-		<p className="text-xl font-bold group-hover:text-blue-500 group-hover:underline break-words line-clamp-1">
+		<p className="text-xl font-bold group-hover:text-blue-500 group-hover:underline break-words line-clamp-2">
 			{title}
 		</p>
 	);
 };
 
 const ArticleDescription = ({ description }: { description: string }) => {
-	return <p className="break-words line-clamp-3">{description}</p>;
+	return <p className="text-sm break-words line-clamp-3">{description}</p>;
 };
 
 const ArticleDate = ({ date }: { date: string }) => {
