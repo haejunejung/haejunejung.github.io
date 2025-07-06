@@ -9,7 +9,7 @@ import {
 } from "~/components/ui/breadcrumb";
 import { Separator } from "~/components/ui/separator";
 import { postSchema } from "~/schema";
-import type { Route } from "../+types/root";
+import type { Route } from "./+types/post";
 
 export function loader({ request }: Route.LoaderArgs) {
 	return loadMdx(request);
@@ -30,7 +30,7 @@ export default function Post() {
 	}
 
 	return (
-		<>
+		<div className="flex flex-col max-w-[880px]">
 			<AppHeader>
 				{result.data.title && (
 					<Separator
@@ -46,9 +46,9 @@ export default function Post() {
 					</BreadcrumbList>
 				</Breadcrumb>
 			</AppHeader>
-			<article className="markdown-body prose lg:prose-xl article-content p-6 min-h-screen">
+			<article className="markdown-body prose lg:prose-xl article-content p-6">
 				<Component />
 			</article>
-		</>
+		</div>
 	);
 }

@@ -43,7 +43,6 @@ export default function Home() {
 									<p className="text-sm text-gray-500">
 										{post.date.toISOString().split("T")[0].replaceAll("-", ".")}
 									</p>
-									<p className="text-base text-gray-500">{post.description}</p>
 									<div className="flex gap-2">
 										{arrayify(post.categories).map((category) => (
 											<Category key={category} category={category} />
