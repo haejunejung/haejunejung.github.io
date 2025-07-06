@@ -19,6 +19,7 @@ import { arrayify } from "~/lib";
 import { GithubIcon, LinkedinIcon } from "../icons";
 import AvatarSrc from "../icons/avatar.png";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Skeleton } from "../ui/skeleton";
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 	const files = useMdxFiles();
@@ -43,10 +44,14 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 					<SidebarMenuItem>
 						<SidebarMenuButton size="lg" asChild={true}>
 							<div>
-								<Avatar>
-									<AvatarImage src={AvatarSrc} alt="정해준" />
-									<AvatarFallback>정해준</AvatarFallback>
-								</Avatar>
+								<Link to="/">
+									<Avatar>
+										<AvatarImage src={AvatarSrc} alt="정해준" />
+										<AvatarFallback>
+											<Skeleton className="size-8 rounded-full" />
+										</AvatarFallback>
+									</Avatar>
+								</Link>
 								<div className="flex flex-col gap-1 leading-none">
 									<span className="font-medium">정해준</span>
 									<div className="flex flex-row gap-2">
