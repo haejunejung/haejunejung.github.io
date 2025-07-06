@@ -1,46 +1,41 @@
 {
-	"$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-	"extends": ["@junizi0408/biome-config"],
-	"files": {
-		"ignoreUnknown": false,
-		"ignore": [
-			".next",
-			"node_modules",
-			"dist",
-			"app/globals.css",
-			"components/ui",
-			"lib"
-		]
-	},
-	"formatter": {
-		"enabled": true,
-		"indentStyle": "tab"
-	},
-	"organizeImports": {
-		"enabled": true
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": true,
-			"nursery": {
-				"useExplicitType": "off",
-				"useComponentExportOnlyModules": "off",
-				"useSortedClasses": "off",
-				"useImportRestrictions": "off"
-			},
-			"style": {
-				"noDefaultExport": "off",
-				"useNamingConvention": "off"
-			},
-			"performance": {
-				"noReExportAll": "off"
-			}
-		}
-	},
-	"javascript": {
-		"formatter": {
-			"quoteStyle": "double"
-		}
-	}
+  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
+  "files": {
+    "ignoreUnknown": false,
+    "ignore": ["node_modules", "build"]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "tab",
+    "indentWidth": 2,
+    "lineWidth": 88,
+    "lineEnding": "lf"
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "nursery": {
+        "useExplicitType": "off",
+        "useComponentExportOnlyModules": "off",
+        "useSortedClasses": "off",
+        "useImportRestrictions": "off"
+      },
+      "style": {
+        "noDefaultExport": "off",
+        "useNamingConvention": "off"
+      },
+      "performance": {
+        "noReExportAll": "off"
+      }
+    }
+  },
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  }
 }
