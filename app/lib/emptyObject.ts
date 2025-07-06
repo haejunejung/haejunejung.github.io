@@ -1,0 +1,1 @@
+export const emptyObject: Record<string, any> = Object.freeze({});

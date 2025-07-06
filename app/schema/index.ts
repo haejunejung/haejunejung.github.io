@@ -1,0 +1,1 @@
+export { postSchema } from "./postSchema";

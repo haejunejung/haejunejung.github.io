@@ -26,7 +26,8 @@
 			"nursery": {
 				"useExplicitType": "off",
 				"useComponentExportOnlyModules": "off",
-				"useSortedClasses": "off"
+				"useSortedClasses": "off",
+				"useImportRestrictions": "off"
 			},
 			"style": {
 				"noDefaultExport": "off",
