@@ -8,11 +8,11 @@ import {
 } from "react-router";
 
 import type { ReactNode } from "react";
-import type { Route } from "./+types/root";
 import "./github-markdown.css";
 import "./normalize.css";
 import "./app.css";
 import { loadAllMdx } from "react-router-mdx/server";
+import type { Route } from "./+types/root";
 import { AppLayout } from "./components/AppLayout";
 import { ThemeProvider } from "./contexts";
 

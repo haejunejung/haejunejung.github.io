@@ -1,2 +1,7 @@
 ignoredBuiltDependencies:
   - lefthook
+
+onlyBuiltDependencies:
+  - '@biomejs/biome'
+  - '@tailwindcss/oxide'
+  - esbuild
