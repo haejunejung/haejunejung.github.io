@@ -15,6 +15,7 @@ import {
 	SidebarMenuSubButton,
 	SidebarMenuSubItem,
 } from "~/components/ui/sidebar";
+import { arrayify } from "~/lib";
 import { GithubIcon, LinkedinIcon } from "../icons";
 import AvatarSrc from "../icons/avatar.png";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
@@ -26,7 +27,7 @@ export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
 			navMain: [
 				{
 					title: "2025",
-					items: files.map((file) => ({
+					items: arrayify(files).map((file) => ({
 						title: file.title,
 						url: `/posts/${file.slug}`,
 					})),
